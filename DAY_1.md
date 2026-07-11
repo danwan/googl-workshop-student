@@ -8,6 +8,7 @@ Complete this check before 09:00:
 
 - [ ] Sign in to the workshop Google account.
 - [ ] Complete [Lab 0.1](./0-setup/lab-0.1-environment-setup.md) in your own dedicated workshop project.
+- [ ] Complete [Lab 0.2](./0-setup/lab-0.2-enable-cloud-assist.md) and confirm that **Gemini Cloud Assist** opens in the Google Cloud Console. This console assistant is separate from **Agent Designer**.
 - [ ] Open [NotebookLM](https://notebooklm.google.com) and the Gemini Enterprise web app URL you created in Lab 0.1.
 - [ ] Confirm that **Agent Designer** opens and shows its Chat pane.
 - [ ] Confirm that your dedicated billed Google Cloud project opens in the [Cloud Console](https://console.cloud.google.com) and that your workshop account has Project Owner/admin access.

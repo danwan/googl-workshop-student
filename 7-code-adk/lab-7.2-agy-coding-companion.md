@@ -64,9 +64,15 @@ agy
 > 💡 This opens an interactive terminal UI session with your AI programming companion. It is fully aware of your workspace and can run terminal commands or write code directly.
 
 **Step 2 — Prompt agy to add the temperature converter.**
-Ask `agy` to read your existing `formula/agent.py` and implement the level-up challenge:
+Before asking for an edit, open the skill list:
 
-> *"Read formula/agent.py. Let's add a second tool called `convert_temperature` that converts Fahrenheit to Celsius: C = (F - 32) * 5/9. Update the root_agent instructions and list of tools to support both viscosity and temperature. Write the changes back to formula/agent.py."*
+```text
+/skills
+```
+
+Confirm that `google-agents-cli-adk-code` is available. Then ask `agy` to use that skill, read your existing `formula/agent.py`, and make only the smallest change needed for the level-up challenge:
+
+> *"Use the `google-agents-cli-adk-code` skill. Read `formula/agent.py`, then make the smallest change needed to add a second tool called `convert_temperature` that converts Fahrenheit to Celsius: C = (F - 32) * 5/9. Update only the root_agent instructions and tool list needed to support both viscosity and temperature. Preserve the existing viscosity behavior and write the changes back to `formula/agent.py`."*
 
 Watch as the assistant plans, writes the Python function, updates the `Agent` configuration, and saves the file directly.
 
@@ -179,6 +185,7 @@ If `agy` only outputs the code in the chat but doesn't write it, you can ask it:
 ## ✅ You did it when…
 
 - [ ] You launched the `agy` CLI and successfully chatted with it in the terminal.
+- [ ] You opened `/skills` and verified that `google-agents-cli-adk-code` is available.
 - [ ] `agy` wrote the `convert_temperature` tool and registered it to your `Agent`.
 - [ ] You ran `adk run formula` and verified both viscosity and temperature conversions work.
 - [ ] The deterministic Python checks printed `PASS`.
@@ -187,4 +194,4 @@ If `agy` only outputs the code in the chat but doesn't write it, you can ask it:
 
 ## 🧠 What you just learned
 
-You learned how to use **Antigravity CLI (`agy`)** as a coding companion directly in your shell! You saw how it can read files, write and edit code, and save you from manual repetitive boilerplate. Pair programming at the command line makes code development incredibly fast and fluid.
+You learned how to use **Antigravity CLI (`agy`)** and its `google-agents-cli-adk-code` skill as a coding companion directly in your shell! You saw how it can read files, make a focused edit, and save you from manual repetitive boilerplate.

@@ -38,7 +38,7 @@ The Academy has **levels**, just like a video game. Start easy, earn confidence,
 
 > ## 🌅 Starting on Day 2 or skipping earlier labs?
 >
-> Before you begin, complete **[Lab 0.1](./0-setup/lab-0.1-environment-setup.md)** in your own dedicated workshop project. You create the Gemini Enterprise app, its web app URL, the TechBond Cloud Storage bucket, and the `techbond-docs` data store yourself. Then open your chosen lab and read its **Data you need** row and any **Starting here or skipped earlier labs?** box. Connector labs in Module 6 still need the listed Workspace connectors enabled.
+> Complete required **[Lab 0.1](./0-setup/lab-0.1-environment-setup.md)**, then confirm the correct workshop account and dedicated project, Project Owner/admin access, **APIs & Services**, **Cloud Shell**, and the active project with `gcloud config get-value project`. **[Lab 0.2](./0-setup/lab-0.2-enable-cloud-assist.md)** is helpful for Cloud work, but it is not an ADK prerequisite. Then read your chosen lab's **Data you need** row and catch-up box; Module 6 still requires its listed Workspace connectors.
 
 ---
 
@@ -125,6 +125,7 @@ The Academy has **levels**, just like a video game. Start easy, earn confidence,
 - **[Lab 9.1 — Compute Engine with Ubuntu](./9-cloud-services/lab-9.1-gce-ssh.md)** — spin up an e2-standard-2 VM running Ubuntu and connect securely via SSH.
 - **[Lab 9.2 — Cloud Workstations](./9-cloud-services/lab-9.2-cloud-workstations.md)** — provision an Ubuntu-based remote developer workspace running web VS Code.
 - **[Lab 9.3 — Cloud Shell, agy & Storage](./9-cloud-services/lab-9.3-cloud-shell-agy-storage.md)** — use the agy companion to generate files and upload them to a storage bucket via gcloud.
+- **[Lab 9.4 — agy on Managed Linux](./9-cloud-services/lab-9.4-agy-managed-linux.md)** — optional advanced follow-on inside the Ubuntu terminal from Lab 9.1 or 9.2; owner/admin approval and explicit resource cleanup required.
 
 
 ---

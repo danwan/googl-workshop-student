@@ -20,6 +20,7 @@
 | **[Lab 9.1 — Compute Engine with Ubuntu](./lab-9.1-gce-ssh.md)** | 🟢 Foundations | Spin up an **e2-standard-2 (8 GB RAM)** Google Compute Engine instance running **Ubuntu**, configure firewall/access, and connect securely via **SSH** for shell access. |
 | **[Lab 9.2 — Cloud Workstations](./lab-9.2-cloud-workstations.md)** | 🟢 Foundations | Provision a **Cloud Workstations** cluster, configure a workstation creator with basic settings, and start an **Ubuntu workstation** loaded with **web VS Code** directly in your browser. |
 | **[Lab 9.3 — Cloud Shell, agy & Storage](./lab-9.3-cloud-shell-agy-storage.md)** | 🟡 Intermediate | Generate **5 TXT reports**, create a Cloud Storage bucket, and upload the reports. |
+| **[Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md)** | 🔴 Advanced · optional | From the Ubuntu terminal created in Lab 9.1 or 9.2, install and verify `agy`, Agent CLI skills, and grounded Google Developer Knowledge. |
 
 ## Why it's here
 

@@ -107,6 +107,7 @@ Complete this check before 09:00:
 
 - [ ] Sign in to the workshop Google account.
 - [ ] Complete [Lab 0.1](./0-setup/lab-0.1-environment-setup.md) in your own dedicated workshop project.
+- [ ] Complete [Lab 0.2](./0-setup/lab-0.2-enable-cloud-assist.md) and confirm that **Gemini Cloud Assist** opens in the Google Cloud Console. This console assistant is separate from **Agent Designer**.
 - [ ] Open [NotebookLM](https://notebooklm.google.com) and the Gemini Enterprise web app URL you created in Lab 0.1.
 - [ ] Confirm that **Agent Designer** opens and shows its Chat pane.
 - [ ] Confirm that your dedicated billed Google Cloud project opens in the [Cloud Console](https://console.cloud.google.com) and that your workshop account has Project Owner/admin access.
@@ -183,15 +184,16 @@ Everyone starts together with 90 minutes of NotebookLM and Gemini Enterprise. Ne
 Complete this check before 09:00:
 
 - [ ] Sign in to the workshop Google account.
-- [ ] Complete [Lab 0.1](./0-setup/lab-0.1-environment-setup.md) if you have not already created your Gemini Enterprise app and data store.
+- [ ] Complete required [Lab 0.1](./0-setup/lab-0.1-environment-setup.md) if you have not already created your Gemini Enterprise app and data store.
 - [ ] Open [NotebookLM](https://notebooklm.google.com) and the Gemini Enterprise web app URL you created in Lab 0.1.
-- [ ] Select your dedicated billed workshop project in the [Cloud Console](https://console.cloud.google.com).
-- [ ] Confirm that you can open **APIs & Services** and **Cloud Shell**.
+- [ ] Confirm that you are using the correct workshop account and dedicated billed project, with Project Owner/admin access.
+- [ ] Confirm that you can open **APIs & Services** and **Cloud Shell** in the [Cloud Console](https://console.cloud.google.com).
 - [ ] In Cloud Shell, run `gcloud config get-value project` and compare the result with the assigned project ID.
-- [ ] Confirm that the workshop account has Project Owner/admin access in this project. You will enable APIs and create, configure, and delete the resources for your chosen labs.
 - [ ] Keep the [Cheat Sheet](./CHEAT_SHEET.md) open.
 
 Stop and ask the facilitator if the account or project ID is wrong. Do not switch to another project.
+
+> **Cloud catch-up:** [Lab 0.2](./0-setup/lab-0.2-enable-cloud-assist.md) is helpful before hands-on Cloud work because it enables Gemini Cloud Assist in the console. It is not a prerequisite for ADK.
 
 ### Agenda, 09:00 to 17:00
 
@@ -244,6 +246,7 @@ Returning participants use [Lab 1.2](./1-warmup-research/lab-1.2-instant-explain
 - Continue an approved real use case with your own test data.
 - Build another Agent Designer flow from [Module 4](./4-workflow-pro/) if you do not want to continue coding.
 - Use [Module 6](./6-workspace-optional/) only when the facilitator confirms that Workspace connectors are enabled.
+- After Lab 9.1 or 9.2, use [Lab 9.4](./9-cloud-services/lab-9.4-agy-managed-linux.md) as an optional advanced bonus only when the owner/admin and cleanup gates are confirmed.
 
 ### Cleanup before 17:00
 
@@ -418,7 +421,7 @@ Use the [Reference Guide](./Reference_Guide.md) when you continue after the work
 #### 🟣 Lab 7.3 — The Adventure Agent
 **Location:** `📂 7-code-adk > 📄 lab-7.3-adventure-agent.md`
 
-> **Your mission:** Write a small **Python** agent with Google's **Agent Development Kit (ADK 2.x)** that plays — and beats — a text adventure game **all by itself**. 🗺️🤖
+> **Your mission:** Write a small **Python** agent with Google's **Agent Development Kit (ADK 2.x)** that plays by itself until the workshop game returns its explicit **winning response**. 🗺️🤖
 
 #### 🟣 Lab 7.4: Vibe Coding Taster
 **Location:** `📂 7-code-adk > 📄 lab-7.4-vibe-coding-taster.md`
@@ -476,6 +479,11 @@ Use the [Reference Guide](./Reference_Guide.md) when you continue after the work
 **Location:** `📂 9-cloud-services > 📄 lab-9.3-cloud-shell-agy-storage.md`
 
 > **Your mission:** Open **Cloud Shell**, start the **Antigravity CLI (`agy`)** terminal companion to generate **5 text reports**, create a **Cloud Storage bucket** via the CLI, and upload the files to your bucket using `gcloud storage`. 📦📁
+
+#### 🔴 Lab 9.4 — agy on Managed Linux
+**Location:** `📂 9-cloud-services > 📄 lab-9.4-agy-managed-linux.md`
+
+> **Your mission:** Turn the Ubuntu environment from **Lab 9.1 or Lab 9.2** into a ready-to-use agent development terminal: install the **Antigravity CLI (`agy`)**, Google Agent CLI skills, and the Google Developer Knowledge MCP server, then ask a grounded Cloud Storage question. 🖥️🤖
 
 
 ---

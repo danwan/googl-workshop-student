@@ -1,6 +1,6 @@
 # 🟣 Lab 7.3 — The Adventure Agent
 
-> **Your mission:** Write a small **Python** agent with Google's **Agent Development Kit (ADK 2.x)** that plays — and beats — a text adventure game **all by itself**. 🗺️🤖
+> **Your mission:** Write a small **Python** agent with Google's **Agent Development Kit (ADK 2.x)** that plays by itself until the workshop game returns its explicit **winning response**. 🗺️🤖
 
 | 🏆 Role | ⏱️ Time | 🧰 Tool | 📦 What you need |
 |---|---|---|---|
@@ -48,7 +48,7 @@ adk --version
 ## 🛠️ Build it (step by step)
 
 **Step 1 — Play the game by hand first.** 🎮
-Open the game URL your facilitator gives you and play a few moves yourself. Learn the **commands** it accepts and what "winning" looks like. You can't automate a world you don't understand.
+Open the game URL your facilitator gives you and play a few moves yourself. Learn the **commands** it accepts and identify the game's explicit **winning response**. You can't automate a world you don't understand.
 
 **Step 2 — Make the project.**
 ADK expects a small folder with an `__init__.py`, an `agent.py` that exposes a `root_agent`, and a `requirements.txt` file detailing dependencies:
@@ -103,7 +103,7 @@ If you are running in Cloud Shell with access to your workshop's Google Cloud pr
    ```
 
 **Step 3 — Give the agent a tool (this is the key move 🔑).**
-A **tool** is just a Python function. This one sends a command to the game and returns what the game says back. (Swap the body for your game's real endpoint — your facilitator provides it.) Open `adventure/agent.py` in your editor and add:
+A **tool** is just a Python function. This one sends each command as a `POST` request to the supplied game URL with JSON shaped exactly like `{"command":"look"}` and returns what the game says back. Open `adventure/agent.py` in your editor and add:
 
 ```python
 import os
@@ -147,7 +147,7 @@ adk run adventure      # interactive in your terminal
 adk web .              # a local web UI to watch it think, step by step
 ```
 
-**Step 6 — Watch, then improve.** See where it gets stuck, tighten the `instruction`, and run again. That loop — *observe → adjust the prompt → re-run* — is the whole game.
+**Step 6 — Watch, then improve.** Run the agent once. If the game returns its explicit **winning response**, you are done. Otherwise, confirm that the agent makes progress through the world, tighten the `instruction`, re-run, and check that the new prompt gets further. Continue until the game returns its winning response. That loop — *observe → adjust the prompt → re-run* — is the whole game.
 
 ---
 
@@ -254,7 +254,6 @@ adk web .          # watch it play in the browser, or:
 adk run adventure  # play in the terminal
 ```
 
-> The exact request shape (`{"command": ...}` vs a different field) depends on your workshop's game API — adjust `play_move` to match the endpoint your facilitator shares.
 </details>
 
 ---
@@ -262,12 +261,12 @@ adk run adventure  # play in the terminal
 ## ✅ You did it when…
 
 - [ ] You played the game manually and know its commands.
-- [ ] Your ADK agent makes **its own** moves and progresses through the world (visible in `adk web`).
-- [ ] You improved the **instruction** and saw the agent get further than before.
+- [ ] If the first run did not win, you confirmed progress in `adk web`, improved the **instruction**, and saw the agent get further.
+- [ ] Your agent reaches the workshop game's explicit **winning response** without human steering.
 
 ---
 
-## ✨ Level-up challenge — *measure* it (real Agent Engineering)
+## ✨ Optional level-up challenge — *measure* it (real Agent Engineering)
 
 Don't just vibe-check it — **evaluate** it. ADK ships an evaluation flow:
 
