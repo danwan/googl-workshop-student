@@ -151,4 +151,4 @@ Before you share an agent with others:
 
 ---
 
-🎉 **That's everything you need.** Build small, test often, and let the agent surprise you. For the step-by-step labs, head back to **[START_HERE](./START_HERE.md)**.
+🎉 **That's everything you need.** Build small, test often, and let the agent surprise you. For the step-by-step labs, return to the **[student materials](./README.md)**.

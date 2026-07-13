@@ -144,6 +144,16 @@ Make sure you are running the `adk run formula` command from the parent director
 The model reads the docstring of the Python function to understand when and how to call it. Ensure your `convert_viscosity` function has a clear docstring with type annotations and `Args:` documentation so the Gemini model can map the parameters correctly.
 </details>
 
+<details>
+<summary><strong>✅ Show me the full route</strong></summary>
+
+1. Activate the Lab 7.0 environment, install `google-adk`, and confirm `adk --version` works. If you use `uv`, use the alternative command from **Before you start**.
+2. Create `formula/`, `formula/__init__.py`, `formula/agent.py`, and `formula/.env` with the Step 1 commands.
+3. Choose one Step 2 authentication route: add the Google AI Studio settings to `formula/.env`, or run `gcloud auth application-default login` and add the Vertex AI settings.
+4. Paste the Step 3 agent code into `formula/agent.py`, then add `from . import agent` to `formula/__init__.py`.
+5. From the directory above `formula/`, run `adk run formula` and ask it to convert `2500 cP` to `Pa·s`. Exit with `exit` or `Ctrl+C`.
+</details>
+
 ---
 
 ## ✅ You did it when…

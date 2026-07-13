@@ -99,4 +99,4 @@ You met **Document AI**, the Google Cloud service that turns unstructured docume
 
 🎓 **That's the Google Cloud Toolkit.** You can now store files, enable and call APIs, work from the cloud terminal, **deploy** an agent, give it **sight**, and turn **documents into data**. Real cloud handwork — in your belt. 🧰
 
-⬅️ Back to the **[module overview](./README.md)** · **[START HERE](../START_HERE.md)**.
+⬅️ Back to the **[module overview](./README.md)** · **[student materials](../README.md)**.

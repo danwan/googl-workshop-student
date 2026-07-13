@@ -29,4 +29,4 @@ Modules 1–7 taught you to *build* agents. This module teaches the **ground the
 
 📚 Official docs: **[cloud.google.com/docs](https://cloud.google.com/docs)** · Console: **[console.cloud.google.com](https://console.cloud.google.com)**.
 
-⬅️ Back to **[START HERE](../START_HERE.md)**.
+⬅️ Back to the **[student materials](../README.md)**.

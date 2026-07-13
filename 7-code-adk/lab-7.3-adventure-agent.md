@@ -284,4 +284,4 @@ You met the difference between **building agents fast** (no-code, Modules 1–6)
 
 📚 **Go deeper:** the official docs at **[adk.dev](https://adk.dev/)** (quickstart, tools, multi-agent **Workflow** graphs, and evaluation).
 
-⬅️ Back to the **[module overview](./README.md)** · **[START HERE](../START_HERE.md)**.
+⬅️ Back to the **[module overview](./README.md)** · **[student materials](../README.md)**.

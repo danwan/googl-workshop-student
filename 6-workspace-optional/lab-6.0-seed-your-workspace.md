@@ -60,6 +60,27 @@ Time to fix that. You're going to use **Google Apps Script** — a free scriptin
 
 ---
 
+## 💡 Stuck? Open a hint
+
+<details>
+<summary><strong>Hint 1 — The function dropdown only shows myFunction</strong></summary>
+
+Make sure you replaced the entire placeholder with the full script from the module's `Files/` folder, then click **💾 Save**. The dropdown should now list the script's functions; refresh the editor once if it still shows the old list.
+</details>
+
+<details>
+<summary><strong>✅ Show me the full solution route</strong></summary>
+
+1. Create `TechBond Inbox Seeder`, paste the complete `email_seeder_script.js`, and save.
+2. Run `testSendOneEmail`, approve only the requested Gmail permission, and confirm the test message arrives.
+3. Run `sendAllEmails` and wait for the Execution log to finish.
+4. Create `TechBond Calendar Seeder`, paste the complete `calendar_script.js`, keep `PARTICIPANTS` empty, and save.
+5. Run `testCreateOneEvent`, approve the Calendar permission, and confirm tomorrow's test event appears.
+6. Run `createAllEvents`. Use the two `deleteAllWorkshop...` functions only if you want to remove the seeded data.
+</details>
+
+---
+
 ## ✅ You did it when...
 - Your Gmail inbox shows **30 TechBond emails** (search for `BondMax` or `SecureSeal`).
 - The seeded messages carry the Gmail label **`TechBond-Workshop-Seed`**, and `deleteAllWorkshopEmails` is available if you want to remove them.

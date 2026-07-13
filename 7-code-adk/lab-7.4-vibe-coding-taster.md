@@ -139,6 +139,26 @@ Choose one change:
 
 State the new rule in one sentence before asking `agy` to edit. Run one passing case, one warning case, and one boundary case afterward.
 
+## 💡 Stuck? Open a hint
+
+<details>
+<summary><strong>Hint — Make your judgment call testable</strong></summary>
+
+Before asking `agy` to edit, complete this sentence: “When the readings are ___, the program should print ___ because ___.” Choose inputs for one passing case, one warning case, and one boundary case. Then ask for the smallest edit that follows your sentence.
+</details>
+
+<details>
+<summary><strong>✅ Show me a complete solution route</strong></summary>
+
+1. Give `agy` the request from Step 3 and inspect the saved file against every point in Step 4.
+2. Run all eight acceptance checks from Step 5. If one differs, ask for the smallest correction, inspect it, and rerun the full list.
+3. Choose one Step 6 change yourself and state its exact rule in one sentence. There is intentionally no single correct choice here.
+4. Ask `agy` to make only that change, inspect the edit, and run your passing, warning, and boundary cases.
+5. Explain why each result matches the rule you chose. If you cannot, revise the rule or the code and test again.
+
+If `agy` cannot create the first draft, use the manual fallback below and resume this route at step 1.
+</details>
+
 ## Manual fallback
 
 If `agy` cannot write the file, run `cloudshell edit batch_check.py`, paste this code, save it, and continue with the inspect/run/judge loop:

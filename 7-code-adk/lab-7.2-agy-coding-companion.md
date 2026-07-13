@@ -180,6 +180,16 @@ source "$HOME/.local/bin/env"
 If `agy` only outputs the code in the chat but doesn't write it, you can ask it: *"Please save these changes to formula/agent.py"* or simply copy-paste the code from the terminal into your Cloud Shell editor yourself.
 </details>
 
+<details>
+<summary><strong>✅ Show me the full route</strong></summary>
+
+1. If you did not complete Lab 7.1, run the one-time `formula/` bootstrap above. Otherwise reuse that project.
+2. Run `cd ~`, activate `venv` (or `.venv` if using `uv`), and start `agy` from the directory above `formula/`.
+3. In `agy`, run `/skills`, verify `google-agents-cli-adk-code`, and paste the Step 2 prompt to add and register `convert_temperature` while preserving `convert_viscosity`.
+4. Exit with `Ctrl+D` twice or `/exit`, then run `cat formula/agent.py` and compare it with the Step 3 example.
+5. Run `adk run formula` and test both prompts from Step 4, then run the Step 5 Python assertions and require the `PASS` message.
+</details>
+
 ---
 
 ## ✅ You did it when…

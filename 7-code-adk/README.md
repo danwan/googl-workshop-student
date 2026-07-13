@@ -39,4 +39,4 @@ It contrasts **building agents fast** (no-code, Modules 1–6) with **engineerin
 
 📚 Official docs: **[adk.dev](https://adk.dev/)**.
 
-⬅️ Back to **[START HERE](../START_HERE.md)**.
+⬅️ Back to the **[student materials](../README.md)**.

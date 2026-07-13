@@ -28,4 +28,4 @@ As you build enterprise-grade agents, you quickly realize they need secure compu
 
 📚 Official docs: **[cloud.google.com/docs](https://cloud.google.com/docs)** · Console: **[console.cloud.google.com](https://console.cloud.google.com)**.
 
-⬅️ Back to **[START HERE](../START_HERE.md)**.
+⬅️ Back to the **[student materials](../README.md)**.

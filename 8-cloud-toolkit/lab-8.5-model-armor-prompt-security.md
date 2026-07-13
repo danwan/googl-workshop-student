@@ -107,6 +107,26 @@ Return to **Model Armor** in the Cloud Console, open your template, click **Dele
 
 ---
 
+## 💡 Stuck? Open a hint
+
+<details>
+<summary><strong>Hint 1 — Cloud Shell returns NOT_FOUND or PERMISSION_DENIED</strong></summary>
+
+Check that `PROJECT_ID` is the project **ID** (not its display name), `LOCATION` matches the template's region, and `TEMPLATE_ID` matches the exact template ID you created. For a permission error, also confirm Cloud Shell is signed in to the workshop account, the correct project is active, and the Model Armor API is enabled there.
+</details>
+
+<details>
+<summary><strong>✅ Show me the full solution route</strong></summary>
+
+1. Confirm your dedicated billed workshop project is selected and enable the Model Armor API.
+2. In `us-central1`, create your uniquely named template with Prompt Injection, SDP (`EMAIL_ADDRESS` and `PHONE_NUMBER`), and the default Medium-and-above RAI filters enabled.
+3. In Cloud Shell, set `PROJECT_ID`, `TEMPLATE_ID`, and `LOCATION` to that exact project and template.
+4. Run all three `sanitizeUserPrompt` requests. Verify `NO_MATCH_FOUND` for the normal prompt and `MATCH_FOUND` for both the PII and prompt-injection tests.
+5. Return to Model Armor and delete only the workshop template you created.
+</details>
+
+---
+
 ## ✅ Success Checklist
 
 - [ ] You enabled the Model Armor API.
