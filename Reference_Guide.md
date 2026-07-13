@@ -4,7 +4,7 @@
 
 ---
 
-## 1. The two ways to build an agent
+## 1. Two entry paths into one Agent Designer
 
 | | 🟢 Chat pane | 🟡 Flow builder |
 |---|---|---|
@@ -14,7 +14,7 @@
 | **How you start** | **+ Create agent** → type a prompt | **+ Create agent** → **Proceed to builder** |
 | **Effort** | Lowest — great for everyone | A bit more — more power |
 
-**Rule of thumb:** start in the **Chat pane**. Move to the **Flow builder** when you need Cloud Storage, multiple steps, or subagents. (Both are part of **Agent Designer** — one tool, two faces.)
+**Rule of thumb:** start in the **Chat pane**, inspect the generated draft, then choose **Proceed to builder** and refine the same agent in **Flow** when you need Cloud Storage, multiple steps, or subagents. You can also start directly in Flow.
 
 > ⚠️ The Chat pane **cannot** connect Cloud sources (Cloud Storage, BigQuery, Cloud SQL). For those, use the Flow builder.
 
@@ -27,7 +27,7 @@ Two options:
 1. **Upload files** ("Add files" → the agent's **Knowledge**) — works in **both** builders, **no connector needed**. This is the easiest and most portable way. ✅
 2. **Connect a data source** — a live plug into a system:
    - **Google Workspace:** Gmail, Drive, Calendar
-   - **Cloud sources:** Cloud Storage, BigQuery, Cloud SQL *(Workflow builder only)*
+   - **Cloud sources:** Cloud Storage, BigQuery, Cloud SQL *(Flow tab only)*
    - **Third-party:** Jira, Salesforce, and more
 
 **For most jobs, uploading files is all you need.**
@@ -81,7 +81,7 @@ Agents can take real actions when the right connector is enabled:
 
 **In a connector-free workshop**, agents **draft** these as text (a ready-to-send email, a proposed invite). Turn on the connectors (Module 6) to make them real. Always **test actions on your own account first.** 🔒
 
-You can also use the **Schedule** tab to run an agent automatically (e.g., a Monday-morning briefing).
+The **Schedule** tab can run an agent on a recurring schedule. It is Preview, requires a multi-region app, and credentials must be refreshed every 14 days. Do not describe it as an incoming-email trigger.
 
 ---
 
@@ -97,6 +97,7 @@ You can also use the **Schedule** tab to run an agent automatically (e.g., a Mon
 
 ## 7. NotebookLM cheat (for Module 1)
 
+- **Open it:** use [notebooklm.google.com](https://notebooklm.google.com), or **Agents → Made by Google → NotebookLM** when the app integration is enabled.
 - **Sources:** PDFs, Google Docs, website URLs, YouTube links, pasted text.
 - **Studio outputs:** 🎙️ **Audio Overview** (Deep Dive / The Brief / The Critique / The Debate, plus **Interactive mode**), 🎬 **Video Overview**, 🧠 **Mind Map**, 📄 **Reports** (Briefing doc, Study guide, FAQ, Timeline).
 - **Chat** with your sources — every answer is **cited**.
@@ -104,7 +105,7 @@ You can also use the **Schedule** tab to run an agent automatically (e.g., a Mon
 ## 8. Google-made agents cheat (for Module 5)
 
 - **Deep Research:** choose sources first, submit a research prompt, review the plan, then click **Start Research**.
-- **Idea Generation:** choose sources if prompted, submit a goal, refine the requirements, then click **Start session**.
+- **Idea Generation (Preview):** Global-only and unavailable in Frontline. Choose sources if prompted, submit a goal, refine the requirements, then click **Start session**. If missing, use Lab 5.2's regular-assistant fallback.
 - **Tenant analytics/data agents:** availability and names vary. If your facilitator hasn't enabled one, skip the bonus lab.
 
 ---
@@ -146,6 +147,7 @@ Before you share an agent with others:
 - [ ] Its **tone and format** match what you want.
 - [ ] If it takes **actions**, you tested them safely (on yourself).
 - [ ] You gave it a clear **name** and **description** so others know what it's for.
+- [ ] Every attached file and data source is safe for every recipient; sharing an agent grants query access to that material.
 
 ---
 

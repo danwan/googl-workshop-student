@@ -2,13 +2,13 @@
 
 > **Workshop role:** Day 1 core with Lab 5.1, choice with Lab 5.2, and bonus with Lab 5.3. Day 2 bonus.
 
-> **The big idea:** You've *built* agents from scratch. Now meet the agents Google already built for you — pro-grade specialists that come **pre-loaded** in Gemini Enterprise. No building. No prompts to engineer. No connectors to wire. Just point and shoot. 🎯
+> **The big idea:** You've built agents from scratch. Now try Google-made specialists available in your Gemini Enterprise app. Availability depends on edition, region, Preview status, and administrator sharing. 🎯
 
 This is the fun finale. 🎉 Modules 1–4 made you an agent *builder*. This module flips the script: some of the most jaw-dropping agents in Gemini Enterprise are **already done**. They live in your app, ready to go. You just open one, type what you want, and watch it work.
 
 Think of these as the "supercars in the garage." You don't assemble them — you grab the keys and drive. 🏎️
 
-> 🔵 **No connectors needed. Nothing to build.** These agents are pre-built into Gemini Enterprise. You just open them and type. That's it.
+> 🔵 **No connectors needed. Nothing to build.** Open the agents that your tenant exposes. Idea Generation is Preview, Global-only, and unavailable in Frontline; Lab 5.2 includes a fallback.
 >
 > 🌐 Open your **Gemini Enterprise** web app. Look in the navigation / agent gallery for the Google-made agents by name (**Deep Research**, **Idea Generation**, and any tenant-specific analytics agent your admin enabled).
 
@@ -32,7 +32,7 @@ Yes! Gemini Enterprise ships with a set of **pre-built agents** Google made for 
 - **Idea Generation** 💡 — turns a goal into requirements, generates options, and ranks them so you can pick a strong direction.
 - **Tenant analytics/data agent** 📊 — *(if enabled)* reasons over structured data **and** documents at once. Names and availability vary by tenant.
 
-You'll find them in the agent gallery alongside the agents *you* built. No setup, no knowledge to upload — they bring their own brains. 🧠
+You'll find available agents in the gallery alongside the agents you built. If one is absent, use the lab's fallback rather than assuming your setup failed.
 
 ---
 

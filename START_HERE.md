@@ -29,7 +29,7 @@ The Academy has **levels**, just like a video game. Start easy, earn confidence,
 | 🟢 | **Warm-Up** | NotebookLM | Turn boring documents into podcasts, videos & mind maps |
 | 🟢 | **Level 1** | Agent Designer (Chat pane) | Your first agent — built by *just chatting* |
 | 🟡 | **Level 2** | Agent Designer (Flow builder) | A smarter agent that reads a whole document library |
-| 🔴 | **Level 3** | Workflow Agent Pro | A team of agents that work together AND take action |
+| 🔴 | **Level 3** | Multi-step Agent Crews | A main agent coordinating focused specialists |
 | 🔵 | **Explore** | Google-made power agents | Deep Research, Idea Generation & more — point and shoot |
 | 🟣 | **Code and connectors** | Real connectors / Code | Live Gmail, Calendar, & Drive (Module 6), or build with code (Module 7) |
 | ☁️ | **Cloud** | Google Cloud Console | Buckets, APIs & shipping your agent to the web (Module 8) |
@@ -73,11 +73,11 @@ The Academy has **levels**, just like a video game. Start easy, earn confidence,
 
 - **[Lab 3.1 — The Company Brain](./3-workflow-agent/lab-3.1-knowledge-base.md)** — ask-me-anything across all company docs, with citations.
 - **[Lab 3.2 — The Meeting Prep Machine](./3-workflow-agent/lab-3.2-meeting-prep-machine.md)** — one-click prep brief for a customer call.
-- **[Lab 3.3 — The Launch Tracker](./3-workflow-agent/lab-3.3-launch-tracker.md)** — a live status report for a product launch.
+- **[Lab 3.3 — The Launch Tracker](./3-workflow-agent/lab-3.3-launch-tracker.md)** — a grounded status report for a product launch.
 
-### 🔴 Module 4 · Level 3 — Workflow Agent Pro
+### 🔴 Module 4 · Level 3 — Multi-step Agent Crews
 
-*Build a TEAM of agents that pass work to each other and take action.*
+*Build a main agent that coordinates focused specialists and explicit handoffs.*
 
 - **[Lab 4.1 — The Success Orchestrator](./4-workflow-pro/lab-4.1-success-orchestrator.md)** — gather → brief → draft email, as a 3-agent crew.
 - **[Lab 4.2 — The Complaint Commander](./4-workflow-pro/lab-4.2-complaint-commander.md)** — handle a real customer complaint end-to-end.

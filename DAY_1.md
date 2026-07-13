@@ -9,8 +9,10 @@ Complete this check before 09:00:
 - [ ] Sign in to the workshop Google account.
 - [ ] Complete [Lab 0.1](./0-setup/lab-0.1-environment-setup.md) in your own dedicated workshop project.
 - [ ] Complete [Lab 0.2](./0-setup/lab-0.2-enable-cloud-assist.md) and confirm that **Gemini Cloud Assist** opens in the Google Cloud Console. This console assistant is separate from **Agent Designer**.
-- [ ] Open [NotebookLM](https://notebooklm.google.com) and the Gemini Enterprise web app URL you created in Lab 0.1.
-- [ ] Confirm that **Agent Designer** opens and shows its Chat pane.
+- [ ] Open [NotebookLM](https://notebooklm.google.com) and the Gemini Enterprise web app URL you created in Lab 0.1. The app's **Agents → Made by Google → NotebookLM** entry is an alternative route.
+- [ ] Confirm **Agent Gallery**, **+ Create agent**, the Chat pane, **Proceed to builder**, **Flow**, and **Preview** are visible.
+- [ ] Confirm the model selector, session sharing, Canvas, and image generation are visible.
+- [ ] Confirm **Idea Generation** appears under **Agents → Made by Google**. If it is missing, stop and tell the facilitator; Lab 5.2 has a fallback.
 - [ ] Confirm that your dedicated billed Google Cloud project opens in the [Cloud Console](https://console.cloud.google.com) and that your workshop account has Project Owner/admin access.
 - [ ] Open **Cloud Shell** with the `>_` icon and run `python3 --version`.
 - [ ] Keep the [Cheat Sheet](./CHEAT_SHEET.md) open.
@@ -34,7 +36,7 @@ Stop and ask the facilitator if any check fails. Do not use another participant'
 | 14:30 | 15 | ☕ **Break** | |
 | 14:45 | 20 | **Power agents** | Review Deep Research and try Idea Generation. |
 | 15:05 | 80 | **Fixed Antigravity and vibe-coding taster** | Everyone uses Cloud Shell and `agy` to build and test the standalone batch checker. Pairing is the default. |
-| 16:25 | 35 | **Share-out and Day 2 preview** | Demo results, revisit use cases, award the optional prize, and preview the cloud path. |
+| 16:25 | 35 | **Share-out and Day 2 preview** | Share one safe session or synthetic-data agent with a partner, demo results, and preview the cloud path. |
 
 **Program total: 390 minutes. Breaks: 90 minutes. Day 1 total: 480 minutes.**
 
@@ -70,5 +72,6 @@ Choose work that fits your pace inside each block:
 - Keep `~/techbond-vibe-taster` for Day 2, or remove it with `rm -rf ~/techbond-vibe-taster` after checking the path.
 - Confirm that you created no billable resources outside your assigned project.
 - Save the URL of any Agent Designer agent you want to show tomorrow.
+- Share only sessions or agents that use synthetic TechBond data. A shared agent also exposes its attached files and data sources to its recipients.
 
 Continue with [Day 2](./DAY_2.md).

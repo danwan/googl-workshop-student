@@ -29,7 +29,7 @@ Use **[START_HERE.md](./START_HERE.md)** for the story, levels, and full module 
 1. **[Warm-Up — NotebookLM](./1-warmup-research/)** 🟢 — podcasts, videos & mind maps from documents
 2. **[Level 1 — Agent Designer: Chat pane](./2-chat-agent/)** 🟢 — build an agent by chatting
 3. **[Level 2 — Agent Designer: Flow builder](./3-workflow-agent/)** 🟡 — visual builder + Cloud Storage
-4. **[Level 3 — Workflow Agent Pro](./4-workflow-pro/)** 🔴 — multi-agent crews + actions
+4. **[Level 3 — Multi-step Agent Crews](./4-workflow-pro/)** 🔴 — main agents, specialists, and explicit handoffs
 5. **[Explore — Power Agents](./5-explore/)** 🔵 — Deep Research, Idea Generation, optional tenant analytics agent
 6. **[Optional — Workspace Connectors](./6-workspace-optional/)** 🟣 — live Gmail/Calendar/Drive
 7. **[Build with Code (ADK)](./7-code-adk/)** 🟣: Day 1 taster and Day 2 code path

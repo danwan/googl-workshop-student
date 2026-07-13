@@ -1,6 +1,6 @@
 # 🟢 Lab 0.1 — Environment Setup
 
-> **Your mission:** Set up your enterprise workspace by enabling Gemini Enterprise and Agent Designer, creating a Google Cloud Storage bucket, uploading the TechBond corporate document library, and connecting it as a secure data source. ⚙️☁️
+> **Your mission:** Set up Gemini Enterprise with the workshop feature profile, create a Google Cloud Storage bucket, upload the TechBond document library, and connect it as a secure data source. ⚙️☁️
 
 | 🏆 Level | ⏱️ Time | 🧰 Builder | 📦 Data you need |
 |---|---|---|---|
@@ -93,6 +93,31 @@ Before you can open the **Agent Designer**, you must first create a Gemini Enter
 
 ---
 
+### Step 5A — Configure the workshop features
+
+The app is created with several participant features turned off. Open your app, then go to **Configurations → Feature Management**.
+
+Turn on this **Creative workshop** profile:
+
+- **Enable Agent Gallery**
+- **Enable Agent Designer**
+- **Enable model selector**
+- **Enable NotebookLM**
+- **Enable session sharing**
+- **Enable agent sharing**
+- **Enable Canvas**
+- **Enable image generation**
+
+For **Model availability**, keep the stable GA choices available in your region. Do not make a Limited Availability model a workshop requirement. For image generation, keep the available default model; the labs do not require a Global-only image model.
+
+Because this workshop uses dedicated projects and synthetic TechBond files, turn on **Enable agent sharing without admin approval** only when your facilitator confirms that sharing is limited to the workshop cohort. Otherwise leave approval required. Enable group sharing only when the facilitator prepared a workshop Google Group.
+
+Leave these features off: **memory and customization**, **video generation**, **OneDrive upload**, **Google Drive upload**, **talk to content**, **include cross-domain documents**, and **welcome emails**. They are not needed for the labs. Cross-domain documents also introduce additional external-content and prompt-injection risk.
+
+> ⚠️ Sharing an agent also shares query access to its attached files and data sources. Share only agents that use the synthetic TechBond materials.
+
+---
+
 ### Step 6 — Create your Data Store and connect it to your App
 Now let's ingest the TechBond document library from your GCS bucket into a data store, and hook it up to your new app.
 
@@ -141,8 +166,10 @@ GCS bucket names are globally unique across all Google Cloud users. If `techbond
 3. Search **Cloud Storage** → Click **Create** → Name: `techbond-documents-<your-name>` → Click **Create**.
 4. Inside bucket → Drag-and-drop the 20 PDFs from `3-workflow-agent/Files/Document-Library/`.
 5. Open **Gemini Enterprise** in Google Cloud Console → **Apps** → **Create app** → Name: `techbond-agent-academy` → Location: **global** → Click **Create**.
-6. **Data Stores** → **Create Data Store** → **Cloud Storage** → **Folder** → enter `gs://techbond-documents-<your-name>` → select **Unstructured documents** → **Continue** → region **global** → Name: `techbond-docs` → **Create**. Then **Apps** → your app → **Connected data sources** → **Add existing data stores** → select `techbond-docs` → **Connect**.
-7. **Apps** → your app → **Dashboard** → copy the **web app URL**. Bookmark this URL to access your **Agent Designer** workspace in subsequent labs!
+6. **Configurations** → **Feature Management** → enable the Creative workshop profile from Step 5A and leave the excluded features off.
+7. **Data Stores** → **Create Data Store** → **Cloud Storage** → **Folder** → enter `gs://techbond-documents-<your-name>` → select **Unstructured documents** → **Continue** → region **global** → Name: `techbond-docs` → **Create**. Then **Apps** → your app → **Connected data sources** → **Add existing data stores** → select `techbond-docs` → **Connect**.
+8. **Apps** → your app → **Dashboard** → copy the **web app URL**. Bookmark this URL to access your **Agent Designer** workspace in subsequent labs!
+9. Open the web app and complete the feature check below.
 
 **Done — your enterprise workspace is fully ready!** ⚙️☁️
 </details>
@@ -155,6 +182,10 @@ GCS bucket names are globally unique across all Google Cloud users. If `techbond
 - [ ] Your GCS bucket `gs://techbond-documents-<your-name>` has all 20 PDF files uploaded.
 - [ ] You have created a Gemini Enterprise app and connected your GCS bucket as an unstructured data store.
 - [ ] You have retrieved your unique Gemini Enterprise web app URL from the app's Dashboard.
+- [ ] **Agents** shows the Agent Gallery, NotebookLM, and **+ Create agent**.
+- [ ] Agent Designer accepts a prompt and **Proceed to builder** opens **Flow** and **Preview**.
+- [ ] The model selector, session sharing, Canvas, and image generation are visible.
+- [ ] **Idea Generation** appears under **Agents → Made by Google**, or you stopped and told the facilitator. It is a Preview agent, Global-only, and unavailable in Frontline.
 
 ---
 

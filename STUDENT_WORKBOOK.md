@@ -65,7 +65,7 @@ The ten modules (0–9) remain a reusable lab library. Use the day guides to cho
 1. **Warm-Up — NotebookLM** 🟢: podcasts, videos & mind maps from documents
 2. **Level 1 — Agent Designer: Chat pane** 🟢: build your first agent by chatting
 3. **Level 2 — Agent Designer: Flow builder** 🟡: visual builder + Cloud Storage
-4. **Level 3 — Flow builder Pro** 🔴: multi-agent crews + actions
+4. **Level 3 — Multi-step Agent Crews** 🔴: main agents, specialists, and explicit handoffs
 5. **Explore — Power Agents** 🔵: Deep Research, Idea Generation & more
 6. **Optional — Workspace Connectors** 🟣: live Gmail/Calendar/Drive
 7. **Optional — Build with Code (ADK)** 🟣: for developers
@@ -108,8 +108,10 @@ Complete this check before 09:00:
 - [ ] Sign in to the workshop Google account.
 - [ ] Complete [Lab 0.1](./0-setup/lab-0.1-environment-setup.md) in your own dedicated workshop project.
 - [ ] Complete [Lab 0.2](./0-setup/lab-0.2-enable-cloud-assist.md) and confirm that **Gemini Cloud Assist** opens in the Google Cloud Console. This console assistant is separate from **Agent Designer**.
-- [ ] Open [NotebookLM](https://notebooklm.google.com) and the Gemini Enterprise web app URL you created in Lab 0.1.
-- [ ] Confirm that **Agent Designer** opens and shows its Chat pane.
+- [ ] Open [NotebookLM](https://notebooklm.google.com) and the Gemini Enterprise web app URL you created in Lab 0.1. The app's **Agents → Made by Google → NotebookLM** entry is an alternative route.
+- [ ] Confirm **Agent Gallery**, **+ Create agent**, the Chat pane, **Proceed to builder**, **Flow**, and **Preview** are visible.
+- [ ] Confirm the model selector, session sharing, Canvas, and image generation are visible.
+- [ ] Confirm **Idea Generation** appears under **Agents → Made by Google**. If it is missing, stop and tell the facilitator; Lab 5.2 has a fallback.
 - [ ] Confirm that your dedicated billed Google Cloud project opens in the [Cloud Console](https://console.cloud.google.com) and that your workshop account has Project Owner/admin access.
 - [ ] Open **Cloud Shell** with the `>_` icon and run `python3 --version`.
 - [ ] Keep the [Cheat Sheet](./CHEAT_SHEET.md) open.
@@ -133,7 +135,7 @@ Stop and ask the facilitator if any check fails. Do not use another participant'
 | 14:30 | 15 | ☕ **Break** | |
 | 14:45 | 20 | **Power agents** | Review Deep Research and try Idea Generation. |
 | 15:05 | 80 | **Fixed Antigravity and vibe-coding taster** | Everyone uses Cloud Shell and `agy` to build and test the standalone batch checker. Pairing is the default. |
-| 16:25 | 35 | **Share-out and Day 2 preview** | Demo results, revisit use cases, award the optional prize, and preview the cloud path. |
+| 16:25 | 35 | **Share-out and Day 2 preview** | Share one safe session or synthetic-data agent with a partner, demo results, and preview the cloud path. |
 
 **Program total: 390 minutes. Breaks: 90 minutes. Day 1 total: 480 minutes.**
 
@@ -169,6 +171,7 @@ Choose work that fits your pace inside each block:
 - Keep `~/techbond-vibe-taster` for Day 2, or remove it with `rm -rf ~/techbond-vibe-taster` after checking the path.
 - Confirm that you created no billable resources outside your assigned project.
 - Save the URL of any Agent Designer agent you want to show tomorrow.
+- Share only sessions or agents that use synthetic TechBond data. A shared agent also exposes its attached files and data sources to its recipients.
 
 Continue with [Day 2](./DAY_2.md).
 
@@ -269,7 +272,7 @@ Use the [Reference Guide](./Reference_Guide.md) when you continue after the work
 #### 🟢 Lab 0.1 — Environment Setup
 **Location:** `📂 0-setup > 📄 lab-0.1-environment-setup.md`
 
-> **Your mission:** Set up your enterprise workspace by enabling Gemini Enterprise and Agent Designer, creating a Google Cloud Storage bucket, uploading the TechBond corporate document library, and connecting it as a secure data source. ⚙️☁️
+> **Your mission:** Set up Gemini Enterprise with the workshop feature profile, create a Google Cloud Storage bucket, upload the TechBond document library, and connect it as a secure data source. ⚙️☁️
 
 #### 🟢 Lab 0.2 — Enable Gemini Cloud Assist
 **Location:** `📂 0-setup > 📄 lab-0.2-enable-cloud-assist.md`
@@ -311,12 +314,12 @@ Use the [Reference Guide](./Reference_Guide.md) when you continue after the work
 #### 🟢 Lab 2.2 — Inbox Zero
 **Location:** `📂 2-chat-agent > 📄 lab-2.2-inbox-zero.md`
 
-> **Your mission:** Build an AI agent that reads an *entire inbox* and hands you a morning briefing — a tidy summary, a clear action list, and a heads-up on what's urgent. No coding. No Gmail connector. About 15 minutes.
+> **Your mission:** Build an AI agent that turns an entire inbox into a morning briefing with a summary, clear actions, and an urgent warning. No coding. No Gmail connector. About 15 minutes.
 
 #### 🟢 Lab 2.3 — Week Planner
 **Location:** `📂 2-chat-agent > 📄 lab-2.3-week-planner.md`
 
-> **Your mission:** Build an AI agent that runs your week. Hand it your calendar and it lists your meetings, finds your open hours, and preps you for the big one — all by chatting. No coding. No Calendar connector. About 15 minutes.
+> **Your mission:** Build an agent that lists your meetings, finds real open time, and prepares you for the AutoParts review. No coding. No Calendar connector. About 15 minutes.
 
 
 ---
@@ -327,33 +330,33 @@ Use the [Reference Guide](./Reference_Guide.md) when you continue after the work
 #### 🟡 Lab 3.1 — The Company Brain
 **Location:** `📂 3-workflow-agent > 📄 lab-3.1-knowledge-base.md`
 
-> **Your mission:** Build an "ask-me-anything" agent that knows TechBond's *entire* document library — and proves it by citing the exact docs its answers came from. 🧠📚
+> **Your mission:** Build an ask-me-anything agent connected to TechBond's full Cloud Storage library, with a citation for every answer. 🧠📚
 
 #### 🟡 Lab 3.2 — The Meeting Prep Machine
 **Location:** `📂 3-workflow-agent > 📄 lab-3.2-meeting-prep-machine.md`
 
-> **Your mission:** Build an agent that cross-references four different documents and hands you a perfect one-page brief before your big AutoParts call — in one click. 📋⚡
+> **Your mission:** Build an agent that cross-references four documents and creates a useful one-page AutoParts meeting brief. 📋⚡
 
 #### 🟡 Lab 3.3 — The Launch Tracker
 **Location:** `📂 3-workflow-agent > 📄 lab-3.3-launch-tracker.md`
 
-> **Your mission:** Build an agent that watches the **SecureSeal EV** launch across four documents and reports back: where we stand, what's next, and what could go wrong. 🚀📊
+> **Your mission:** Build an agent that reports the SecureSeal EV launch status, milestones, risks, and next steps across four documents. 🚀📊
 
 
 ---
 
-### Module 4 · Level 3 — Workflow Agent Pro
+### Module 4 · Level 3 — Multi-step Agent Crews
 **Folder:** `4-workflow-pro/`
 
 #### 🔴 Lab 4.1 — The Success Orchestrator
 **Location:** `📂 4-workflow-pro > 📄 lab-4.1-success-orchestrator.md`
 
-> **Your mission:** Build a **team of agents** — one manager and three specialists — that runs a complete "customer success" assembly line for the AutoParts account: it **gathers** everything we know, writes a crisp **account brief**, and drafts a friendly **follow-up email**. One command in. A brief + an email out. 🤖➡️🤖➡️🤖
+> **Your mission:** Build a main agent and three specialists that turn one AutoParts request into a grounded account brief and a drafted follow-up email. 🤖
 
 #### 🔴 Lab 4.2 — The Complaint Commander
 **Location:** `📂 4-workflow-pro > 📄 lab-4.2-complaint-commander.md`
 
-> **Your mission:** A customer has a quality complaint. Build an agent crew that handles it **end to end**: an **Investigator** digs up the facts, a **Responder** drafts an empathetic reply, and a **Scheduler** proposes a follow-up meeting. And here's the twist — for the first time, your agent doesn't just *think*… it proposes an **action**. 🎯
+> **Your mission:** Build an agent crew that investigates QI-2025-0087, drafts a factual response, and proposes a conflict-free follow-up meeting. 🎯
 
 
 ---
@@ -369,7 +372,7 @@ Use the [Reference Guide](./Reference_Guide.md) when you continue after the work
 #### 🔵 Lab 5.2 — The Idea Machine
 **Location:** `📂 5-explore > 📄 lab-5.2-idea-generator.md`
 
-> **Your mission:** Sit down with a pre-built brainstorming agent that never runs dry, and walk away with **10 bold ideas** you'd actually pitch — plus one favorite fleshed out into a mini pitch. No building. No connectors. Pure creative fuel. 💡⚡
+> **Your mission:** Generate and rank ten ideas for younger, eco-conscious TechBond customers, then develop one winner into a pitch. 💡⚡
 
 #### 🔵 Lab 5.3 — Ask Anything 🎁
 **Location:** `📂 5-explore > 📄 lab-5.3-data-insights.md`

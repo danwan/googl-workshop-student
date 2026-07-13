@@ -26,7 +26,8 @@
 | **Subagent** | A helper *inside* a bigger agent that does one small job. |
 | **Action** | Something an agent *does* (not just reads): send an email, book a meeting. |
 | **Citation** | A little reference showing *which document* an answer came from. Proof it's not made up. |
-| **NotebookLM** | A separate Google tool that turns your documents into podcasts, videos & mind maps. |
+| **NotebookLM** | Google's grounded document tool. Use notebooklm.google.com, or open its integrated entry under **Agents → Made by Google** when enabled. |
+| **Canvas** | A Preview editor beside chat for creating and refining documents or slides. |
 | **Google Cloud Console** | The website ([console.cloud.google.com](https://console.cloud.google.com)) where you manage everything in Google Cloud. *(Module 8)* |
 | **Project** | Your own workspace in Google Cloud. Everything you make lives inside one project. *(Module 8)* |
 | **Bucket** | A folder in **Cloud Storage** that holds your files. *(Module 8)* |
@@ -39,7 +40,7 @@
 
 ---
 
-## 🟢 Build an agent the EASY way (Agent Designer · Chat pane)
+## 🟢 Start with a prompt (Agent Designer · Chat pane)
 
 > Use this for Module 2. Great for one file and simple jobs. *(Can't use Cloud Storage.)*
 
@@ -52,9 +53,11 @@
 
 ---
 
-## 🟡 Build an agent the POWERFUL way (Agent Designer · Flow builder)
+## 🟡 Configure it precisely (Agent Designer · Flow)
 
 > Use this for Modules 3 & 4. Needed for **Cloud Storage** and **multi-step** agents.
+>
+> These are not separate products. You can describe an agent in the Chat pane, inspect the draft, then choose **Proceed to builder** and continue with the same agent in Flow.
 
 1. Click **+ Create agent** → **Proceed to builder**.
 2. You're on the **Flow** tab. Click the agent box and fill in **Name**, **Instructions**.
@@ -68,6 +71,7 @@
 ## 📓 Use NotebookLM (Module 1)
 
 1. Go to **[notebooklm.google.com](https://notebooklm.google.com)**.
+   - Alternative when enabled: Gemini Enterprise → **Agents → Made by Google → NotebookLM**.
 2. **+ New** notebook → **Add sources** → upload PDFs or paste a YouTube/website link.
 3. Open the **Studio** panel → pick a tile:
    - 🎙️ **Audio Overview** — a podcast about your docs (try **Deep Dive**, then **Interactive mode** to talk to the hosts!).
@@ -99,6 +103,8 @@
 | **Agent ignores my file** | Re-upload it. Make sure you see its name listed before testing. |
 | **It's just spinning** | Big files/multi-step agents take 20–30 sec. Be patient. |
 | **No "Send email" or "Create event"** | Those need Gmail/Calendar connectors (Module 6). In Modules 1–5 the agent just *drafts* them. |
+| **Idea Generation is missing** | It is Preview, Global-only, and unavailable in Frontline. Tell the facilitator and use Lab 5.2's regular-assistant fallback. |
+| **Canvas or image tools are missing** | Return to Lab 0.1 and check the app's **Configurations → Feature Management** settings. |
 | **"Bucket name already taken"** *(Module 8)* | Names are global — add your initials + digits, e.g. `techbond-jd-42`. Lowercase, no spaces. |
 | **API call: "PERMISSION_DENIED"** *(Module 8)* | The API isn't enabled, or you used the project *name* instead of the project **ID**. Enable it, use the ID, retry. |
 | **Agent Runtime deploy fails** *(Module 8)* | Check you're logged in (`gcloud auth list`), the project **ID** matches (`gcloud config list`), and the Step 2 APIs are enabled. |
@@ -111,6 +117,8 @@
 > *"You are a helpful TechBond assistant. Use ONLY the uploaded files / connected data to answer. Keep answers short and clear. Use bullet points. If the answer isn't in the data, say so honestly instead of guessing."*
 
 Copy it, tweak the job, and you're off. 🚀
+
+> 🔐 **Sharing reminder:** A shared agent also gives its recipients query access to attached files and data sources. Share only synthetic TechBond agents in this workshop.
 
 ---
 

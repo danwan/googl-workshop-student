@@ -8,7 +8,7 @@ Why is this the perfect warm-up? Because there's **zero pressure** and **nothing
 
 > 🟢 **No connectors needed.** You just upload files or paste links. That's the whole setup.
 >
-> 🌐 Open **[https://notebooklm.google.com](https://notebooklm.google.com)** and sign in. The PDFs you need live in this module's `Files/` folder.
+> 🌐 Open **[https://notebooklm.google.com](https://notebooklm.google.com)** and sign in. This remains the workshop's canonical route. If Lab 0.1 enabled the integration, **Agents → Made by Google → NotebookLM** opens the same project's notebooks inside Gemini Enterprise. The PDFs live in this module's `Files/` folder.
 
 ---
 
