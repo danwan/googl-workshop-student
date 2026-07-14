@@ -1,10 +1,10 @@
-# 🟡 Lab 9.3 — Cloud Shell, agy & Storage
+# 🟢 Lab 9.1 — Cloud Shell, agy & Storage
 
 > **Your mission:** Open **Cloud Shell**, start the **Antigravity CLI (`agy`)** terminal companion to generate **5 text reports**, create a **Cloud Storage bucket** via the CLI, and upload the files to your bucket using `gcloud storage`. 📦📁
 
 | 🏆 Level | ⏱️ Time | 🧰 Tool | 📦 What you need |
 |---|---|---|---|
-| Intermediate | ~15–20 min | **Cloud Shell** + **agy CLI** + **gcloud storage** | Your dedicated billed workshop project with Project Owner/admin access |
+| Foundations | ~15–20 min | **Cloud Shell** + **agy CLI** + **gcloud storage** | Your dedicated billed workshop project with Project Owner/admin access |
 
 > 🚪 **Project preflight:** Run `gcloud config get-value project` and confirm it is your assigned project, then run `gcloud storage buckets list`. If the project is wrong, stop and ask your facilitator.
 
@@ -195,4 +195,6 @@ gcloud storage objects list gs://$BUCKET_NAME/
 
 You've bridged the gap between intelligent AI generation and enterprise cloud storage! You learned how to use **Antigravity CLI (`agy`)** as an autonomous agent in your terminal to compile text reports, how to provision custom, scalable **Cloud Storage buckets** using the CLI, and how to upload and verify objects with `gcloud storage`. You can now build fully automated data ingestion pipelines for your agents! 🪣⛓️
 
-➡️ Back to the **[module overview](./README.md)**.
+➡️ **Choose your Linux environment:** [Lab 9.2 — Compute Engine with Ubuntu](./lab-9.2-gce-ssh.md) or [Lab 9.3 — Cloud Workstations](./lab-9.3-cloud-workstations.md).
+
+⬅️ Back to the **[module overview](./README.md)**.

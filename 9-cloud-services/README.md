@@ -1,8 +1,8 @@
 # ☁️ Module 9 — Cloud Services
 
-> **Workshop role:** Day 2 choice with Lab 9.3. Labs 9.1 and 9.2 are bonus paths when billing, service setup, and cleanup are confirmed.
+> **Workshop role:** Everyone entering Module 9 starts with Lab 9.1. Then choose Lab 9.2 or 9.3 when billing, service setup, and cleanup are confirmed. Lab 9.4 extends the selected environment before final cleanup.
 
-**Take control of your infrastructure** 🛠️ — Building agents is only half the battle; hosting, development workspaces, and cloud storage complete the puzzle. In this module, you learn to provision and interact with core Google Cloud infrastructure services: virtual machines (**Compute Engine**), enterprise-grade remote development workspaces (**Cloud Workstations**), and secure object storage (**Cloud Storage**) using both the Console and **gcloud CLI** in **Cloud Shell**.
+**Take control of your infrastructure** 🛠️ — Start in **Cloud Shell** and use the **gcloud CLI** with **Cloud Storage**. Then choose a virtual machine in **Compute Engine** or a managed development environment in **Cloud Workstations**. Finish by preparing that selected Linux environment for agent development.
 
 > ⚠️ **This module is hands-on and highly practical.** We build the virtual infrastructure that keeps your developer environment standardized and your data secure.
 
@@ -17,10 +17,10 @@
 
 | Lab | Tier | What you do |
 |---|---|---|
-| **[Lab 9.1 — Compute Engine with Ubuntu](./lab-9.1-gce-ssh.md)** | 🟢 Foundations | Spin up an **e2-standard-2 (8 GB RAM)** Google Compute Engine instance running **Ubuntu**, configure firewall/access, and connect securely via **SSH** for shell access. |
-| **[Lab 9.2 — Cloud Workstations](./lab-9.2-cloud-workstations.md)** | 🟢 Foundations | Provision a **Cloud Workstations** cluster, configure a workstation creator with basic settings, and start an **Ubuntu workstation** loaded with **web VS Code** directly in your browser. |
-| **[Lab 9.3 — Cloud Shell, agy & Storage](./lab-9.3-cloud-shell-agy-storage.md)** | 🟡 Intermediate | Generate **5 TXT reports**, create a Cloud Storage bucket, and upload the reports. |
-| **[Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md)** | 🔴 Advanced · optional | From the Ubuntu terminal created in Lab 9.1 or 9.2, install and verify `agy`, Agent CLI skills, and grounded Google Developer Knowledge. |
+| **[Lab 9.1 — Cloud Shell, agy & Storage](./lab-9.1-cloud-shell-agy-storage.md)** | 🟢 Foundations · start here | Generate **5 TXT reports**, create a Cloud Storage bucket, and upload the reports. |
+| **[Lab 9.2 — Compute Engine with Ubuntu](./lab-9.2-gce-ssh.md)** | 🟡 Intermediate · choose one | Create an **e2-standard-2 (8 GB RAM)** Compute Engine VM running **Ubuntu** and connect through **SSH**. |
+| **[Lab 9.3 — Cloud Workstations](./lab-9.3-cloud-workstations.md)** | 🔴 Advanced · choose one | Provision a **Cloud Workstations** cluster, configuration, and **Ubuntu workstation** with web Code OSS. |
+| **[Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md)** | 🔴 Advanced · optional | In the running Ubuntu environment from Lab 9.2 or 9.3, install and verify `agy`, Agent CLI skills, and grounded Google Developer Knowledge. |
 
 ## Why it's here
 

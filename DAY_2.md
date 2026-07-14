@@ -59,17 +59,17 @@ Returning participants use [Lab 1.2](./1-warmup-research/lab-1.2-instant-explain
 
 ## Choice path
 
-- Cloud foundations: [Lab 9.3](./9-cloud-services/lab-9.3-cloud-shell-agy-storage.md)
+- Cloud foundations for every Module 9 participant: start with [Lab 9.1](./9-cloud-services/lab-9.1-cloud-shell-agy-storage.md)
 - Build and evaluate: [Lab 7.3](./7-code-adk/lab-7.3-adventure-agent.md)
 - Ship or extend: [Lab 8.2](./8-cloud-toolkit/lab-8.2-ship-your-agent.md), [Lab 8.3](./8-cloud-toolkit/lab-8.3-agent-with-eyes.md), [Lab 8.4](./8-cloud-toolkit/lab-8.4-document-detective.md), or [Lab 8.5](./8-cloud-toolkit/lab-8.5-model-armor-prompt-security.md)
-- Infrastructure, after confirming billing and service setup: [Lab 9.1](./9-cloud-services/lab-9.1-gce-ssh.md) or [Lab 9.2](./9-cloud-services/lab-9.2-cloud-workstations.md)
+- Managed Linux, after Lab 9.1 and after confirming billing and service setup: choose [Lab 9.2](./9-cloud-services/lab-9.2-gce-ssh.md) or [Lab 9.3](./9-cloud-services/lab-9.3-cloud-workstations.md)
 
 ## Bonus path
 
 - Continue an approved real use case with your own test data.
 - Build another Agent Designer flow from [Module 4](./4-workflow-pro/) if you do not want to continue coding.
 - Use [Module 6](./6-workspace-optional/) only when the facilitator confirms that Workspace connectors are enabled.
-- After Lab 9.1 or 9.2, use [Lab 9.4](./9-cloud-services/lab-9.4-agy-managed-linux.md) as an optional advanced bonus only when the owner/admin and cleanup gates are confirmed.
+- Continue directly from the running Lab 9.2 VM or Lab 9.3 workstation into [Lab 9.4](./9-cloud-services/lab-9.4-agy-managed-linux.md) only when the owner/admin and cleanup gates are confirmed.
 
 ## Cleanup before 17:00
 

@@ -1,10 +1,10 @@
-# 🟢 Lab 9.2 — Cloud Workstations
+# 🔴 Lab 9.3 — Cloud Workstations
 
 > **Your mission:** Provision a fully managed, secure cloud development workspace using **Google Cloud Workstations** with a web-based **VS Code (Code OSS)** IDE. 🚀🖥️
 
 | 🏆 Level | ⏱️ Time | 🧰 Tool | 📦 What you need |
 |---|---|---|---|
-| Foundations | ~20–25 min | **Cloud Workstations** | Your dedicated billed workshop project with Project Owner/admin access |
+| Advanced | ~20–25 min | **Cloud Workstations** | Your dedicated billed workshop project with Project Owner/admin access |
 
 > 🚪 **Permission and network preflight:** Confirm your assigned project is selected and you can enable **Cloud Workstations**. Open **VPC network → VPC networks** and verify a `default` network with a subnet in your chosen region exists. If it is missing, or a Create/Delete control is unavailable, stop and ask your facilitator; do not create substitute networking.
 
@@ -78,9 +78,14 @@ Now we create a real, live workstation instance using our configuration.
 
 > 🎉 **Boom!** A full VS Code editor running inside a secure Ubuntu container is now displayed in your browser tab. You can open a terminal inside VS Code, install extensions, and start writing agentic code!
 
-### Step 5 — Delete resources in dependency order
+### Step 5 — Continue to Lab 9.4 or delete resources
 
-When finished, delete **your workstation first**, then **your workstation configuration**, then **your workstation cluster** in the Cloud Workstations Console. Wait for each deletion to finish before deleting its parent. Disabling the API does not delete these billable resources.
+Choose one path:
+
+1. **Continue to Lab 9.4:** Keep the workstation running, open **Terminal → New Terminal** in Code OSS, and continue with [Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md).
+2. **Stop here:** Delete **your workstation first**, then **your workstation configuration**, then **your workstation cluster** in the Cloud Workstations Console. Wait for each deletion to finish before deleting its parent.
+
+Disabling the API does not delete these billable resources. Do not leave the workstation running after your final lab.
 
 ---
 
@@ -143,7 +148,7 @@ gcloud workstations start "$WORKSTATION" \
 - [ ] Your participant-suffixed cluster reached **Active** before you created the configuration.
 - [ ] You have configured a workstation profile using the prebuilt **Code OSS** image.
 - [ ] You started your participant-suffixed workstation and launched web VS Code.
-- [ ] You deleted workstation, configuration, and cluster in that order.
+- [ ] You continued directly to Lab 9.4 in the running workstation, or deleted workstation, configuration, and cluster if you stopped here.
 
 ---
 
@@ -151,6 +156,6 @@ gcloud workstations start "$WORKSTATION" \
 
 You've built a secure, consistent cloud development workplace with **Cloud Workstations**. You learned how to provision workstation clusters, define container blueprints using pre-configured **Code-OSS** images, and start web-accessible VS Code workspaces. Every team member can now have the exact same environment with zero configuration drift! 🧑‍💻☁️
 
-➡️ **Next up:** [Lab 9.3 — Cloud Shell, agy & Storage](./lab-9.3-cloud-shell-agy-storage.md) — leverage your terminal coding companion and CLI commands to move data into secure buckets.
+➡️ **Continue in this workstation:** [Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md).
 
 ⬅️ Back to the **[module overview](./README.md)**.

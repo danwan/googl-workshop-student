@@ -112,10 +112,10 @@ Use this module only when the facilitator confirms that Gmail, Calendar, and Dri
 
 ### ☁️ Module 9: Optional Cloud services
 
-- **[Lab 9.1: Compute Engine with Ubuntu](./9-cloud-services/lab-9.1-gce-ssh.md):** create, use, and delete a virtual machine
-- **[Lab 9.2: Cloud Workstations](./9-cloud-services/lab-9.2-cloud-workstations.md):** provision and remove a managed development workspace
-- **[Lab 9.3: Cloud Shell, agy, and Storage](./9-cloud-services/lab-9.3-cloud-shell-agy-storage.md):** generate reports and upload them with `gcloud storage`
-- **[Lab 9.4: agy on Managed Linux](./9-cloud-services/lab-9.4-agy-managed-linux.md):** prepare an approved Linux environment for agent development
+- **[Lab 9.1: Cloud Shell, agy, and Storage](./9-cloud-services/lab-9.1-cloud-shell-agy-storage.md):** start here, generate reports, and upload them with `gcloud storage`
+- **[Lab 9.2: Compute Engine with Ubuntu](./9-cloud-services/lab-9.2-gce-ssh.md):** choose a dedicated Ubuntu VM as your Linux environment
+- **[Lab 9.3: Cloud Workstations](./9-cloud-services/lab-9.3-cloud-workstations.md):** choose a managed development workspace instead
+- **[Lab 9.4: agy on Managed Linux](./9-cloud-services/lab-9.4-agy-managed-linux.md):** prepare the selected Linux environment for agent development
 
 ## Keep these references open
 

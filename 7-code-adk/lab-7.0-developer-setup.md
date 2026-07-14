@@ -12,7 +12,7 @@
 
 As Lead AI Architect at **TechBond Industries**, you want to empower our terminal-loving developer teams. While visual agent builders are great, true developers want to work directly inside **Google Cloud Shell** using their CLI tools.
 
-This lab is the single **Developer Prep Gate** for the code track: run it once and every coding lab that follows (7.1 → 7.3, Module 8, Lab 9.3) will work out of the box. You'll also hook the **Antigravity CLI (`agy`)** up to the official **Google Developer Knowledge Model Context Protocol (MCP) server**, so your terminal assistant can search, retrieve, and cite official Google Cloud documentation in real time while you write code!
+This lab is the single **Developer Prep Gate** for the code track: run it once and every coding lab that follows (7.1 → 7.3, Module 8, Lab 9.1) will work out of the box. You'll also hook the **Antigravity CLI (`agy`)** up to the official **Google Developer Knowledge Model Context Protocol (MCP) server**, so your terminal assistant can search, retrieve, and cite official Google Cloud documentation in real time while you write code!
 
 > ♻️ **Coming back after a break (or on Day 2)?** Cloud Shell recycles its VM after a period of inactivity. Your home directory (your `venv` folder, `agy`, `uv`) survives on persistent disk, but your **shell state resets** — the virtual environment is no longer activated and exported variables are gone. Re-activate with `source venv/bin/activate`, and only re-run the relevant install step below if a command is actually missing.
 

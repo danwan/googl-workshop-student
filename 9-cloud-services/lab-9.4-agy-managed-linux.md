@@ -1,16 +1,18 @@
 # 🔴 Lab 9.4 — agy on Managed Linux
 
-> **Your mission:** Turn the Ubuntu environment from **Lab 9.1 or Lab 9.2** into a ready-to-use agent development terminal: install the **Antigravity CLI (`agy`)**, Google Agent CLI skills, and the Google Developer Knowledge MCP server, then ask a grounded Cloud Storage question. 🖥️🤖
+> **Your mission:** Turn the Ubuntu environment from **Lab 9.2 or Lab 9.3** into a ready-to-use agent development terminal: install the **Antigravity CLI (`agy`)**, Google Agent CLI skills, and the Google Developer Knowledge MCP server, then ask a grounded Cloud Storage question. 🖥️🤖
 
 | 🏆 Level | ⏱️ Time | 🧰 Tool | 📦 What you need |
 |---|---|---|---|
-| Advanced | ~25–35 min | **Ubuntu terminal** + **agy CLI** | A running Lab 9.1 VM **or** Lab 9.2 Code OSS workstation; dedicated billed project; Project Owner/admin access |
+| Advanced | ~25–35 min | **Ubuntu terminal** + **agy CLI** | A running Lab 9.2 VM **or** Lab 9.3 Code OSS workstation; dedicated billed project; Project Owner/admin access |
 
 > 🚪 **Owner/admin gate:** Continue only when the facilitator confirms the assigned project, billing, API enablement, and your permission to create a restricted API key. Otherwise, stop here.
 
-> 💸 **Cost gate:** This lab is outside the core schedule. Your Compute Engine VM or Cloud Workstation remains billable while it exists (and some attached resources can remain billable while stopped). At the end, explicitly stop or delete the parent resource by following Lab 9.1 or 9.2.
+> 💸 **Cost gate:** This lab is outside the core schedule. Your Compute Engine VM or Cloud Workstation remains billable while it exists (and some attached resources can remain billable while stopped). At the end, explicitly stop or delete the parent resource by following Lab 9.2 or 9.3.
 
-> 📌 **Start in exactly one of these places:** the browser SSH terminal **inside the Ubuntu VM from Lab 9.1**, or **Terminal → New Terminal inside the Code OSS Cloud Workstation from Lab 9.2**. Do not use Cloud Shell, a local terminal, or the Antigravity IDE for this lab.
+> 📌 **Start in exactly one of these places:** the browser SSH terminal **inside the Ubuntu VM from Lab 9.2**, or **Terminal → New Terminal inside the Code OSS Cloud Workstation from Lab 9.3**. Do not use Cloud Shell, a local terminal, or the Antigravity IDE for this lab.
+
+> 🔁 **New environment, new installation:** Your Cloud Shell setup from Lab 9.1 does not carry into this VM or workstation. Install only the tools missing from the selected environment.
 
 ---
 
@@ -24,7 +26,7 @@ TechBond wants the same agent-building tools on managed Linux that developers us
 
 ### Step 1 — Confirm where you are and inspect what is installed
 
-Run this in the Lab 9.1 SSH terminal or the Lab 9.2 Code OSS terminal:
+Run this in the Lab 9.2 SSH terminal or the Lab 9.3 Code OSS terminal:
 
 ```bash
 cat /etc/os-release | head
@@ -271,7 +273,7 @@ Check that `~/.gemini/config/mcp_config.json` is valid JSON, uses `serverUrl`, a
 <details>
 <summary><strong>✅ Show me the full route</strong></summary>
 
-1. Enter the existing Lab 9.1 Ubuntu SSH terminal or Lab 9.2 Code OSS terminal.
+1. Enter the existing Lab 9.2 Ubuntu SSH terminal or Lab 9.3 Code OSS terminal.
 2. Check `gcloud`, Python 3.11+, Node.js 18+, `npx`, and `uv`; install only missing or outdated tools, then repeat their checks.
 3. Verify the active `gcloud` account and assigned project. Configure ADC only if a later action requests it.
 4. Inspect and install `agy`, then run the three skill-install commands from Step 5.
@@ -285,7 +287,7 @@ Check that `~/.gemini/config/mcp_config.json` is valid JSON, uses `serverUrl`, a
 
 ## ✅ You did it when…
 
-- [ ] You worked only inside the Ubuntu terminal from Lab 9.1 or the Code OSS terminal from Lab 9.2.
+- [ ] You worked only inside the Ubuntu terminal from Lab 9.2 or the Code OSS terminal from Lab 9.3.
 - [ ] `gcloud`, Python 3.11+, Node.js 18+, `npx`, `uv`, and `agy` pass their version checks.
 - [ ] The active Google Cloud account and project match the workshop assignment.
 - [ ] `/skills` shows `google-agents-cli-workflow`, `google-agents-cli-adk-code`, and `gcloud`.
@@ -302,7 +304,7 @@ Check that `~/.gemini/config/mcp_config.json` is valid JSON, uses `serverUrl`, a
 Before cleanup, ask `agy` to use its installed `gcloud` skill without taking action:
 
 ```text
-Use the gcloud skill to draft a read-only verification plan for my existing Lab 9.1 VM or Lab 9.2 workstation. Include only list and describe commands that confirm the resource and its state. Explain the later cleanup order, but do not execute commands and do not create, update, start, stop, or delete anything.
+Use the gcloud skill to draft a read-only verification plan for my existing Lab 9.2 VM or Lab 9.3 workstation. Include only list and describe commands that confirm the resource and its state. Explain the later cleanup order, but do not execute commands and do not create, update, start, stop, or delete anything.
 ```
 
 Review the proposed plan yourself. It passes only when every command is read-only (`list` or `describe`) and nothing was executed. Reject and revise any plan containing a mutating command.
@@ -330,7 +332,7 @@ Review the proposed plan yourself. It passes only when every command is read-onl
    gcloud auth application-default revoke
    gcloud auth revoke
    ```
-5. **Required cost action:** follow [Lab 9.1](./lab-9.1-gce-ssh.md) to stop or delete the VM, or [Lab 9.2](./lab-9.2-cloud-workstations.md) to stop the workstation or delete workstation, configuration, and cluster in dependency order. Closing SSH, the browser tab, Code OSS, or `agy` does not stop billing.
+5. **Required cost action:** follow [Lab 9.2](./lab-9.2-gce-ssh.md) to delete the VM, or [Lab 9.3](./lab-9.3-cloud-workstations.md) to delete the workstation, configuration, and cluster in dependency order. Closing SSH, the browser tab, Code OSS, or `agy` does not stop billing.
 
 ---
 

@@ -1,10 +1,10 @@
-# 🟢 Lab 9.1 — Compute Engine with Ubuntu
+# 🟡 Lab 9.2 — Compute Engine with Ubuntu
 
 > **Your mission:** Spin up an enterprise-grade virtual machine on **Google Compute Engine** with 8 GB of RAM and **Ubuntu**, and connect to it securely via **SSH** to run shell commands in the cloud. 🚀🖥️
 
 | 🏆 Level | ⏱️ Time | 🧰 Tool | 📦 What you need |
 |---|---|---|---|
-| Foundations | ~15–20 min | **Compute Engine** + **SSH** | Your dedicated billed workshop project with Project Owner/admin access |
+| Intermediate | ~15–20 min | **Compute Engine** + **SSH** | Your dedicated billed workshop project with Project Owner/admin access |
 
 > 🚪 **Permission preflight:** Confirm your assigned project is selected. If you cannot enable Compute Engine or **Create instance** is unavailable, stop and ask your facilitator.
 
@@ -82,14 +82,19 @@ free -h
 sudo apt-get update
 ```
 
-4. Close the session when done:
+4. Keep the session open if you are continuing to Lab 9.4. Otherwise, close it:
 ```bash
 exit
 ```
 
-### Step 5 — Delete the VM
+### Step 5 — Continue to Lab 9.4 or delete the VM
 
-Back on **Compute Engine → VM instances**, select the VM you created, click **Delete**, and confirm. `exit` closes SSH; it does not stop or delete the VM.
+Choose one path:
+
+1. **Continue to Lab 9.4:** Keep the VM running and use its SSH terminal for [Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md). If you closed SSH, reconnect to the same VM.
+2. **Stop here:** Back on **Compute Engine → VM instances**, select the VM you created, click **Delete**, and confirm.
+
+Closing SSH does not stop or delete the VM. Do not leave the VM running after your final lab.
 
 ---
 
@@ -136,7 +141,7 @@ gcloud compute ssh "$VM_NAME" --zone=europe-west4-a
 - [ ] Your participant-suffixed VM ran and displayed a green status checkmark in GCE.
 - [ ] You are able to open a browser-based SSH session into the VM.
 - [ ] Running `free -h` inside the SSH session confirms you have ~8 GB of RAM.
-- [ ] After verification, you deleted the VM.
+- [ ] You continued directly to Lab 9.4 on the running VM, or deleted the VM if you stopped here.
 
 ---
 
@@ -144,6 +149,6 @@ gcloud compute ssh "$VM_NAME" --zone=europe-west4-a
 
 You've successfully provisioned a virtual server in Google Cloud with 8 GB of RAM running **Ubuntu**. You learned how Compute Engine hosts on-demand virtualized hardware and how to securely access its interactive terminal using secure **SSH keys** fully managed by GCP. You're ready to deploy custom backends, databases, or orchestrators! 🖥️⛓️
 
-➡️ **Next up:** [Lab 9.2 — Cloud Workstations](./lab-9.2-cloud-workstations.md) — spin up a fully containerized, enterprise browser-IDE workspace.
+➡️ **Continue on this VM:** [Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md).
 
 ⬅️ Back to the **[module overview](./README.md)**.
