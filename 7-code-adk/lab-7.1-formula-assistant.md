@@ -176,3 +176,5 @@ You've built your first **fully custom agent in code** using the Google ADK! You
 1. An agent is defined programmatically with its model and instructions.
 2. Custom capabilities are just regular Python functions (tools) with standard docstrings.
 3. The ADK CLI (`adk run`) lets you immediately test your code in an interactive loop.
+
+➡️ Next: **[Lab 7.1.1 — ADK Under the Hood](./lab-7.1.1-adk-under-the-hood.md)**.

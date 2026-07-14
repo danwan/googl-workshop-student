@@ -32,7 +32,7 @@ Stop and ask the facilitator if the account or project ID is wrong. Do not switc
 | 13:00 | 20 | **ADK and Antigravity demo** | Show an ADK agent, `adk web`, `agy`, and the adventure game. Explain driver and navigator roles. |
 | 13:20 | 70 | **Build an agent in code** | Complete setup and build through Module 7 in pairs. |
 | 14:30 | 15 | ☕ **Break** | |
-| 14:45 | 60 | **Build and evaluate** | Continue the ADK agent, add an Antigravity-assisted change, and run Lab 7.2's deterministic tool checks. |
+| 14:45 | 60 | **Understand, change, and check** | Inspect the ADK runtime in Lab 7.1.1, add an Antigravity-assisted change, and run Lab 7.2's deterministic tool checks. |
 | 15:45 | 50 | **Ship or extend with cloud tools** | Choose deployment, Vision, Document AI, Model Armor, or a Module 9 infrastructure lab. |
 | 16:35 | 25 | **Share-out, cleanup, and next step** | Demo, delete or stop billable resources, and name one real next use case. |
 
@@ -54,7 +54,7 @@ Returning participants use [Lab 1.2](./1-warmup-research/lab-1.2-instant-explain
 
 1. Complete the shared NotebookLM and Agent Designer start above.
 2. Build [Lab 8.1: Cloud Foundations](./8-cloud-toolkit/lab-8.1-cloud-foundations.md) in your assigned project.
-3. Complete [Lab 7.0: Developer Setup](./7-code-adk/lab-7.0-developer-setup.md) and [Lab 7.1: Formula Assistant](./7-code-adk/lab-7.1-formula-assistant.md) in a pair.
+3. Complete [Lab 7.0: Developer Setup](./7-code-adk/lab-7.0-developer-setup.md), [Lab 7.1: Formula Assistant](./7-code-adk/lab-7.1-formula-assistant.md), and [Lab 7.1.1: ADK Under the Hood](./7-code-adk/lab-7.1.1-adk-under-the-hood.md) in a pair.
 4. Use [Lab 7.2: Coding with agy](./7-code-adk/lab-7.2-agy-coding-companion.md) to change, inspect, run, and judge the agent.
 
 ## Choice path
