@@ -131,17 +131,13 @@ Verify that `google-agents-cli-workflow`, `google-agents-cli-adk-code`, and `gcl
 
 ---
 
-### Step 5 — Enable the Developer Knowledge API & MCP Endpoints
+### Step 5 — Enable the Developer Knowledge API
 
-To make `agy` truly intelligent and eliminate hallucinations, we'll hook it up to Google's Developer Knowledge base. First, turn on the necessary APIs inside your project.
+To give `agy` access to Google's Developer Knowledge base, enable the API in your project. For these newly created workshop projects, enabling the API automatically enables the managed MCP server.
 
 1. Run the following command in Cloud Shell to enable the **Developer Knowledge API**:
    ```bash
    gcloud services enable developerknowledge.googleapis.com
-   ```
-2. Run the following command to enable the Beta **Model Context Protocol (MCP)** service endpoint for Developer Knowledge:
-   ```bash
-   gcloud beta services mcp enable developerknowledge.googleapis.com
    ```
 
 ---
@@ -194,7 +190,6 @@ Antigravity manages remote Model Context Protocol (MCP) servers using a central 
      test ! -f ~/.gemini/config/mcp_config.json.before-lab-7.0 \
        || cp -p ~/.gemini/config/mcp_config.json.before-lab-7.0 ~/.gemini/config/mcp_config.json
      printf 'Invalid JSON. Previous config restored when a backup existed. Stop and fix the merge.\n' >&2
-     exit 1
    fi
    ```
 
@@ -226,19 +221,13 @@ Let's see our terminal assistant in action with its newly expanded knowledge bas
 ## 💡 Stuck? Open a hint
 
 <details>
-<summary><strong>Hint 1 — 'gcloud beta services mcp' says command not found</strong></summary>
-
-The `gcloud beta` component may need to be installed. Run `gcloud components install beta` in Cloud Shell, or you can perform the enablement in the **APIs & Services > Library** dashboard of your Cloud Console by searching for "Developer Knowledge API" and clicking Enable.
-</details>
-
-<details>
-<summary><strong>Hint 2 — The /mcp command shows the server is red or failed to connect</strong></summary>
+<summary><strong>Hint 1 — The /mcp command shows the server is red or failed to connect</strong></summary>
 
 Verify that your `mcp_config.json` syntax is perfectly formed JSON (no trailing commas, double-quotes around all keys and values). Also, double check that you renamed the legacy `url` key to `serverUrl` as required by the Antigravity CLI, and that the header key is exactly `X-Goog-Api-Key` with your correct API key.
 </details>
 
 <details>
-<summary><strong>Hint 3 — agy or adk says 'command not found' after a break</strong></summary>
+<summary><strong>Hint 2 — agy or adk says 'command not found' after a break</strong></summary>
 
 Your Cloud Shell VM was likely recycled and your shell state (activated venv, PATH additions, exported variables) reset — though your home directory survives. First try re-activating your environment and reloading your PATH:
 ```bash
@@ -255,10 +244,9 @@ If a command is still missing, re-run its install step (Steps 2–4 are safe to 
 2. Verify the Cloud Shell tools, active account, active project, and Python 3.11+; stop if the account or project is wrong.
 3. Create and activate a venv (`python3 -m venv venv && source venv/bin/activate`) and install `uv`.
 4. Install or update `agy`, then install the Agent CLI and both skill sources with the Step 4 commands. In `agy`, use `/skills` to verify the three named skills.
-5. Enable the APIs:
+5. Enable the Developer Knowledge API:
    ```bash
    gcloud services enable developerknowledge.googleapis.com
-   gcloud beta services mcp enable developerknowledge.googleapis.com
    ```
 6. Create an API key in the Cloud Console under **APIs & Services > Credentials** and restrict it to the Developer Knowledge API.
 7. Protect `~/.gemini/config` with mode `700`. If `mcp_config.json` exists, back it up to `.before-lab-7.0` and merge only the `google-developer-knowledge` block; otherwise create the full configuration. Set mode `600`, verify it with `stat`, and require `python3 -m json.tool` to pass before continuing. Restore and keep the backup if an existing configuration fails validation.
@@ -274,7 +262,7 @@ If a command is still missing, re-run its install step (Steps 2–4 are safe to 
 - [ ] Your virtual environment is active (your prompt shows `(venv)`) and `agents-cli info` works.
 - [ ] You have run `agy update` and verified that `agy --version` works in Cloud Shell.
 - [ ] Entering `/skills` inside `agy` shows `google-agents-cli-workflow`, `google-agents-cli-adk-code`, and `gcloud`.
-- [ ] You have enabled both the `developerknowledge.googleapis.com` API and the beta MCP endpoint.
+- [ ] You have enabled `developerknowledge.googleapis.com`, which automatically enabled the managed MCP server for this newly created workshop project.
 - [ ] You have generated a restricted API key and safely merged it into `~/.gemini/config/mcp_config.json` without removing unrelated servers.
 - [ ] Before `/mcp`, `stat` reports mode `600` and `python3 -m json.tool` validates the MCP configuration.
 - [ ] Entering `/mcp` inside the `agy` TUI shows the `google-developer-knowledge` server as active and connected, and the grounded test query returns cited documentation.
@@ -297,7 +285,6 @@ If a command is still missing, re-run its install step (Steps 2–4 are safe to 
    else
      cp -p ~/.gemini/config/mcp_config.json.before-lab-7.0 ~/.gemini/config/mcp_config.json
      printf 'Invalid JSON. Previous config restored; backup kept. Stop and fix cleanup.\n' >&2
-     exit 1
    fi
    ```
 

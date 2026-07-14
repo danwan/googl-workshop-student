@@ -13,6 +13,8 @@ The day pages are the primary workshop routes. They tell you what to complete to
 
 You've joined **TechBond Industries**, a fictional company that makes industrial adhesives for cars, electronics, and factories. TechBond has product sheets, customer emails, sales reports, quality incidents, and packed calendars. In each lab, you solve one of those business problems with AI.
 
+All workshop emails, events, and documents are set in January 2026.
+
 ## Before you start
 
 1. **Use your assigned workshop account and project:** never use another participant's project.

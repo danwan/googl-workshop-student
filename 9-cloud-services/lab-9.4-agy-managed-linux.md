@@ -221,7 +221,6 @@ if ! python3 -m json.tool ~/.gemini/config/mcp_config.json >/dev/null; then
   test ! -f ~/.gemini/config/mcp_config.json.before-lab-9.4 \
     || cp -p ~/.gemini/config/mcp_config.json.before-lab-9.4 ~/.gemini/config/mcp_config.json
   printf 'Invalid JSON. Previous config restored when a backup existed. Stop and fix the merge.\n' >&2
-  exit 1
 fi
 ```
 
@@ -324,7 +323,6 @@ Review the proposed plan yourself. It passes only when every command is read-onl
    else
      cp -p ~/.gemini/config/mcp_config.json.before-lab-9.4 ~/.gemini/config/mcp_config.json
      printf 'Invalid JSON. Previous config restored; backup kept. Stop and fix cleanup.\n' >&2
-     exit 1
    fi
    ```
 4. If you added user credentials and are keeping the resource, optionally remove that local authentication:
