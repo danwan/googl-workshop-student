@@ -1,4 +1,4 @@
-# 🟣 Lab 7.1 — The Formula Assistant
+# 🟣 Lab 7.2 — The Formula Assistant
 
 > **Your mission:** Build a simple **Python** agent with Google's **Agent Development Kit (ADK 2.x)** that helps TechBond chemists by automatically converting viscosity measurements. 🧪📊
 
@@ -99,7 +99,7 @@ def convert_viscosity(cp: float) -> dict:
 
 root_agent = Agent(
     name="formula_assistant",
-    model="gemini-2.5-flash",
+    model="gemini-3.5-flash",
     instruction=(
         "You are a helpful TechBond chemical lab assistant. "
         "When a user asks to convert viscosity, always use the convert_viscosity tool "
@@ -177,4 +177,4 @@ You've built your first **fully custom agent in code** using the Google ADK! You
 2. Custom capabilities are just regular Python functions (tools) with standard docstrings.
 3. The ADK CLI (`adk run`) lets you immediately test your code in an interactive loop.
 
-➡️ Next: **[Lab 7.1.1 — ADK Under the Hood](./lab-7.1.1-adk-under-the-hood.md)**.
+➡️ Next: **[Lab 7.2.1 — ADK Under the Hood](./lab-7.2.1-adk-under-the-hood.md)**.

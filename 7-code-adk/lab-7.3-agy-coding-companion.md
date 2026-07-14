@@ -1,12 +1,12 @@
-# 🟣 Lab 7.2 — Coding with agy (The CLI Companion)
+# 🟣 Lab 7.3 — Coding with agy (The CLI Companion)
 
 > **Your mission:** Use the terminal-based **Antigravity CLI (`agy`)** to programmatically enhance your agent with a temperature conversion tool without writing the code by hand. 💻🤖
 
 | 🏆 Role | ⏱️ Time | 🧰 Tool | 📦 What you need |
 |---|---|---|---|
-| Day 2 core | ~15 min | **Antigravity CLI** (`agy`) | Python 3.11+, Cloud Shell, and the `formula/` project from Lab 7.1 |
+| Day 2 core | ~15 min | **Antigravity CLI** (`agy`) | Python 3.11+, Cloud Shell, and the `formula/` project from Lab 7.2 |
 
-> **Starting here or skipped earlier labs?** Complete **[Lab 7.0 — Developer Setup](./lab-7.0-developer-setup.md)** first. If you already built `formula/` in Lab 7.1, reuse it and continue with Step 1. Otherwise run this one-time bootstrap from your home directory, then continue with Step 1:
+> **Starting here or skipped earlier labs?** Complete **[Lab 7.0 — Developer Setup](./lab-7.0-developer-setup.md)** first. If you already built `formula/` in Lab 7.2, reuse it and continue with Step 1. Otherwise run this one-time bootstrap from your home directory, then continue with Step 1:
 >
 > ```bash
 > cd ~
@@ -30,7 +30,7 @@
 >
 > root_agent = Agent(
 >     name="formula_assistant",
->     model="gemini-2.5-flash",
+>     model="gemini-3.5-flash",
 >     instruction="Use convert_viscosity for viscosity conversions and explain the result.",
 >     tools=[convert_viscosity],
 > )
@@ -116,7 +116,7 @@ def convert_temperature(fahrenheit: float) -> dict:
 
 root_agent = Agent(
     name="formula_assistant",
-    model="gemini-2.5-flash",
+    model="gemini-3.5-flash",
     instruction=(
         "You are a helpful TechBond chemical lab assistant. "
         "When a user asks to convert viscosity or temperature, always use the "
@@ -183,7 +183,7 @@ If `agy` only outputs the code in the chat but doesn't write it, you can ask it:
 <details>
 <summary><strong>✅ Show me the full route</strong></summary>
 
-1. If you did not complete Lab 7.1, run the one-time `formula/` bootstrap above. Otherwise reuse that project.
+1. If you did not complete Lab 7.2, run the one-time `formula/` bootstrap above. Otherwise reuse that project.
 2. Run `cd ~`, activate `venv` (or `.venv` if using `uv`), and start `agy` from the directory above `formula/`.
 3. In `agy`, run `/skills`, verify `google-agents-cli-adk-code`, and paste the Step 2 prompt to add and register `convert_temperature` while preserving `convert_viscosity`.
 4. Exit with `Ctrl+D` twice or `/exit`, then run `cat formula/agent.py` and compare it with the Step 3 example.

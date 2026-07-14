@@ -12,7 +12,7 @@
 
 > 🧰 **Easiest path:** run everything in **Cloud Shell**. Upload the three files from `Files/deployable-agent/` into a Cloud Shell folder named `formula_agent/`.
 >
-> 🎮 **Completed Lab 7.3?** You may deploy your Adventure Agent instead. Keep deployment keyless and replace its local `.env` with a sanitized deployment configuration containing **only** `GOOGLE_GENAI_USE_VERTEXAI=TRUE`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`, and the non-secret workshop `GAME_URL` (or provide those same values through the runtime configuration supported by your environment). Remove `GOOGLE_API_KEY` and every other raw secret before deployment. The Formula starter remains the supported workshop path.
+> 🎮 **Completed Lab 7.4?** You may deploy your Adventure Agent instead. Keep deployment keyless and replace its local `.env` with a sanitized deployment configuration containing **only** `GOOGLE_GENAI_USE_VERTEXAI=TRUE`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`, and the non-secret workshop `GAME_URL` (or provide those same values through the runtime configuration supported by your environment). Remove `GOOGLE_API_KEY` and every other raw secret before deployment — your personal `GAME_API_KEY` is a secret too, so supply it through Secret Manager or your runtime's secret configuration, never baked into the image or committed. The Formula starter remains the supported workshop path.
 
 ---
 

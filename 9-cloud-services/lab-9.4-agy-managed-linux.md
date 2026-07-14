@@ -157,8 +157,8 @@ If `agy` already existed, skip the download and continue. Install the CLI and bo
 
 ```bash
 uv tool install google-agents-cli
-uvx google-agents-cli setup --agent antigravity-cli
-npx skills add google/skills --skill '*' --global --agent antigravity-cli --yes
+uvx google-agents-cli setup --agent antigravity
+npx skills add google/skills --skill '*' --global --agent antigravity --yes
 ```
 
 Launch the terminal client only:

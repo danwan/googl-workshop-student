@@ -50,7 +50,7 @@ Complete these labs or guided sections with the group:
 2. [Lab 2.1: Doc Whisperer](./2-chat-agent/lab-2.1-doc-whisperer.md)
 3. [Lab 5.1: Deep Research](./5-explore/lab-5.1-deep-research.md)
 4. [Lab 3.1: Knowledge Base](./3-workflow-agent/lab-3.1-knowledge-base.md)
-5. [Lab 7.4: Vibe Coding Taster](./7-code-adk/lab-7.4-vibe-coding-taster.md)
+5. [Lab 7.1: Vibe Coding Taster](./7-code-adk/lab-7.1-vibe-coding-taster.md)
 
 ## Choice path
 

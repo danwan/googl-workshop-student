@@ -1,4 +1,4 @@
-# 🟣 Lab 7.4: Vibe Coding Taster
+# 🟣 Lab 7.1: Vibe Coding Taster
 
 > **Your mission:** Use Antigravity in Cloud Shell to build and test a small TechBond batch checker. You decide the rules; `agy` writes the first draft. Then you inspect, run, and judge the result.
 

@@ -96,11 +96,11 @@ Use this module only when the facilitator confirms that Gmail, Calendar, and Dri
 ### 🟣 Module 7: Build with code using ADK
 
 - **[Lab 7.0: Developer Setup](./7-code-adk/lab-7.0-developer-setup.md):** prepare Cloud Shell, ADK, `agents-cli`, and `agy`
-- **[Lab 7.1: The Formula Assistant](./7-code-adk/lab-7.1-formula-assistant.md):** build a Python agent with the Agent Development Kit
-- **[Lab 7.1.1: ADK Under the Hood](./7-code-adk/lab-7.1.1-adk-under-the-hood.md):** inspect the runtime, tool calls, events, and sessions behind the agent
-- **[Lab 7.2: Coding with agy](./7-code-adk/lab-7.2-agy-coding-companion.md):** use Antigravity to add and test a tool
-- **[Lab 7.3: The Adventure Agent](./7-code-adk/lab-7.3-adventure-agent.md):** build an agent that plays a text adventure
-- **[Lab 7.4: Vibe Coding Taster](./7-code-adk/lab-7.4-vibe-coding-taster.md):** build and judge a batch checker in the Day 1 taster
+- **[Lab 7.1: Vibe Coding Taster](./7-code-adk/lab-7.1-vibe-coding-taster.md):** build and judge a batch checker in the Day 1 taster or Day 2 catch-up path
+- **[Lab 7.2: The Formula Assistant](./7-code-adk/lab-7.2-formula-assistant.md):** build a Python agent with the Agent Development Kit
+- **[Lab 7.2.1: ADK Under the Hood](./7-code-adk/lab-7.2.1-adk-under-the-hood.md):** inspect the runtime, tool calls, events, and sessions behind the agent
+- **[Lab 7.3: Coding with agy](./7-code-adk/lab-7.3-agy-coding-companion.md):** use Antigravity to add and test a tool
+- **[Lab 7.4: The Adventure Agent](./7-code-adk/lab-7.4-adventure-agent.md):** build an agent that plays a text adventure
 
 ### ☁️ Module 8: Google Cloud toolkit
 

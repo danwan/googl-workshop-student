@@ -12,7 +12,7 @@ def convert_viscosity(cp: float) -> dict:
 
 root_agent = Agent(
     name="formula_agent",
-    model="gemini-2.5-flash",
+    model="gemini-3.5-flash",
     instruction="Use convert_viscosity for viscosity conversions and explain the result.",
     tools=[convert_viscosity],
 )

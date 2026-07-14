@@ -4,7 +4,7 @@
 
 | 🏆 Level | ⏱️ Time | 🧰 Tool | 📦 What you need |
 |---|---|---|---|
-| Advanced · Developer | ~20–30 min | **Cloud Vision API** (+ optional ADK) | Your dedicated billed Owner/admin workshop project; for Stage B, the ADK setup from **[Lab 7.1](../7-code-adk/lab-7.1-formula-assistant.md)** (or **[Lab 7.3](../7-code-adk/lab-7.3-adventure-agent.md)**) |
+| Advanced · Developer | ~20–30 min | **Cloud Vision API** (+ optional ADK) | Your dedicated billed Owner/admin workshop project; for Stage B, the ADK setup from **[Lab 7.2](../7-code-adk/lab-7.2-formula-assistant.md)** (or **[Lab 7.4](../7-code-adk/lab-7.4-adventure-agent.md)**) |
 
 > **Starting here or skipped earlier labs?** Stage A is fully standalone. For Stage B, use the mini-setup in Step 4; it creates a fresh environment and uses Vertex AI with keyless Application Default Credentials, so no Module 7 project, `.env`, or API key is required.
 
@@ -46,7 +46,7 @@ The **Cloud Vision API** is a pre-trained model that *sees*: hand it an image an
 
 ### 🛠️ Stage B — Make it an agent tool (code)
 
-Now the fun part: a tool is just a Python function (you learned this in Lab 7.1). Let's give an agent **eyes**.
+Now the fun part: a tool is just a Python function (you learned this in Lab 7.2). Let's give an agent **eyes**.
 
 **Step 4 — Prepare a standalone environment.**
 In Cloud Shell, reuse your Lab 7.0 environment if it exists; otherwise create it. Then install both required packages and authenticate keylessly:
@@ -97,7 +97,7 @@ from google.adk import Agent
 
 root_agent = Agent(
     name="inspector_agent",
-    model="gemini-2.5-flash",
+    model="gemini-3.5-flash",
     instruction=(
         "You are a visual inspector. When the user gives you an image URL, "
         "call describe_image to see it, then describe what's in the picture "
@@ -132,7 +132,7 @@ Your code needs Application Default Credentials for both Vision and Vertex AI. R
 <details>
 <summary><strong>Hint 3 — The agent answers but never calls the tool</strong></summary>
 
-Same rule as Lab 7.1: the **docstring matters**. Keep the `describe_image` docstring describing what it does and its `image_uri` argument — that's what the model reads to decide when to use it. And confirm `tools=[describe_image]` is actually passed to the `Agent`.
+Same rule as Lab 7.2: the **docstring matters**. Keep the `describe_image` docstring describing what it does and its `image_uri` argument — that's what the model reads to decide when to use it. And confirm `tools=[describe_image]` is actually passed to the `Agent`.
 </details>
 
 <details>
@@ -174,7 +174,7 @@ def describe_image(image_uri: str) -> dict:
 
 root_agent = Agent(
     name="inspector_agent",
-    model="gemini-2.5-flash",
+    model="gemini-3.5-flash",
     instruction=(
         "You are a visual inspector. When the user gives you an image URL, call "
         "describe_image to see it, then describe what's in the picture in one sentence."

@@ -2,6 +2,8 @@
 
 Everyone starts together with 90 minutes of NotebookLM and Gemini Enterprise. New arrivals get a complete starting route before the room moves into Cloud, ADK, Antigravity, and tool labs.
 
+After the shared start, Day 2 flows in three phases: **Foundations** (Lab 8.1: console, buckets, APIs), **Build** (Module 7: an ADK agent in code), and **Ship or extend** (Modules 8 and 9: deploy the agent or extend it with cloud tools). Lab numbers jump between modules because the module catalog is shared with Day 1; the day itself moves foundations → build → ship.
+
 ## Preflight
 
 Complete this check before 09:00:
@@ -26,14 +28,14 @@ Stop and ask the facilitator if the account or project ID is wrong. Do not switc
 | 09:15 | 30 | **NotebookLM for everyone** | Newcomers build 1.1. Returning participants choose 1.2 or 1.3 with a new question. |
 | 09:45 | 45 | **Gemini Enterprise for everyone** | Newcomers build 2.1. Returning participants build a harder Chat-pane or Flow-builder use case. |
 | 10:30 | 15 | ☕ **Break** | |
-| 10:45 | 40 | **Google Cloud fundamentals** | Deliver the beginner-safe speaker session with a live project, bucket, API, and Cloud Shell tour. |
-| 11:25 | 35 | **Cloud foundations hands-on** | Everyone starts Lab 8.1 in their dedicated project. Advanced participants choose a Module 9 door. |
+| 10:45 | 40 | **Foundations · Google Cloud fundamentals** | Deliver the beginner-safe speaker session with a live project, bucket, API, and Cloud Shell tour. |
+| 11:25 | 35 | **Foundations · cloud hands-on** | Everyone starts Lab 8.1 in their dedicated project. Advanced participants choose a Module 9 door. |
 | 12:00 | 60 | 🍽️ **Lunch** | |
-| 13:00 | 20 | **ADK and Antigravity demo** | Show an ADK agent, `adk web`, `agy`, and the adventure game. Explain driver and navigator roles. |
-| 13:20 | 70 | **Build an agent in code** | Complete setup and build through Module 7 in pairs. |
+| 13:00 | 20 | **Build · ADK and Antigravity demo** | Show an ADK agent, `adk web`, `agy`, and the adventure game. Explain driver and navigator roles. |
+| 13:20 | 70 | **Build · agents in code** | Choose the Lab 7.1 catch-up taster or start the standard ADK path in pairs. |
 | 14:30 | 15 | ☕ **Break** | |
-| 14:45 | 60 | **Understand, change, and check** | Inspect the ADK runtime in Lab 7.1.1, add an Antigravity-assisted change, and run Lab 7.2's deterministic tool checks. |
-| 15:45 | 50 | **Ship or extend with cloud tools** | Choose deployment, Vision, Document AI, Model Armor, or a Module 9 infrastructure lab. |
+| 14:45 | 60 | **Build · understand, change, and check** | Inspect the ADK runtime in Lab 7.2.1, add an Antigravity-assisted change, and run Lab 7.3's deterministic tool checks. |
+| 15:45 | 50 | **Ship or extend · cloud tools** | Choose deployment, Vision, Document AI, Model Armor, or a Module 9 infrastructure lab. |
 | 16:35 | 25 | **Share-out, cleanup, and next step** | Demo, delete or stop billable resources, and name one real next use case. |
 
 **Program total: 390 minutes. Breaks: 90 minutes. Day 2 total: 480 minutes.**
@@ -53,15 +55,23 @@ Returning participants use [Lab 1.2](./1-warmup-research/lab-1.2-instant-explain
 ## Core path
 
 1. Complete the shared NotebookLM and Agent Designer start above.
-2. Build [Lab 8.1: Cloud Foundations](./8-cloud-toolkit/lab-8.1-cloud-foundations.md) in your assigned project.
-3. Complete [Lab 7.0: Developer Setup](./7-code-adk/lab-7.0-developer-setup.md), [Lab 7.1: Formula Assistant](./7-code-adk/lab-7.1-formula-assistant.md), and [Lab 7.1.1: ADK Under the Hood](./7-code-adk/lab-7.1.1-adk-under-the-hood.md) in a pair.
-4. Use [Lab 7.2: Coding with agy](./7-code-adk/lab-7.2-agy-coding-companion.md) to change, inspect, run, and judge the agent.
+2. **Foundations:** build [Lab 8.1: Cloud Foundations](./8-cloud-toolkit/lab-8.1-cloud-foundations.md) in your assigned project.
+3. **Build:** complete [Lab 7.0: Developer Setup](./7-code-adk/lab-7.0-developer-setup.md), [Lab 7.2: Formula Assistant](./7-code-adk/lab-7.2-formula-assistant.md), and [Lab 7.2.1: ADK Under the Hood](./7-code-adk/lab-7.2.1-adk-under-the-hood.md) in a pair.
+4. **Build:** use [Lab 7.3: Coding with agy](./7-code-adk/lab-7.3-agy-coding-companion.md) to change, inspect, run, and judge the agent.
+5. **Ship or extend:** pick one lab from the choice path below.
+
+> **Missed the Day 1 taster?** Choose [Lab 7.1: Vibe Coding Taster](./7-code-adk/lab-7.1-vibe-coding-taster.md) as your catch-up route instead of steps 3 and 4.
 
 ## Choice path
 
-- Cloud foundations for every Module 9 participant: start with [Lab 9.1](./9-cloud-services/lab-9.1-cloud-shell-agy-storage.md)
-- Build and evaluate: [Lab 7.3](./7-code-adk/lab-7.3-adventure-agent.md)
+**Ship or extend (after the Build phase):**
+
+- Build and evaluate the advanced capstone: [Lab 7.4](./7-code-adk/lab-7.4-adventure-agent.md)
 - Ship or extend: [Lab 8.2](./8-cloud-toolkit/lab-8.2-ship-your-agent.md), [Lab 8.3](./8-cloud-toolkit/lab-8.3-agent-with-eyes.md), [Lab 8.4](./8-cloud-toolkit/lab-8.4-document-detective.md), or [Lab 8.5](./8-cloud-toolkit/lab-8.5-model-armor-prompt-security.md)
+
+**Infrastructure track (Module 9, parallel door for advanced participants):**
+
+- Cloud foundations for every Module 9 participant: start with [Lab 9.1](./9-cloud-services/lab-9.1-cloud-shell-agy-storage.md)
 - Managed Linux, after Lab 9.1 and after confirming billing and service setup: choose [Lab 9.2](./9-cloud-services/lab-9.2-gce-ssh.md) or [Lab 9.3](./9-cloud-services/lab-9.3-cloud-workstations.md)
 
 ## Bonus path

@@ -1,16 +1,16 @@
-# 🟣 Lab 7.1.1 — ADK Under the Hood
+# 🟣 Lab 7.2.1 — ADK Under the Hood
 
 > **Your mission:** Follow one Formula Assistant request through the **Agent Development Kit (ADK) Web** interface and explain what the agent, model, tool, runtime, session, and events each do. 🔎🤖
 
 | 🏆 Role | ⏱️ Time | 🧰 Tool | 📦 What you need |
 |---|---|---|---|
-| Day 2 core | ~25 min | **ADK Web** | The working `formula/` project from Lab 7.1 and the same active Python environment |
+| Day 2 core | ~25 min | **ADK Web** | The working `formula/` project from Lab 7.2 and the same active Python environment |
 
 ---
 
 ## 🎬 The story
 
-Lab 7.1 focused on the result. This lab reveals the steps ADK performs after you press Enter.
+Lab 7.2 focused on the result. This lab reveals the steps ADK performs after you press Enter.
 
 In this lab, you will send two contrasting requests and one follow-up. You will inspect where the language model makes a decision, where regular Python performs the calculation, and how ADK records the exchange.
 
@@ -22,7 +22,7 @@ You will not build another agent. The smallest useful way to understand ADK is t
 
 ## 🧰 Before you start
 
-> 🚪 **Starting here or skipped earlier labs?** Complete **[Lab 7.1 — The Formula Assistant](./lab-7.1-formula-assistant.md)** first. You need a `formula/` folder whose agent can convert `2500 cP` to `2.5 Pa·s` with `adk run formula`.
+> 🚪 **Starting here or skipped earlier labs?** Complete **[Lab 7.2 — The Formula Assistant](./lab-7.2-formula-assistant.md)** first. You need a `formula/` folder whose agent can convert `2500 cP` to `2.5 Pa·s` with `adk run formula`.
 
 Open the terminal where you created `formula/`, activate the same environment, and confirm both the folder and ADK are available:
 
@@ -33,7 +33,7 @@ test -f formula/agent.py && printf 'PASS: formula agent found\n'
 adk --version
 ```
 
-> 💡 **Using `uv`?** Activate the environment you used in Lab 7.1, for example `source .venv/bin/activate`.
+> 💡 **Using `uv`?** Activate the environment you used in Lab 7.2, for example `source .venv/bin/activate`.
 
 Do not continue until the terminal prints `PASS: formula agent found` and an ADK version.
 
@@ -44,7 +44,7 @@ Do not continue until the terminal prints `PASS: formula agent found` and an ADK
 | Part | Its job | Where you meet it |
 |---|---|---|
 | **Agent definition** | Combines a name, model, instruction, and available tools | `root_agent` in `formula/agent.py` |
-| **Model** | Interprets the request and decides whether to answer or request a tool | `model="gemini-2.5-flash"` |
+| **Model** | Interprets the request and decides whether to answer or request a tool | `model="gemini-3.5-flash"` |
 | **Tool** | Performs a defined action with normal, testable code | `convert_viscosity()` |
 | **Runtime** | Runs the agent and coordinates model calls, tool calls, and results | Started for you by `adk run` or `adk web` |
 | **Event** | Records one step, such as a user message, function call, function result, or answer | The **Events** view in ADK Web |
@@ -157,8 +157,8 @@ You do not need those pieces for every agent. Start with one agent and one usefu
 
 In this workshop:
 
-- **[Lab 7.2](./lab-7.2-agy-coding-companion.md)** adds and deterministically checks another tool.
-- **[Lab 7.3](./lab-7.3-adventure-agent.md)** explores iterative agent behavior and evaluation.
+- **[Lab 7.3](./lab-7.3-agy-coding-companion.md)** adds and deterministically checks another tool.
+- **[Lab 7.4](./lab-7.4-adventure-agent.md)** explores iterative agent behavior and evaluation.
 - **[Lab 8.2](../8-cloud-toolkit/lab-8.2-ship-your-agent.md)** covers deployment to Agent Runtime.
 
 ---
@@ -180,13 +180,13 @@ In Cloud Shell, leave `adk web` running and use **Web Preview → Preview on por
 <details>
 <summary><strong>Hint 3 — There is no function call</strong></summary>
 
-Use the exact conversion prompt from Step 3. If the tool still does not appear, stop ADK Web and confirm `formula/agent.py` contains `tools=[convert_viscosity]`, a typed `cp: float` parameter, and the function's docstring from Lab 7.1.
+Use the exact conversion prompt from Step 3. If the tool still does not appear, stop ADK Web and confirm `formula/agent.py` contains `tools=[convert_viscosity]`, a typed `cp: float` parameter, and the function's docstring from Lab 7.2.
 </details>
 
 <details>
 <summary><strong>✅ Show me the full route</strong></summary>
 
-1. Complete Lab 7.1 and verify `adk run formula` can convert `2500 cP` to `2.5 Pa·s`.
+1. Complete Lab 7.2 and verify `adk run formula` can convert `2500 cP` to `2.5 Pa·s`.
 2. From the directory containing `formula/`, activate the same environment and run `adk web --port 8000`.
 3. Open port 8000, select **formula**, and ask *What can you help me with?*
 4. Ask *Convert 2500 cP of BondMax 500 into Pa·s. Use the conversion tool.*
@@ -219,4 +219,4 @@ You moved from *using* an ADK agent to understanding its execution. You saw the 
 
 📚 Go deeper in the official ADK documentation: [technical overview](https://adk.dev/get-started/about/), [runtime event loop](https://adk.dev/runtime/event-loop/), [sessions, state, and memory](https://adk.dev/sessions/), [workflows](https://adk.dev/workflows/), and [evaluation](https://adk.dev/evaluate/).
 
-➡️ Continue to **[Lab 7.2 — Coding with agy](./lab-7.2-agy-coding-companion.md)** · Back to the **[module overview](./README.md)**.
+➡️ Continue to **[Lab 7.3 — Coding with agy](./lab-7.3-agy-coding-companion.md)** · Back to the **[module overview](./README.md)**.
