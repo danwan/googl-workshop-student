@@ -105,7 +105,7 @@ Install the Google Agent CLI, target its setup at Antigravity, and add Google's 
 
 ```bash
 uv tool install google-agents-cli
-uvx google-agents-cli setup --agent antigravity-cli
+uvx google-agents-cli setup --agent antigravity
 npx skills add google/skills --skill '*' --global --agent antigravity --yes
 agents-cli info
 ```
