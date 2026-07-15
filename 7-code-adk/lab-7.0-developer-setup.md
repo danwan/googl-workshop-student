@@ -1,6 +1,6 @@
 # 🟣 Lab 7.0 — Developer Setup (The Prep Gate)
 
-> **Your mission:** Prepare your complete developer environment in **Google Cloud Shell**: a clean Python virtual environment, the **Google Agent CLI (`agents-cli`)**, the **Antigravity CLI (`agy`)**, and the official **Google Developer Knowledge MCP server** — everything the coding labs in Modules 7–9 rely on. 💻🌐
+> **Your mission:** Prepare your complete developer environment in **Google Cloud Shell**: a clean Python virtual environment, the **Google Agents CLI (`agents-cli`)**, the **Antigravity CLI (`agy`)**, and the official **Google Developer Knowledge MCP server** — everything the coding labs in Modules 7–9 rely on. 💻🌐
 
 | 🏆 Role | ⏱️ Time | 🧰 Tool | 📦 What you need |
 |---|---|---|---|
@@ -14,7 +14,7 @@ As Lead AI Architect at **TechBond Industries**, you want to empower our termina
 
 This lab is the single **Developer Prep Gate** for the code track: run it once and every coding lab that follows (7.2 → 7.4, Module 8, Lab 9.1) will work out of the box. You'll also hook the **Antigravity CLI (`agy`)** up to the official **Google Developer Knowledge Model Context Protocol (MCP) server**, so your terminal assistant can search, retrieve, and cite official Google Cloud documentation in real time while you write code!
 
-> ♻️ **Coming back after a break (or on Day 2)?** Cloud Shell recycles its VM after a period of inactivity. Your home directory (your `venv` folder, `agy`, `uv`) survives on persistent disk, but your **shell state resets** — the virtual environment is no longer activated and exported variables are gone. Re-activate with `source venv/bin/activate`, and only re-run the relevant install step below if a command is actually missing.
+> ♻️ **Coming back after a break (or on Day 2)?** Cloud Shell recycles its VM after a period of inactivity. Your home directory (your `venv` folder, `agy`, `uv`) survives on persistent disk, but your **shell state resets** — the virtual environment is no longer activated and exported variables are gone. Re-activate with `source "$HOME/venv/bin/activate"`, and only re-run the relevant install step below if a command is actually missing.
 
 Let's dive into the terminal! 🚀
 
@@ -27,6 +27,7 @@ Let's dive into the terminal! 🚀
 1. At the top right of your Google Cloud Console, click the **Activate Cloud Shell** button (it looks like a terminal prompt icon: `>_`).
 2. Wait a moment for your free Linux VM to provision and connect.
 3. Verify the environment and, most importantly, the active Google account and project:
+
    ```bash
    gcloud --version
    gcloud auth list --filter=status:ACTIVE --format="value(account)"
@@ -44,17 +45,23 @@ Cloud Shell supplies `gcloud`, Python, Node.js, and `npx`. Confirm that Python i
 
 Modern Python environments restrict global package installation (PEP 668), so all our labs work inside an isolated virtual environment. We'll also install the ultra-fast Python manager `uv`.
 
-Run everything below from your **home directory** (`cd ~`) — the later labs assume the `venv` folder lives there:
+Run everything below from your **home directory** — the later labs assume the `venv` folder lives there. Check `uv` before installing it:
 
 ```bash
 # 0. Make sure you're in your home directory
-cd ~
+cd "$HOME"
 
 # 1. Create and activate a clean virtual environment
-python3 -m venv venv
-source venv/bin/activate
+test -d "$HOME/venv" || python3 -m venv "$HOME/venv"
+source "$HOME/venv/bin/activate"
 
-# 2. Download and inspect the uv installer (if uv is not already installed)
+# 2. Check uv first
+uv --version
+```
+
+If `uv --version` succeeds, skip the installer. Only if that check fails, download and inspect it:
+
+```bash
 curl --max-time 10 -LsSf https://astral.sh/uv/install.sh -o install-uv.sh
 less install-uv.sh
 ```
@@ -64,55 +71,91 @@ Read the installer and press `q` after you reach the end. If you cannot assess w
 ```bash
 bash install-uv.sh
 rm install-uv.sh
-source $HOME/.local/bin/env
+source "$HOME/.local/bin/env"
+uv --version
 ```
-
-> 💡 **Prefer `uv` for everything?** You can also create the virtual environment with `uv venv && source .venv/bin/activate` and later install packages with `uv pip install …` instead of `pip install …`.
 
 ---
 
-### Step 3 — Install & update the Antigravity CLI (`agy`)
+### Step 3 — Verify or install the Antigravity CLI (`agy`)
 
 The **Antigravity CLI (`agy`)** is a terminal-based AI assistant that lets you build, manage, and debug your cloud applications.
 
 1. Verify whether `agy` is installed:
+
    ```bash
    agy --version
    ```
-   If Cloud Shell reports `command not found`, download and inspect the official installer:
+
+   If the command prints a version, skip the installer. Only if it fails, download and inspect the official installer:
+
    ```bash
    curl --max-time 10 -fsSL https://antigravity.google/cli/install.sh -o install-agy.sh
    less install-agy.sh
    ```
+
    Read the installer and press `q` after you reach the end. If you cannot assess what it will do, stop and ask the facilitator to review it with you. Then run the reviewed local file:
+
    ```bash
    bash install-agy.sh
    rm install-agy.sh
    source "$HOME/.local/bin/env"
-   ```
-2. To ensure you have the latest features, bug fixes, and compatibility patches, run the CLI self-updater and verify the version:
-   ```bash
-   agy update
    agy --version
    ```
+
 Install `agy` before the skill setup in the next step so the installers can target the Antigravity CLI directly.
 
 ---
 
-### Step 4 — Install the Agent CLI and skills
+### Step 4 — Verify or set up the Agents CLI and skills
 
-Install the Google Agent CLI, target its setup at Antigravity, and add Google's broader skill collection:
+> ⚠️ **Preview / Pre-GA gate:** The Google Agents CLI is Preview / Pre-GA. Before the workshop, the facilitator must smoke-test the setup and state the expected `agents-cli --version`. If that gate is missing, or the checks still fail after the matching case below, do not troubleshoot Preview tooling live: continue with Lab 7.2 and, in Lab 7.3, skip `/skills` and the `agy`-assisted edit, use the full-route manual temperature-tool code, and run the deterministic checks.
+
+Check both the executable/version and the installed lifecycle skills. A working version command alone is not enough:
 
 ```bash
-uv tool install google-agents-cli
-uvx google-agents-cli setup --agent antigravity
-npx skills add google/skills --skill '*' --global --agent antigravity --yes
+agents-cli --version
 agents-cli info
+```
+
+Run only the case that matches:
+
+1. **CLI missing:** install the tool, then run the official setup command.
+
+   ```bash
+   uv tool install google-agents-cli
+   uvx google-agents-cli setup --agent antigravity
+   ```
+
+2. **CLI present but its version differs from the facilitator-approved version:** upgrade the installed tool, then update its managed assets.
+
+   ```bash
+   uv tool upgrade google-agents-cli
+   agents-cli update -y
+   ```
+
+3. **CLI version matches, but `agents-cli info` does not list the lifecycle skills:** run the official setup command to restore them.
+
+   ```bash
+   uvx google-agents-cli setup --agent antigravity
+   ```
+
+Recheck both outputs:
+
+```bash
+agents-cli --version
+agents-cli info
+```
+
+After the version matches and `agents-cli info` lists the lifecycle skills, add Google's broader skill collection:
+
+```bash
+npx skills add google/skills --skill '*' --global --agent antigravity --yes
 ```
 
 These are two complementary skill sources:
 
-- The **Google Agent CLI lifecycle skills** guide the ADK workflow: scaffold, code, run, evaluate, and deploy agents.
+- The **Google Agents CLI lifecycle skills** guide the ADK workflow: scaffold, code, run, evaluate, and deploy agents.
 - **`google/skills`** provides broader Google product and Cloud skills, including `gcloud` guidance.
 
 Launch `agy` and inspect the installed skills:
@@ -136,6 +179,7 @@ Verify that `google-agents-cli-workflow`, `google-agents-cli-adk-code`, and `gcl
 To give `agy` access to Google's Developer Knowledge base, enable the API in your project. For these newly created workshop projects, enabling the API automatically enables the managed MCP server.
 
 1. Run the following command in Cloud Shell to enable the **Developer Knowledge API**:
+
    ```bash
    gcloud services enable developerknowledge.googleapis.com
    ```
@@ -159,16 +203,21 @@ To securely connect `agy` to the developer documentation corpus, we need a restr
 Antigravity manages remote Model Context Protocol (MCP) servers using a central configuration file. Let's add the Google Developer Knowledge server block.
 
 1. Protect the configuration directory first:
+
    ```bash
    install -d -m 700 ~/.gemini/config
    ```
+
 2. If `~/.gemini/config/mcp_config.json` already exists, back it up and edit its existing `mcpServers` object. Preserve every unrelated server and copy **only** the `google-developer-knowledge` object from the example below — do not replace the whole file. If the file does not exist, create it and use the full JSON shown below.
+
    ```bash
    test ! -f ~/.gemini/config/mcp_config.json \
      || cp -p ~/.gemini/config/mcp_config.json ~/.gemini/config/mcp_config.json.before-lab-7.0
    nano ~/.gemini/config/mcp_config.json
    ```
+
 3. Replace only `YOUR_API_KEY_HERE` with the restricted API key you copied in Step 6. Do not paste the key into a prompt, command, source file, or screenshot.
+
    ```json
    {
      "mcpServers": {
@@ -181,8 +230,10 @@ Antigravity manages remote Model Context Protocol (MCP) servers using a central 
      }
    }
    ```
+
 4. Save with **`Ctrl+O`**, **`Enter`**, **`Ctrl+X`**. If you edited an existing file, make sure the final document still has one valid top-level `mcpServers` object containing every pre-existing entry.
 5. Restrict the file permissions and validate the JSON:
+
    ```bash
    chmod 600 ~/.gemini/config/mcp_config.json
    stat -c '%a %n' ~/.gemini/config/mcp_config.json
@@ -202,18 +253,24 @@ The `stat` output must start with `600`, and the JSON command must finish withou
 Let's see our terminal assistant in action with its newly expanded knowledge base!
 
 1. Launch the Antigravity TUI again:
+
    ```bash
    agy
    ```
+
 2. Once the chat pane is active, run the following slash command to list all active MCP integrations:
+
    ```text
    /mcp
    ```
+
 3. Verify that `google-developer-knowledge` is listed as active, exposing tools like `search_documents`, `get_documents`, and `answer_query`.
 4. Test the grounding capabilities by typing a real query in the chat prompt:
+
    ```text
    How do I configure a GCS bucket to prevent public access using gcloud?
    ```
+
 5. Watch as `agy` queries the Developer Knowledge API, returns up-to-date syntax, and cites the official documentation sources inline! 🛡️📚
 
 ---
@@ -230,11 +287,13 @@ Verify that your `mcp_config.json` syntax is perfectly formed JSON (no trailing 
 <summary><strong>Hint 2 — agy or adk says 'command not found' after a break</strong></summary>
 
 Your Cloud Shell VM was likely recycled and your shell state (activated venv, PATH additions, exported variables) reset — though your home directory survives. First try re-activating your environment and reloading your PATH:
+
 ```bash
-source venv/bin/activate
+source "$HOME/venv/bin/activate"
 source $HOME/.local/bin/env
 ```
-If a command is still missing, re-run its install step (Steps 2–4 are safe to repeat).
+
+If a command is still missing, re-run only the installer whose executable/version check fails.
 </details>
 
 <details>
@@ -242,12 +301,14 @@ If a command is still missing, re-run its install step (Steps 2–4 are safe to 
 
 1. Start Cloud Shell.
 2. Verify the Cloud Shell tools, active account, active project, and Python 3.11+; stop if the account or project is wrong.
-3. Create and activate a venv (`python3 -m venv venv && source venv/bin/activate`) and install `uv`.
-4. Install or update `agy`, then install the Agent CLI and both skill sources with the Step 4 commands. In `agy`, use `/skills` to verify the three named skills.
+3. Create and activate `$HOME/venv`; run `uv --version` and install `uv` only if that check fails.
+4. Run `agy --version` and install `agy` only if it fails. For the Preview / Pre-GA Agents CLI, use exactly one Step 4 case: missing CLI → official setup; facilitator-version mismatch → `uv tool upgrade` plus `agents-cli update -y`; matching version but missing lifecycle skills in `agents-cli info` → official setup. Recheck version and info. If the gate still fails, continue through Lab 7.3 using its full-route manual temperature-tool code and deterministic checks instead of `/skills` or the `agy`-assisted edit.
 5. Enable the Developer Knowledge API:
+
    ```bash
    gcloud services enable developerknowledge.googleapis.com
    ```
+
 6. Create an API key in the Cloud Console under **APIs & Services > Credentials** and restrict it to the Developer Knowledge API.
 7. Protect `~/.gemini/config` with mode `700`. If `mcp_config.json` exists, back it up to `.before-lab-7.0` and merge only the `google-developer-knowledge` block; otherwise create the full configuration. Set mode `600`, verify it with `stat`, and require `python3 -m json.tool` to pass before continuing. Restore and keep the backup if an existing configuration fails validation.
 8. Start `agy`, verify with `/mcp`, and ask the grounded test query from Step 8.
@@ -259,9 +320,9 @@ If a command is still missing, re-run its install step (Steps 2–4 are safe to 
 ## ✅ You did it when…
 
 - [ ] Cloud Shell reports `gcloud`, Python 3.11+, Node.js, and `npx`, with the correct active account and project.
-- [ ] Your virtual environment is active (your prompt shows `(venv)`) and `agents-cli info` works.
-- [ ] You have run `agy update` and verified that `agy --version` works in Cloud Shell.
-- [ ] Entering `/skills` inside `agy` shows `google-agents-cli-workflow`, `google-agents-cli-adk-code`, and `gcloud`.
+- [ ] Your `$HOME/venv` environment is active, and `uv --version` and `agy --version` work; you ran an installer only for a failed check.
+- [ ] The facilitator's Agents CLI Preview / Pre-GA gate passed: the version matches and `agents-cli info` lists the lifecycle skills; otherwise you will use Lab 7.3's manual temperature-tool code and deterministic checks.
+- [ ] When the Agents CLI gate passes, entering `/skills` inside `agy` shows `google-agents-cli-workflow`, `google-agents-cli-adk-code`, and `gcloud`.
 - [ ] You have enabled `developerknowledge.googleapis.com`, which automatically enabled the managed MCP server for this newly created workshop project.
 - [ ] You have generated a restricted API key and safely merged it into `~/.gemini/config/mcp_config.json` without removing unrelated servers.
 - [ ] Before `/mcp`, `stat` reports mode `600` and `python3 -m json.tool` validates the MCP configuration.
@@ -278,6 +339,7 @@ If a command is still missing, re-run its install step (Steps 2–4 are safe to 
 2. Remove the local MCP secret safely:
    - If Lab 7.0 created a new `mcp_config.json` (there is no `.before-lab-7.0` backup), delete that file with `rm ~/.gemini/config/mcp_config.json`.
    - If the file existed before Lab 7.0, open it with `nano`, remove **only** the `google-developer-knowledge` block, and preserve every unrelated server. Then run:
+
    ```bash
    chmod 600 ~/.gemini/config/mcp_config.json
    if python3 -m json.tool ~/.gemini/config/mcp_config.json >/dev/null; then
@@ -296,7 +358,7 @@ Delete the backup only after the cleaned configuration validates. If validation 
 
 You've built a complete, reproducible developer environment! You learned that:
 1. Modern Linux Python installs are **externally managed (PEP 668)** — virtual environments keep your labs conflict-free.
-2. **Antigravity TUI (`agy`)** combines Agent CLI lifecycle skills with broader Google product skills.
+2. **Antigravity TUI (`agy`)** combines Agents CLI lifecycle skills with broader Google product skills.
 3. The **Model Context Protocol (MCP)** allows local and remote servers to expose tools and knowledge directly to AI clients — Google provides a managed documentation corpus via `developerknowledge.googleapis.com/mcp`, securely authenticated in `agy` using the `X-Goog-Api-Key` header.
 
 ➡️ Next: **[Lab 7.2 — The Formula Assistant](./lab-7.2-formula-assistant.md)**, or back to the **[module overview](./README.md)**.

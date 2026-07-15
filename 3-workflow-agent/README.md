@@ -30,7 +30,7 @@ Every answer comes back **grounded with citations** — you can see exactly whic
 
 | Lab | Mission | Time |
 |---|---|---|
-| 🟡 [3.1 — Knowledge Base](./lab-3.1-knowledge-base.md) | Build a company "ask-me-anything" agent grounded in the whole document library — with citations. | ~20 min |
+| 🟡 [3.1 — The Company Brain](./lab-3.1-knowledge-base.md) | Build a company "ask-me-anything" agent grounded in the whole document library — with citations. | ~20 min |
 | 🟡 [3.2 — Meeting Prep Machine](./lab-3.2-meeting-prep-machine.md) | One-click meeting prep: cross-reference several docs into a one-page brief for the AutoParts call. | ~25 min |
 | 🟡 [3.3 — Launch Tracker](./lab-3.3-launch-tracker.md) | Track the SecureSeal EV launch across four docs → a status report with risks. | ~25 min |
 
@@ -42,4 +42,4 @@ Every answer comes back **grounded with citations** — you can see exactly whic
 
 > **Starting here or skipped earlier labs?** Complete **[Lab 0.1](../0-setup/lab-0.1-environment-setup.md)** in your dedicated workshop project. Open the app URL you created, then verify your TechBond bucket and `techbond-docs` data store are visible before starting.
 
-Start with **[Lab 3.1 — Knowledge Base](./lab-3.1-knowledge-base.md)** and work down. By the end you'll have an agent that knows the whole company. 🧠➡️🚀
+Start with **[Lab 3.1 — The Company Brain](./lab-3.1-knowledge-base.md)** and work down. By the end you'll have an agent that knows the whole company. 🧠➡️🚀

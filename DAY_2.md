@@ -32,9 +32,9 @@ Stop and ask the facilitator if the account or project ID is wrong. Do not switc
 | 11:25 | 35 | **Foundations · cloud hands-on** | Everyone starts Lab 8.1 in their dedicated project. Advanced participants choose a Module 9 door. |
 | 12:00 | 60 | 🍽️ **Lunch** | |
 | 13:00 | 20 | **Build · ADK and Antigravity demo** | Show an ADK agent, `adk web`, `agy`, and the adventure game. Explain driver and navigator roles. |
-| 13:20 | 70 | **Build · agents in code** | Choose the Lab 7.1 catch-up taster or start the standard ADK path in pairs. |
+| 13:20 | 70 | **Build · agents in code** | Standard: Labs 7.0 → 7.2. Catch-up: Lab 7.1. |
 | 14:30 | 15 | ☕ **Break** | |
-| 14:45 | 60 | **Build · understand, change, and check** | Inspect the ADK runtime in Lab 7.2.1, add an Antigravity-assisted change, and run Lab 7.3's deterministic tool checks. |
+| 14:45 | 60 | **Build · understand, change, and check** | Standard: Labs 7.2.1 → 7.3. Catch-up: Lab 8.3 Stage A; Stage B only if time, using Lab 8.3's standalone setup. |
 | 15:45 | 50 | **Ship or extend · cloud tools** | Choose deployment, Vision, Document AI, Model Armor, or a Module 9 infrastructure lab. |
 | 16:35 | 25 | **Share-out, cleanup, and next step** | Demo, delete or stop billable resources, and name one real next use case. |
 
@@ -56,11 +56,13 @@ Returning participants use [Lab 1.2](./1-warmup-research/lab-1.2-instant-explain
 
 1. Complete the shared NotebookLM and Agent Designer start above.
 2. **Foundations:** build [Lab 8.1: Cloud Foundations](./8-cloud-toolkit/lab-8.1-cloud-foundations.md) in your assigned project.
-3. **Build:** complete [Lab 7.0: Developer Setup](./7-code-adk/lab-7.0-developer-setup.md), [Lab 7.2: Formula Assistant](./7-code-adk/lab-7.2-formula-assistant.md), and [Lab 7.2.1: ADK Under the Hood](./7-code-adk/lab-7.2.1-adk-under-the-hood.md) in a pair.
-4. **Build:** use [Lab 7.3: Coding with agy](./7-code-adk/lab-7.3-agy-coding-companion.md) to change, inspect, run, and judge the agent.
+3. **Standard route at 13:20:** complete [Lab 7.0: Developer Setup](./7-code-adk/lab-7.0-developer-setup.md), then [Lab 7.2: Formula Assistant](./7-code-adk/lab-7.2-formula-assistant.md), in a pair.
+4. **Standard route at 14:45:** complete [Lab 7.2.1: ADK Under the Hood](./7-code-adk/lab-7.2.1-adk-under-the-hood.md), then use [Lab 7.3: Coding with agy](./7-code-adk/lab-7.3-agy-coding-companion.md) to change, inspect, run, and judge the agent.
 5. **Ship or extend:** pick one lab from the choice path below.
 
-> **Missed the Day 1 taster?** Choose [Lab 7.1: Vibe Coding Taster](./7-code-adk/lab-7.1-vibe-coding-taster.md) as your catch-up route instead of steps 3 and 4.
+> **Catch-up route:** At **13:20**, complete [Lab 7.1: Vibe Coding Taster](./7-code-adk/lab-7.1-vibe-coding-taster.md). At **14:45**, complete [Lab 8.3](./8-cloud-toolkit/lab-8.3-agent-with-eyes.md) **Stage A**. Continue to Stage B only if time, using Lab 8.3's standalone setup. Do not move from the catch-up route into Lab 7.2.1 or Lab 7.3.
+>
+> **Agents CLI Preview fallback on the standard route:** Stay in the 14:45 Lab 7.3 block, but skip `/skills` and the `agy`-assisted edit. Use Lab 7.3's full-route manual temperature-tool code, then run its deterministic checks.
 
 ## Choice path
 
@@ -85,7 +87,8 @@ Returning participants use [Lab 1.2](./1-warmup-research/lab-1.2-instant-explain
 
 - Delete test buckets that no later lab needs.
 - Delete deployed Agent Runtime or Cloud Run resources unless the workshop owner approved retention.
-- Stop or delete Compute Engine VMs and Cloud Workstations.
+- Stop or delete Compute Engine VMs.
+- Delete Cloud Workstations in order: **Workstation → Configuration → Cluster**. Stopping is insufficient because the cluster control plane and storage can keep billing.
 - Run `gcloud config get-value project` once more and confirm that all work stayed in the assigned project.
 - Remember that budget alerts notify you but do not cap spending.
 

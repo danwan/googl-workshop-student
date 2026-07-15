@@ -1,10 +1,12 @@
 # 🔵 Lab 5.1 — The Deep Research Engine
 
-> **Your mission:** Make a pre-built AI agent do a week of analyst work in minutes — use selected sources, plan its own research, and hand you a consulting-grade market report with **real citations**. No building. No connectors. Just one juicy prompt. 🔎📊
+> **Your mission:** Preflight Google Search, then use Deep Research to plan and write a cited market report. If Search is unavailable, take the fixed Lab 1.3 document-research route instead. 🔎📊
 
 | 🏆 Level | ⏱️ Time | 🧰 Builder | 📦 Data you need |
 |---|---|---|---|
-| 🔵 Explore | ~15 min | **Deep Research** (pre-built agent) | Sources you select; Google Search if enabled 🌐 |
+| 🔵 Explore | ~15 min | **Deep Research** (pre-built agent) | **Google Search**; if unavailable, use the fixed Lab 1.3 fallback below 🌐 |
+
+> **🚪 Google Search preflight:** This lab's Deep Research route requires **Google Search** under **Sources**. Check before submitting a prompt. If Google Search is unavailable, do not use substitute facilitator sources and do not continue this lab; follow the explicit **[Lab 1.3 fallback](../1-warmup-research/lab-1.3-research-detective.md)** in Step 2.
 
 ---
 
@@ -22,7 +24,10 @@ Normally you'd hire a consulting firm, wait two weeks, and pay a fortune. 💸 I
 Open your Gemini Enterprise web app. In the navigation / agent gallery, find and open **Deep Research**. That's it — it's already built. You don't create a new agent.
 
 **Step 2 — Choose sources.**
-Click **Sources** and choose what Deep Research should use. For this lab, include **Google Search results** if your app offers that option. If your tenant doesn't have web search enabled, use the sources your facilitator provides or skip this lab.
+Click **Sources** and look for **Google Search**.
+
+- **Google Search is available:** select it, then continue to Step 3.
+- **Google Search is unavailable:** stop this lab and open **[Lab 1.3 — The Research Detective](../1-warmup-research/lab-1.3-research-detective.md)**. Use its four existing PDFs: [Competitor Analysis](../1-warmup-research/Files/Competitor-Analysis-Adhesives-Market.pdf), [Sustainability Report](../1-warmup-research/Files/Sustainability-Report-2025.pdf), [Customer Testimonials](../1-warmup-research/Files/Customer-Testimonials-Collection.pdf), and [TechBond Customer Emails](../1-warmup-research/Files/TechBond-Customer-Emails.pdf). Complete that lab's cited gap/contradiction briefing instead. Then return to the **[Day 1 guide](../DAY_1.md)**; do not follow Lab 1.3's next link to Module 2. Do not improvise replacement sources here.
 
 **Step 3 — Give it a juicy prompt.**
 Deep Research loves a meaty, specific question. Paste this:
@@ -61,13 +66,19 @@ It's a Google-made agent, so look in the navigation / agent gallery of your Gemi
 </details>
 
 <details>
-<summary><strong>Hint 2 — It's taking a while / seems stuck</strong></summary>
+<summary><strong>Hint 2 — Google Search is missing from Sources</strong></summary>
+
+That is the decision point, not an error to work around. Stop the Deep Research route and use **[Lab 1.3](../1-warmup-research/lab-1.3-research-detective.md)** with its four named PDFs. Do not continue with unnamed or improvised sources.
+</details>
+
+<details>
+<summary><strong>Hint 3 — It's taking a while / seems stuck</strong></summary>
 
 Deep Research is *supposed* to be slow-ish. A 1–3 minute wait is normal after you click **Start Research**. If it only answers briefly, your prompt may not have triggered research mode or your selected sources may be too narrow.
 </details>
 
 <details>
-<summary><strong>Hint 3 — A great prompt recipe</strong></summary>
+<summary><strong>Hint 4 — A great prompt recipe</strong></summary>
 
 Deep Research shines when you tell it the **angle**, the **scope**, and ask for **sources**. The recipe:
 > *"Analyze [topic] in [year]: [thing 1], [thing 2], [thing 3], and [the decision you're trying to make]. Include sources."*
@@ -78,23 +89,33 @@ Specific beats vague. "EV battery adhesives market 2026" gets a far better repor
 <details>
 <summary><strong>✅ Show me a full solution</strong></summary>
 
+Choose the route that matches the preflight:
+
+**Google Search available**
 1. Open **Deep Research** from the navigation / gallery.
-2. **Sources** → include Google Search results if available.
+2. **Sources** → confirm and select **Google Search**.
 3. Paste the EV-battery-adhesives prompt → **Submit**.
 4. Review the research plan → **Start Research**.
-5. Read the multi-section report; click a couple of **citation** links to confirm they're real.
-6. Ask the follow-up about competitor weaknesses → get a sharper, re-researched answer.
+5. Read the multi-section report; open a couple of **citation** links.
+6. Ask the follow-up about competitor weaknesses and review the refined answer.
 
-**That's a consulting-grade, cited market report — produced in minutes, by an agent you didn't build.** 🏆
+**Google Search unavailable**
+1. Stop the Deep Research route and open **[Lab 1.3](../1-warmup-research/lab-1.3-research-detective.md)**.
+2. Upload its four named PDFs from `1-warmup-research/Files/`.
+3. Complete the cited gap/contradiction prompts and Briefing doc in that lab.
+4. Return to the **[Day 1 guide](../DAY_1.md)** instead of following Lab 1.3's Module 2 next link.
+
+**Either route ends with claims you can inspect against named sources.** 🏆
 </details>
 
 ---
 
 ## ✅ You did it when…
 
-- [ ] You selected sources and reviewed the research plan before starting.
-- [ ] You got a **multi-section report with clickable citations** you could open.
-- [ ] Your **follow-up question** made it research again and refine the answer.
+Complete exactly one route:
+
+- [ ] **Google Search route:** the preflight confirmed Google Search, you reviewed the plan, opened citations in the multi-section report, and asked the follow-up.
+- [ ] **Fallback route:** Google Search was unavailable, so you used Lab 1.3's four named PDFs and produced its cited gap/contradiction briefing instead of continuing Deep Research with substitute sources.
 
 ---
 
@@ -111,8 +132,8 @@ Notice how the report's *structure* changes to fit the question. That's the agen
 
 ## 🧠 What you just learned
 
-You commanded a **pre-built power agent** — no building, no prompt engineering, no connectors — to do real, web-grounded research and write a **cited** report. The real-world skill: when you need facts you can *trust and verify*, reach for Deep Research instead of guessing or hand-googling for an hour.
+When Google Search was available, you commanded a **pre-built power agent** to do web-grounded research and write a **cited** report. When it was unavailable, you took a deterministic document-research route instead of pretending substitute sources were equivalent. The real-world skill is the same: inspect the evidence before trusting a claim.
 
-> ✋ This agent uses the **public web**, not TechBond's private files. To research *your own* documents, that's what the agents you built in Modules 2–4 are for. Different tools, different jobs.
+> ✋ The Deep Research route uses the **public web**. The Lab 1.3 fallback uses the four named workshop PDFs. To research *your own* documents, use the grounded agents from Modules 2–4.
 
 ➡️ **Next up:** [Lab 5.2 — The Idea Machine](./lab-5.2-idea-generator.md), where a pre-built agent becomes your tireless brainstorming partner. 💡

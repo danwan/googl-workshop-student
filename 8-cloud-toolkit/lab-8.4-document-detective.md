@@ -72,6 +72,7 @@ Online (synchronous) testing is for **small** documents — try a short PDF or t
 2. **Document AI → Processors → Create processor → Document OCR** → name it, pick region `eu`/`us` → **Create**.
 3. On the processor page → **upload** `BondMax-500-Technical-Data-Sheet.pdf` → **Process**.
 4. Inspect the **extracted text** and toggle the **JSON** output to see the structured Document object.
+5. Return to **Document AI → Processors**, delete the workshop processor you created, and delete the optional Form Parser too if you created one.
 
 **Done — one messy PDF, now structured data you could feed straight into an agent.** 📄→🧱
 </details>
@@ -90,6 +91,8 @@ Online (synchronous) testing is for **small** documents — try a short PDF or t
 ## ✨ Level-up challenge — extract fields, not just text
 
 Create a second processor of type **Form Parser** and run the same document through it. Instead of plain text, you'll get **key–value pairs** (field name → value) and **tables** pulled out automatically. That's the leap from *"the text of the document"* to *"the data in the document"* — exactly what you'd load into a spreadsheet or database for an agent to query. 📊
+
+After you inspect the Form Parser result, return to **Document AI → Processors**, delete that optional processor immediately, and confirm the deletion.
 
 ---
 

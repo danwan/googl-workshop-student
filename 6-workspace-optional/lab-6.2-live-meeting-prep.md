@@ -123,4 +123,4 @@ Add a **Send email** action too, and end the flow with: *"Email the one-page bri
 
 You wired a **multi-step agent** to **three live Workspace sources** and gave it a **real action** — the full picture of an agent that gathers, reasons, and *does.* This is the real-world skill of **orchestration**: many sources in, one clear outcome out. Same ideas as Labs 3.2 + 4.2 — now live, and it books the meeting for you.
 
-➡️ **Back to base:** [Module 6 overview](./README.md) — or revisit any agent you built and imagine it running on your real data. 🎉
+➡️ **Back to base:** return to the [student workshop guide](../README.md) — or revisit any agent you built and imagine it running on your real data. 🎉

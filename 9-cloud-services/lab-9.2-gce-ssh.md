@@ -36,8 +36,8 @@ We need an **e2-standard-2** instance, which provides exactly **2 vCPUs and 8 GB
 1. Click **Create Instance** at the top of the VM instances screen.
 2. Configure the following details:
    - **Name:** `techbond-agent-host-jd` — replace `jd` with your initials.
-   - **Region:** `europe-west4` (or your preferred region)
-   - **Zone:** `europe-west4-a` (or any zone)
+   - **Region:** `europe-west4`
+   - **Zone:** `europe-west4-a`
    - **Machine configuration:** Choose **General-purpose** -> **E2**.
    - **Machine type:** Select **e2-standard-2** (2 vCPU, 8 GB memory).
 3. Scroll down to **Boot disk** and click **Change**:
@@ -45,7 +45,8 @@ We need an **e2-standard-2** instance, which provides exactly **2 vCPUs and 8 GB
    - **Version:** Select **Ubuntu 22.04 LTS** (or Ubuntu 24.04 LTS).
    - **Boot disk type:** Balanced persistent disk (default 10 GB is fine).
    - Click **Select** to confirm.
-4. Keep other settings at their defaults and click **Create** at the bottom.
+4. Under **Identity and API access**, choose **No service account** and **No access scopes**.
+5. Keep other settings at their defaults and click **Create** at the bottom.
 
 > ⏱️ **Wait for the green checkmark:** GCE will configure and boot your Ubuntu server in about 30 to 60 seconds!
 
@@ -115,22 +116,34 @@ Browser pop-up blockers can sometimes prevent the SSH window from opening. Ensur
 <details>
 <summary><strong>✅ Show me the gcloud CLI equivalent (No-GUI path)</strong></summary>
 
-If you prefer using **Cloud Shell** (or your local terminal with `gcloud` initialized), you can accomplish this entire lab in two terminal commands:
+If you prefer using **Cloud Shell** (or your local terminal with `gcloud` initialized), run the route below in one subshell. Replace both placeholders first; `EXPECTED_PROJECT_ID` must be the exact project ID assigned to you for the workshop.
 
-1. Create the e2-standard-2 VM running Ubuntu (replace the suffix):
 ```bash
+(
+PROJECT_ID="$(gcloud config get-value project 2>/dev/null)"
+EXPECTED_PROJECT_ID="your-assigned-workshop-project-id"
 VM_NAME="techbond-agent-host-your-initials"
+
+if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" = "(unset)" ] \
+  || [ "$PROJECT_ID" != "$EXPECTED_PROJECT_ID" ]; then
+  printf 'STOP: active project does not match your workshop assignment.\n' >&2
+  exit 1
+fi
+
 gcloud compute instances create "$VM_NAME" \
-    --project=$GOOGLE_CLOUD_PROJECT \
+    --project="$PROJECT_ID" \
     --zone=europe-west4-a \
     --machine-type=e2-standard-2 \
     --image-project=ubuntu-os-cloud \
-    --image-family=ubuntu-2204-lts
-```
+    --image-family=ubuntu-2204-lts \
+    --no-service-account \
+    --no-scopes \
+  || { printf 'STOP: VM creation failed; not connecting via SSH.\n' >&2; exit 1; }
 
-2. SSH directly into the instance from your shell:
-```bash
-gcloud compute ssh "$VM_NAME" --zone=europe-west4-a
+gcloud compute ssh "$VM_NAME" \
+    --project="$PROJECT_ID" \
+    --zone=europe-west4-a
+)
 ```
 </details>
 

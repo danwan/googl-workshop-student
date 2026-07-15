@@ -6,15 +6,17 @@
  * Two ways to use it:
  *   STUDENT (self-service, Lab 6.0): leave PARTICIPANTS empty. The events are
  *     created on YOUR calendar only. No invites are sent to anyone.
- *   FACILITATOR (bulk seeding): list the participant emails in PARTICIPANTS.
- *     Every event is created with them as guests, so it lands on all their
- *     calendars via invites.
+ *   FACILITATOR (bulk seeding): after pasting this script into Apps Script,
+ *     list participant emails in PARTICIPANTS in that browser-side copy only.
+ *     Never add real addresses to this repository file. Every event is then
+ *     created with them as guests, so it lands on their calendars via invites.
  *
  * SETUP:
  * 1. Go to script.google.com
  * 2. Create new project
  * 3. Paste this entire script
- * 4. (Facilitators only) fill in PARTICIPANTS; optionally set WORKSHOP_MONDAY_OVERRIDE
+ * 4. (Facilitators only) fill PARTICIPANTS in the Apps Script copy; optionally
+ *    set WORKSHOP_MONDAY_OVERRIDE
  * 5. Run > createAllEvents
  * 6. Authorize when prompted
  * 7. Check Execution Log for progress
@@ -32,6 +34,9 @@ const WORKSHOP_MONDAY_OVERRIDE = null;
 // FACILITATORS: list participant emails here to invite everyone to the events.
 // STUDENTS: leave this empty — the events go on your own calendar only.
 const PARTICIPANTS = [];
+
+const WORKSHOP_EVENT_TAG_KEY = 'techbond-agent-academy';
+const WORKSHOP_EVENT_TAG_VALUE = 'calendar-seed-v1';
 
 const WORKSHOP_MONDAY = WORKSHOP_MONDAY_OVERRIDE || mondayOfCurrentWeek();
 
@@ -484,6 +489,62 @@ function createDateTime(date, timeStr) {
   return dateTime;
 }
 
+function testEventStartTime() {
+  const testDate = new Date();
+  testDate.setDate(testDate.getDate() + 1); // Tomorrow
+  testDate.setHours(10, 0, 0, 0);
+  return testDate;
+}
+
+function createTaggedEvent(calendar, title, startTime, endTime, options) {
+  // Create without invites first: tagging must succeed before anyone is
+  // notified, because a later deleteEvent() cannot retract invite emails.
+  const createOptions = {};
+  Object.keys(options || {}).forEach(key => {
+    if (key !== 'guests' && key !== 'sendInvites') {
+      createOptions[key] = options[key];
+    }
+  });
+
+  const event = calendar.createEvent(title, startTime, endTime, createOptions);
+  try {
+    event.setTag(WORKSHOP_EVENT_TAG_KEY, WORKSHOP_EVENT_TAG_VALUE);
+  } catch (error) {
+    // Catch cleanup separately so the original tagging failure is preserved.
+    try {
+      event.deleteEvent();
+    } catch (cleanupError) {
+      Logger.log('    ⚠ Rollback failed — delete "' + title + '" manually: ' + cleanupError.message);
+    }
+    throw error;
+  }
+
+  if (options && options.guests) {
+    addGuestsAfterTagging(event, options.guests, Boolean(options.sendInvites));
+  }
+  return event;
+}
+
+/**
+ * Add guests only after the workshop tag is in place. Plain addGuest() does
+ * not email invitations, so when invites were requested, send them through
+ * the Advanced Calendar service (enable "Google Calendar API" under
+ * Services) — the only Apps Script path that notifies existing-event guests.
+ */
+function addGuestsAfterTagging(event, guests, sendInvites) {
+  guests.split(',').forEach(guest => {
+    const address = guest.trim();
+    if (address) event.addGuest(address);
+  });
+  if (!sendInvites) return;
+  if (typeof Calendar !== 'undefined' && Calendar.Events) {
+    const eventId = event.getId().split('@')[0];
+    Calendar.Events.patch({}, 'primary', eventId, { sendUpdates: 'all' });
+  } else {
+    Logger.log('    ⚠ Advanced Calendar service unavailable — guests were added but not emailed. Enable the "Google Calendar API" service and rerun, or notify participants manually.');
+  }
+}
+
 // ============================================================
 // MAIN FUNCTION - Run this to create all events
 // ============================================================
@@ -524,7 +585,7 @@ function createAllEvents() {
         options.guests = PARTICIPANTS.join(',');
         options.sendInvites = true;
       }
-      const calendarEvent = calendar.createEvent(event.title, startTime, endTime, options);
+      const calendarEvent = createTaggedEvent(calendar, event.title, startTime, endTime, options);
 
       Logger.log('    ✓ Created successfully (ID: ' + calendarEvent.getId() + ')');
       successCount++;
@@ -558,21 +619,31 @@ function createAllEvents() {
 
 /**
  * Delete all events created by this script (use with caution!)
- * Searches for events with matching titles in the date range
+ * Searches a stable one-year window either side of today, plus the current
+ * schedule, so tagged events from earlier runs are still found even if
+ * WORKSHOP_MONDAY_OVERRIDE changed between runs.
  */
 function deleteAllWorkshopEvents() {
   const calendar = CalendarApp.getDefaultCalendar();
-  const startDate = new Date(WORKSHOP_MONDAY);
-  const endDate = new Date(WORKSHOP_MONDAY);
-  endDate.setDate(endDate.getDate() + 28); // covers 'this', 'next', and lastThursday events
+  const eventDates = EVENTS.map(calculateEventDate);
+  eventDates.push(testEventStartTime());
+  const yearBefore = new Date();
+  yearBefore.setDate(yearBefore.getDate() - 366);
+  const yearAfter = new Date();
+  yearAfter.setDate(yearAfter.getDate() + 366);
+  eventDates.push(yearBefore, yearAfter);
+  const startDate = new Date(Math.min(...eventDates));
+  const endDate = new Date(Math.max(...eventDates));
+  startDate.setHours(0, 0, 0, 0);
+  endDate.setDate(endDate.getDate() + 1);
+  endDate.setHours(0, 0, 0, 0);
 
   const events = calendar.getEvents(startDate, endDate);
-  const eventTitles = EVENTS.map(e => e.title);
 
   let deleteCount = 0;
 
   events.forEach(event => {
-    if (eventTitles.includes(event.getTitle())) {
+    if (event.getTag(WORKSHOP_EVENT_TAG_KEY) === WORKSHOP_EVENT_TAG_VALUE) {
       Logger.log('Deleting: ' + event.getTitle() + ' on ' + event.getStartTime().toDateString());
       event.deleteEvent();
       deleteCount++;
@@ -588,9 +659,7 @@ function deleteAllWorkshopEvents() {
  */
 function testCreateOneEvent() {
   const calendar = CalendarApp.getDefaultCalendar();
-  const testDate = new Date();
-  testDate.setDate(testDate.getDate() + 1); // Tomorrow
-  testDate.setHours(10, 0, 0, 0);
+  const testDate = testEventStartTime();
 
   const endDate = new Date(testDate);
   endDate.setHours(10, 30, 0, 0);
@@ -602,7 +671,8 @@ function testCreateOneEvent() {
     options.guests = PARTICIPANTS[0]; // Just first participant
     options.sendInvites = false;
   }
-  const event = calendar.createEvent(
+  const event = createTaggedEvent(
+    calendar,
     'TEST - Workshop Script Verification',
     testDate,
     endDate,

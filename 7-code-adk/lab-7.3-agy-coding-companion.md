@@ -9,8 +9,8 @@
 > **Starting here or skipped earlier labs?** Complete **[Lab 7.0 — Developer Setup](./lab-7.0-developer-setup.md)** first. If you already built `formula/` in Lab 7.2, reuse it and continue with Step 1. Otherwise run this one-time bootstrap from your home directory, then continue with Step 1:
 >
 > ```bash
-> cd ~
-> source venv/bin/activate
+> cd "$HOME"
+> source "$HOME/venv/bin/activate"
 > pip install google-adk
 > gcloud auth application-default login
 > PROJECT_ID="$(gcloud config get-value project)"
@@ -37,6 +37,8 @@
 > PY
 > ```
 
+> ⚠️ **Agents CLI Preview fallback:** If the Lab 7.0 gate failed or `google-agents-cli-adk-code` is absent, stay in this lab. Run only the `cd` and `source` commands in Step 1, skip launching `agy` and skip `/skills`, then copy the complete manual temperature-tool code from Step 3 into `formula/agent.py`. Continue with Steps 4 and 5, including the deterministic checks.
+
 ---
 
 ## 🎬 The story
@@ -54,8 +56,8 @@ You installed `agy` in [Lab 7.0 — Developer Setup](./lab-7.0-developer-setup.m
 
 ```bash
 # 1. Activate your virtual environment
-cd ~
-source venv/bin/activate  # or source .venv/bin/activate if using uv
+cd "$HOME"
+source "$HOME/venv/bin/activate"
 
 # 2. Launch the Antigravity CLI from the parent directory of formula/
 agy
@@ -161,17 +163,28 @@ If an assertion fails, inspect `formula/agent.py`, correct the smallest calculat
 <details>
 <summary><strong>Hint 1 — agy command not found</strong></summary>
 
-The `agy` CLI is part of your Antigravity environment. Ensure it is in your path. If it is missing, download and inspect the official installer:
+The `agy` CLI is part of your Antigravity environment. Check it before installing:
+
+```bash
+agy --version
+```
+
+If that check fails, download and inspect the official installer:
+
 ```bash
 curl --max-time 10 -fsSL https://antigravity.google/cli/install.sh -o install-agy.sh
 less install-agy.sh
 ```
+
 Read the installer and press `q` after you reach the end. If you cannot assess what it will do, stop and ask the facilitator to review it with you. Then run the reviewed local file:
+
 ```bash
 bash install-agy.sh
 rm install-agy.sh
 source "$HOME/.local/bin/env"
+agy --version
 ```
+
 </details>
 
 <details>
@@ -184,8 +197,8 @@ If `agy` only outputs the code in the chat but doesn't write it, you can ask it:
 <summary><strong>✅ Show me the full route</strong></summary>
 
 1. If you did not complete Lab 7.2, run the one-time `formula/` bootstrap above. Otherwise reuse that project.
-2. Run `cd ~`, activate `venv` (or `.venv` if using `uv`), and start `agy` from the directory above `formula/`.
-3. In `agy`, run `/skills`, verify `google-agents-cli-adk-code`, and paste the Step 2 prompt to add and register `convert_temperature` while preserving `convert_viscosity`.
+2. On the regular route, run `cd "$HOME"`, activate `$HOME/venv/bin/activate`, and start `agy` from the directory above `formula/`. On the Preview fallback, run only `cd` and `source`, skip `agy` and `/skills`, and manually copy the complete Step 3 temperature-tool code into `formula/agent.py`.
+3. On the regular route, run `/skills`, verify `google-agents-cli-adk-code`, and paste the Step 2 prompt to add and register `convert_temperature` while preserving `convert_viscosity`.
 4. Exit with `Ctrl+D` twice or `/exit`, then run `cat formula/agent.py` and compare it with the Step 3 example.
 5. Run `adk run formula` and test both prompts from Step 4, then run the Step 5 Python assertions and require the `PASS` message.
 </details>
@@ -194,9 +207,9 @@ If `agy` only outputs the code in the chat but doesn't write it, you can ask it:
 
 ## ✅ You did it when…
 
-- [ ] You launched the `agy` CLI and successfully chatted with it in the terminal.
-- [ ] You opened `/skills` and verified that `google-agents-cli-adk-code` is available.
-- [ ] `agy` wrote the `convert_temperature` tool and registered it to your `Agent`.
+- [ ] You used the regular `agy` route, or followed the named Preview fallback without leaving Lab 7.3.
+- [ ] On the regular route, `/skills` showed `google-agents-cli-adk-code`.
+- [ ] `agy` wrote the `convert_temperature` tool, or you copied the complete Step 3 code manually, and the tool is registered to your `Agent`.
 - [ ] You ran `adk run formula` and verified both viscosity and temperature conversions work.
 - [ ] The deterministic Python checks printed `PASS`.
 

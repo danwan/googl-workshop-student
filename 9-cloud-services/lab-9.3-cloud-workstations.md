@@ -36,7 +36,7 @@ Before launching workstations, you need a **Workstation Cluster** (which coordin
 2. Click **Create Workstation Cluster** at the top.
 3. Configure the cluster:
    - **Name:** `techbond-dev-cluster-jd` — replace `jd` with your initials.
-   - **Region:** `europe-west4` (or your nearest region)
+   - **Region:** `europe-west4`
    - **Network settings:** Keep **default** (it will auto-detect your project's default VPC network and subnets).
 4. Click **Create**.
 > ⏱️ **Wait:** Refresh until the cluster status is **Active** before creating the configuration. Initial provisioning can take several minutes.
@@ -49,17 +49,14 @@ A **Workstation Configuration** acts as the blueprint/template for your workspac
 
 1. Click **Workstation configurations** in the left menu.
 2. Click **Create Workstation Configuration** at the top.
-3. Configure the template details:
+3. Configure the basics:
    - **Configuration name:** `ubuntu-vscode-jd` — replace `jd` with your initials.
-   - **Workstation cluster:** Select your participant-suffixed cluster.
-   - Click **Next**.
-4. Configure hardware:
-   - **Machine type:** Choose a cost-effective type, like **e2-standard-2** (2 vCPU, 8 GB RAM) or **e2-medium** (1 vCPU, 4 GB RAM).
-   - Click **Next**.
-5. Configure environment/software (This is where we set up **Ubuntu + VS Code**):
-   - **Environment:** Choose **Code OSS (VS Code compatible)** from the pre-configured base images (this is an Ubuntu-based image optimized for remote web development).
-   - Click **Next**.
-6. Keep default storage/security options and click **Create**.
+   - **Region:** Select the region containing your participant-suffixed cluster.
+   - **Clusters:** Select your participant-suffixed cluster, then click **Continue**.
+   - **Machine preset:** Select **Moderate**.
+   - **Quick start workstations:** Select **Disabled** for lower cost.
+   - **Code editors:** Select **Cloud Workstations Base Editor (Code OSS for Cloud Workstations)**.
+4. Keep the defaults on the remaining pages and click **Create**.
 
 ---
 
@@ -73,16 +70,15 @@ Now we create a real, live workstation instance using our configuration.
    - **Workstation name:** `dev-box-jd` — replace `jd` with your initials.
    - **Configuration:** Select your participant-suffixed configuration.
 4. Click **Create**.
-5. Once your workstation is created, click the **Start** button to boot it up.
-6. Once it transitions to the **Running** state, click **Launch** (or the web link).
+5. Once your workstation is created, click **Launch**. If it is stopped, **Launch** starts it and connects when it is ready.
 
-> 🎉 **Boom!** A full VS Code editor running inside a secure Ubuntu container is now displayed in your browser tab. You can open a terminal inside VS Code, install extensions, and start writing agentic code!
+> 🎉 **Boom!** The **Cloud Workstations Base Editor** is now displayed in your browser tab. You can open a terminal, install extensions, and start writing agentic code!
 
 ### Step 5 — Continue to Lab 9.4 or delete resources
 
 Choose one path:
 
-1. **Continue to Lab 9.4:** Keep the workstation running, open **Terminal → New Terminal** in Code OSS, and continue with [Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md).
+1. **Continue to Lab 9.4:** Keep the workstation running, open **Terminal → New Terminal** in the Cloud Workstations Base Editor, and continue with [Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md). Keep Lab 9.4's runtime executable/version checks because the preconfigured image can change over time.
 2. **Stop here:** Delete **your workstation first**, then **your workstation configuration**, then **your workstation cluster** in the Cloud Workstations Console. Wait for each deletion to finish before deleting its parent.
 
 Disabling the API does not delete these billable resources. Do not leave the workstation running after your final lab.
@@ -125,7 +121,9 @@ gcloud workstations clusters describe "$CLUSTER" --region=europe-west4
 gcloud workstations configs create "$CONFIG" \
     --cluster="$CLUSTER" \
     --region=europe-west4 \
-    --machine-type=e2-standard-2
+    --machine-type=e2-standard-2 \
+    --pool-size=0 \
+    --container-predefined-image=codeoss
 
 # 3. Create the Workstation
 gcloud workstations create "$WORKSTATION" \
@@ -139,6 +137,8 @@ gcloud workstations start "$WORKSTATION" \
     --config="$CONFIG" \
     --region=europe-west4
 ```
+
+After the start command succeeds, return to **Cloud Workstations → Workstations** in the Console and click **Launch** for your participant-suffixed workstation. The Cloud Workstations Base Editor opens in your browser.
 </details>
 
 ---
@@ -146,15 +146,15 @@ gcloud workstations start "$WORKSTATION" \
 ## ✅ You did it when…
 
 - [ ] Your participant-suffixed cluster reached **Active** before you created the configuration.
-- [ ] You have configured a workstation profile using the prebuilt **Code OSS** image.
-- [ ] You started your participant-suffixed workstation and launched web VS Code.
+- [ ] **GUI route:** you selected the **Moderate** machine preset, disabled **Quick start workstations**, and chose **Cloud Workstations Base Editor (Code OSS for Cloud Workstations)**; or **CLI route:** your config command used `--pool-size=0` and `--container-predefined-image=codeoss`.
+- [ ] On either route, you returned to the **Workstations** page, clicked **Launch**, and the editor opened in your browser.
 - [ ] You continued directly to Lab 9.4 in the running workstation, or deleted workstation, configuration, and cluster if you stopped here.
 
 ---
 
 ## 🧠 What you just learned
 
-You've built a secure, consistent cloud development workplace with **Cloud Workstations**. You learned how to provision workstation clusters, define container blueprints using pre-configured **Code-OSS** images, and start web-accessible VS Code workspaces. Every team member can now have the exact same environment with zero configuration drift! 🧑‍💻☁️
+You've built a secure, consistent cloud development workplace with **Cloud Workstations**. You learned how to provision workstation clusters, define container blueprints using the preconfigured **Cloud Workstations Base Editor**, and launch browser-based workspaces. Every team member can now have the exact same environment with zero configuration drift! 🧑‍💻☁️
 
 ➡️ **Continue in this workstation:** [Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md).
 

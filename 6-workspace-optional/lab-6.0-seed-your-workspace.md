@@ -1,6 +1,6 @@
 # 🟣 Lab 6.0 — Seed Your Own Workspace
 
-> **Your mission:** Fill your own Gmail and Google Calendar with realistic TechBond data — a full inbox of 30 business emails and a packed two-week calendar — by running two small Google Apps Scripts yourself. About 20 minutes.
+> **Your mission:** Fill your own Gmail and Google Calendar with realistic TechBond data — **one test email + 30 TechBond emails** and **one test meeting + 15 TechBond meetings** — by running two small Google Apps Scripts yourself. About 20 minutes.
 
 | 🏆 Level | ⏱️ Time | 🧰 Builder | 📦 Data you need |
 |---|---|---|---|
@@ -25,13 +25,15 @@ Time to fix that. You're going to use **Google Apps Script** — a free scriptin
 ## 🛠️ Build it (step by step)
 
 ### Step 1 — Open Google Apps Script
+
 1. Go to **[script.google.com](https://script.google.com)** (signed in with your workshop account).
 2. Click **+ New project**.
 3. Click the project name (*Untitled project*) and rename it to `TechBond Inbox Seeder`.
 
 ---
 
-### Step 2 — Seed your inbox (30 TechBond emails) 📥
+### Step 2 — Seed your inbox (one test + 30 TechBond emails) 📥
+
 1. Open **`Files/email_seeder_script.js`** from this module's folder and copy the **entire** contents.
 2. Back in Apps Script, delete the placeholder `function myFunction() {...}` and **paste the script**.
 3. Click **💾 Save**.
@@ -41,7 +43,7 @@ Time to fix that. You're going to use **Google Apps Script** — a free scriptin
    * You may see a *"Google hasn't verified this app"* warning — that's expected for your own personal scripts. Click **Advanced → Go to TechBond Inbox Seeder (unsafe)**.
    * Note what it asks for: permission to **send email as you**. This is OAuth — the same consent flow every Google integration (including your agents' connectors!) uses.
 6. Check your inbox — you should have a test email from yourself. ✅
-7. Now select **`sendAllEmails`** in the dropdown and click **▶ Run**. Watch the **Execution log** count up as all 30 emails arrive.
+7. Now select **`sendAllEmails`** in the dropdown and click **▶ Run**. Watch the **Execution log** count up as all 30 TechBond emails arrive in addition to the test email.
 
 > ⏱️ The full send takes ~1 minute. Open **[gmail.com](https://gmail.com)** and enjoy your suddenly very busy TechBond inbox.
 >
@@ -49,12 +51,13 @@ Time to fix that. You're going to use **Google Apps Script** — a free scriptin
 
 ---
 
-### Step 3 — Seed your calendar (15 meetings) 📅
+### Step 3 — Seed your calendar (one test + 15 TechBond meetings) 📅
+
 1. Back at [script.google.com](https://script.google.com), create a second **+ New project** and name it `TechBond Calendar Seeder`.
 2. Copy the entire contents of **`Files/calendar_script.js`** and paste it in. **Leave `PARTICIPANTS` empty** — that's student mode: events land on *your* calendar only, and nobody gets invited.
 3. Click **💾 Save**, select **`testCreateOneEvent`**, click **▶ Run**, and authorize (this time the scope is your **calendar**).
 4. Check tomorrow at 10:00 on [calendar.google.com](https://calendar.google.com) for the test event. ✅
-5. Select **`createAllEvents`** and click **▶ Run**. The script creates 15 TechBond meetings across this week and next — standups, customer calls, a QBR, lab visits, the works.
+5. Select **`createAllEvents`** and click **▶ Run**. In addition to the test event, the script creates 15 TechBond meetings across this week and next — standups, customer calls, a QBR, lab visits, the works.
 
 > 🧹 **Undo button:** made a mess? Run `deleteAllWorkshopEvents` to remove every event the script created.
 
@@ -72,19 +75,20 @@ Make sure you replaced the entire placeholder with the full script from the modu
 <summary><strong>✅ Show me the full solution route</strong></summary>
 
 1. Create `TechBond Inbox Seeder`, paste the complete `email_seeder_script.js`, and save.
-2. Run `testSendOneEmail`, approve only the requested Gmail permission, and confirm the test message arrives.
-3. Run `sendAllEmails` and wait for the Execution log to finish.
+2. Run `testSendOneEmail`, approve only the requested Gmail permission, and confirm the **one test email** arrives.
+3. Run `sendAllEmails` and wait for the Execution log to confirm **30 TechBond emails** were sent in addition to the test.
 4. Create `TechBond Calendar Seeder`, paste the complete `calendar_script.js`, keep `PARTICIPANTS` empty, and save.
-5. Run `testCreateOneEvent`, approve the Calendar permission, and confirm tomorrow's test event appears.
-6. Run `createAllEvents`. Use the two `deleteAllWorkshop...` functions only if you want to remove the seeded data.
+5. Run `testCreateOneEvent`, approve the Calendar permission, and confirm the **one test meeting** appears tomorrow.
+6. Run `createAllEvents` and confirm **15 TechBond meetings** were created in addition to the test. Use the two `deleteAllWorkshop...` functions only if you want to remove the seeded data.
 </details>
 
 ---
 
 ## ✅ You did it when...
-- Your Gmail inbox shows **30 TechBond emails** (search for `BondMax` or `SecureSeal`).
-- The seeded messages carry the Gmail label **`TechBond-Workshop-Seed`**, and `deleteAllWorkshopEmails` is available if you want to remove them.
-- Your calendar shows a **full two weeks of TechBond meetings** starting this Monday.
+
+- Your Gmail inbox shows **one test email + 30 TechBond emails** (search for `BondMax` or `SecureSeal`).
+- All 31 seeded messages carry the Gmail label **`TechBond-Workshop-Seed`**, and `deleteAllWorkshopEmails` is available if you want to remove them.
+- Your calendar shows **one test meeting + 15 TechBond meetings** across this week and next.
 - Bonus: you can explain what an **OAuth consent screen** is — you just clicked through two of them, once for Gmail scope and once for Calendar scope.
 
 ---

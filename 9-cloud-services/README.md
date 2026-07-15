@@ -20,7 +20,7 @@
 | **[Lab 9.1 — Cloud Shell, agy & Storage](./lab-9.1-cloud-shell-agy-storage.md)** | 🟢 Foundations · start here | Generate **5 TXT reports**, create a Cloud Storage bucket, and upload the reports. |
 | **[Lab 9.2 — Compute Engine with Ubuntu](./lab-9.2-gce-ssh.md)** | 🟡 Intermediate · choose one | Create an **e2-standard-2 (8 GB RAM)** Compute Engine VM running **Ubuntu** and connect through **SSH**. |
 | **[Lab 9.3 — Cloud Workstations](./lab-9.3-cloud-workstations.md)** | 🔴 Advanced · choose one | Provision a **Cloud Workstations** cluster, configuration, and **Ubuntu workstation** with web Code OSS. |
-| **[Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md)** | 🔴 Advanced · optional | In the running Ubuntu environment from Lab 9.2 or 9.3, install and verify `agy`, Agent CLI skills, and grounded Google Developer Knowledge. |
+| **[Lab 9.4 — agy on Managed Linux](./lab-9.4-agy-managed-linux.md)** | 🔴 Advanced · optional | In the running Ubuntu environment from Lab 9.2 or 9.3, install and verify `agy`, Agents CLI lifecycle skills, and grounded Google Developer Knowledge. |
 
 ## Why it's here
 

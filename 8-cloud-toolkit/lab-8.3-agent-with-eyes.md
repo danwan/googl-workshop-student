@@ -42,7 +42,88 @@ The **Cloud Vision API** is a pre-trained model that *sees*: hand it an image an
 
 **Step 3 — Execute.** Tick the **Google OAuth 2.0** credential box, click **Execute**, approve the prompt. You'll get back a list of **labels** with confidence scores — `Cat`, `Whiskers`, `Mammal`… The model *saw* the picture. 🐱
 
-> 🔁 **Use your own image:** upload a photo to your bucket from Lab 8.1, make it readable, and swap the `imageUri` for `gs://YOUR_BUCKET/your-image.jpg`. Try a photo of a product or a label.
+<details>
+<summary><strong>🔁 Optional — use your own image</strong></summary>
+
+Use a dedicated Vision-lab bucket rather than the bucket deleted in Lab 8.1. In Cloud Shell, replace all four placeholders, then run:
+
+```bash
+EXPECTED_PROJECT_ID="your-assigned-workshop-project-id"
+VISION_LOCATION="europe-west4"
+PARTICIPANT_SUFFIX="your-initials"
+IMAGE_FILE="path/to/your-image.jpg"
+
+PROJECT_ID="$(gcloud config get-value project 2>/dev/null)"
+PROJECT_NUMBER="$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)' 2>/dev/null)"
+VISION_BUCKET="techbond-vision-${PROJECT_ID}-${PARTICIPANT_SUFFIX}"
+VISION_BUCKET_CREATED=false
+vision_bucket_ready=false
+
+if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" = "(unset)" ] \
+  || [ "$PROJECT_ID" != "$EXPECTED_PROJECT_ID" ]; then
+  printf 'STOP: active project does not match your workshop assignment.\n' >&2
+elif [ "$VISION_LOCATION" != "europe-west4" ]; then
+  printf 'STOP: use the workshop location europe-west4.\n' >&2
+elif [ -z "$PROJECT_NUMBER" ]; then
+  printf 'STOP: could not determine the active project number.\n' >&2
+elif ! test -s "$IMAGE_FILE"; then
+  printf 'STOP: image file is missing or empty: %s\n' "$IMAGE_FILE" >&2
+else
+  bucket_metadata="$(gcloud storage buckets describe "gs://${VISION_BUCKET}" \
+    --format='value(projectNumber,location)' 2>/dev/null)"
+  if [ -n "$bucket_metadata" ]; then
+    IFS=$'\t' read -r bucket_project_number bucket_location <<< "$bucket_metadata"
+    if [ -z "$bucket_project_number" ] || [ -z "$bucket_location" ]; then
+      printf 'STOP: existing bucket metadata is incomplete.\n' >&2
+    elif [ "$bucket_project_number" != "$PROJECT_NUMBER" ]; then
+      printf 'STOP: existing bucket belongs to a different project.\n' >&2
+    elif [ "${bucket_location,,}" = "${VISION_LOCATION,,}" ]; then
+      vision_bucket_ready=true
+    else
+      printf 'STOP: existing bucket is in %s, not %s.\n' "$bucket_location" "$VISION_LOCATION" >&2
+    fi
+  elif gcloud storage buckets create "gs://${VISION_BUCKET}" \
+    --project="$PROJECT_ID" --location="$VISION_LOCATION"; then
+    VISION_BUCKET_CREATED=true
+    vision_bucket_ready=true
+  else
+    printf 'STOP: could not create the dedicated Vision bucket.\n' >&2
+  fi
+
+  if "$vision_bucket_ready"; then
+    VISION_OBJECT_URI="gs://${VISION_BUCKET}/vision-own-image-${PARTICIPANT_SUFFIX}-$(date +%s).jpg"
+    if gcloud storage cp "$IMAGE_FILE" "$VISION_OBJECT_URI"; then
+      export VISION_OBJECT_URI VISION_BUCKET VISION_BUCKET_CREATED
+      printf 'Use this imageUri: %s\n' "$VISION_OBJECT_URI"
+    else
+      printf 'STOP: image upload failed.\n' >&2
+      if [ "$VISION_BUCKET_CREATED" = true ]; then
+        gcloud storage rm --recursive "gs://${VISION_BUCKET}/**" >/dev/null 2>&1 || true
+        gcloud storage buckets delete "gs://${VISION_BUCKET}" >/dev/null 2>&1 || true
+        VISION_BUCKET_CREATED=false
+      fi
+    fi
+  fi
+fi
+```
+
+Swap the request body's public `imageUri` for the printed `VISION_OBJECT_URI`, then click **Execute**. When you finish testing, remove the object and delete the bucket only if this route created it:
+
+```bash
+if [ -z "${VISION_OBJECT_URI:-}" ]; then
+  printf 'STOP: no optional Vision object was uploaded in this shell.\n' >&2
+elif gcloud storage rm "$VISION_OBJECT_URI"; then
+  if [ "${VISION_BUCKET_CREATED:-false}" = true ]; then
+    gcloud storage buckets delete "gs://${VISION_BUCKET}"
+  else
+    printf 'Kept the reused bucket; only the workshop image was deleted.\n'
+  fi
+else
+  printf 'STOP: optional image cleanup failed.\n' >&2
+fi
+```
+
+</details>
 
 ### 🛠️ Stage B — Make it an agent tool (code)
 

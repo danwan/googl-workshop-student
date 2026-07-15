@@ -29,7 +29,7 @@ A **bucket** is a folder in the cloud. It's exactly what Module 3's *Company Bra
 1. **Navigation menu** (☰, top-left) → **Cloud Storage** → **Buckets**.
 2. Click **Create**.
 3. **Name your bucket** — it must be **globally unique** across all of Google Cloud. 💡 Tip: add your initials + a number, e.g. `techbond-jd-42`.
-4. **Location type:** *Region* → pick one near you (e.g. `europe-west4` or `europe-west1`). Leave everything else at its default.
+4. **Location type:** *Region* → select the workshop region `europe-west4`. Leave everything else at its default.
 5. Click **Create**. (If a "public access prevention" pop-up appears, keep it **on** — Confirm.)
 6. Open your new bucket → **Upload** → **Upload files** → pick any TechBond PDF (or any file from your computer). Watch it appear in the bucket. ✅
 
@@ -37,7 +37,7 @@ A **bucket** is a folder in the cloud. It's exactly what Module 3's *Company Bra
 
 ### 🔌 Quest 2 — Turn on an API
 
-Every Google Cloud service runs behind an **API** that's **off by default**. To use a service, you flip its switch in the **API Library**.
+Most optional Google Cloud service APIs start **disabled**; foundational APIs may already be active. When a lab needs an optional service, enable its API in the **API Library**.
 
 1. **Navigation menu** → **APIs & Services** → **Library**.
 2. In the search box, type **`Cloud Translation API`**.
@@ -107,7 +107,7 @@ Two checks: (1) the **parent** must be `projects/` + your real **project ID** (n
 <details>
 <summary><strong>✅ Show me the whole thing, start to finish</strong></summary>
 
-1. **Cloud Storage → Buckets → Create** → unique name → Region → **Create** → open bucket → **Upload files** → pick a file.
+1. **Cloud Storage → Buckets → Create** → unique name → region `europe-west4` → **Create** → open bucket → **Upload files** → pick a file.
 2. **APIs & Services → Library** → search **Cloud Translation API** → **Enable**.
 3. **Try this API** for `translateText` → parent `projects/YOUR_PROJECT_ID`, body `{"contents":["Hello, TechBond!"],"sourceLanguageCode":"en","targetLanguageCode":"de"}` → **Execute** → expect `"Hallo, TechBond!"`.
 4. **Activate Cloud Shell** → `gcloud config list` → `gcloud storage ls` → see your bucket.
