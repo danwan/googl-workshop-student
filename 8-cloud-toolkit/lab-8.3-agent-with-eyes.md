@@ -27,6 +27,7 @@ The **Cloud Vision API** is a pre-trained model that *sees*: hand it an image an
 **Step 1 — Enable the Vision API.** **APIs & Services → Library** → search **`Cloud Vision API`** → **Enable**. *(Same move as Lab 8.1 Quest 2.)*
 
 **Step 2 — Call it in the APIs Explorer.** Open the **Vision `images:annotate` "Try this method"** panel (search *"Cloud Vision images annotate REST"*). Paste this request body — it points at a public sample image, so you don't need your own:
+
 ```json
 {
   "requests": [
@@ -104,8 +105,12 @@ else
       printf 'STOP: image upload failed.\n' >&2
       if [ "$VISION_BUCKET_CREATED" = true ]; then
         gcloud storage rm --recursive "gs://${VISION_BUCKET}/**" >/dev/null 2>&1 || true
-        gcloud storage buckets delete "gs://${VISION_BUCKET}" >/dev/null 2>&1 || true
-        VISION_BUCKET_CREATED=false
+        if gcloud storage buckets delete "gs://${VISION_BUCKET}"; then
+          VISION_BUCKET_CREATED=false
+        else
+          printf 'STOP: bucket cleanup failed; delete it manually with:\n' >&2
+          printf '  gcloud storage buckets delete "gs://%s"\n' "$VISION_BUCKET" >&2
+        fi
       fi
     fi
   fi
@@ -161,6 +166,7 @@ printf 'from . import agent\n' > inspector/__init__.py
 ```
 
 Now open `inspector/agent.py` (or your reused `agent.py`) and add the tool:
+
 ```python
 from google.cloud import vision
 
@@ -178,6 +184,7 @@ def describe_image(image_uri: str) -> dict:
 ```
 
 **Step 6 — Give the tool to an agent.**
+
 ```python
 from google.adk import Agent
 
@@ -194,9 +201,11 @@ root_agent = Agent(
 ```
 
 **Step 7 — Run it and show it a picture.** From the parent directory of `inspector/`, run:
+
 ```bash
 adk web .
 ```
+
 Pick `inspector` in the agent dropdown, then type: *"What's in this image? gs://cloud-samples-data/vision/label/wakeupcat.jpg"* — and watch the agent **call the Vision tool**, get the labels, and answer in plain language. Your agent can now *see*. 🎉
 
 ---
@@ -227,6 +236,7 @@ Same rule as Lab 7.2: the **docstring matters**. Keep the `describe_image` docst
 **Stage A:** Enable **Cloud Vision API** → **images:annotate "Try this method"** → body with `LABEL_DETECTION` on `gs://cloud-samples-data/vision/label/wakeupcat.jpg` → **Execute** → expect labels like `Cat`, `Whiskers`.
 
 **Stage B:**
+
 ```bash
 export GOOGLE_CLOUD_PROJECT="your-project-id"
 export GOOGLE_CLOUD_LOCATION="europe-west4"
@@ -241,7 +251,9 @@ pip install google-adk google-cloud-vision
 mkdir -p inspector
 printf 'from . import agent\n' > inspector/__init__.py
 ```
+
 `inspector/agent.py`:
+
 ```python
 from google.adk import Agent
 from google.cloud import vision
@@ -268,6 +280,7 @@ root_agent = Agent(
     tools=[describe_image],
 )
 ```
+
 From the parent directory of `inspector/`, keep the same shell active and run `adk web .` → select `inspector` → ask about `gs://cloud-samples-data/vision/label/wakeupcat.jpg` → the agent calls the tool and describes it.
 
 **Done — an agent that can see.** 👁️

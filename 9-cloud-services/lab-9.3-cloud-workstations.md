@@ -96,7 +96,7 @@ Provisioning a workstation cluster handles networking and VM orchestration behin
 <details>
 <summary><strong>Hint 2 — The workstation starts but "Launch" is disabled</strong></summary>
 
-Ensure the workstation instance is fully booted and showing a green "Running" status before attempting to Launch. If it gets stuck, stop the instance and restart it.
+**Launch** works on a stopped workstation too: it starts the instance and connects once it is ready, as in Step 5. If the connection never opens, wait for the boot to finish (a green "Running" status), and if it stays stuck, stop the instance and start it again.
 </details>
 
 <details>

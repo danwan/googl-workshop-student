@@ -36,7 +36,7 @@ Stop and ask the facilitator if the account or project ID is wrong. Do not switc
 | 14:30 | 15 | ☕ **Break** | |
 | 14:45 | 60 | **Build · understand, change, and check** | Standard: Labs 7.2.1 → 7.3. Catch-up: Lab 8.3 Stage A; Stage B only if time, using Lab 8.3's standalone setup. |
 | 15:45 | 50 | **Ship or extend · cloud tools** | Choose deployment, Vision, Document AI, Model Armor, or a Module 9 infrastructure lab. |
-| 16:35 | 25 | **Share-out, cleanup, and next step** | Demo, delete or stop billable resources, and name one real next use case. |
+| 16:35 | 25 | **Share-out, cleanup, and next step** | Demo, delete billable resources (retention only with facilitator approval), and name one real next use case. |
 
 **Program total: 390 minutes. Breaks: 90 minutes. Day 2 total: 480 minutes.**
 

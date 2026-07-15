@@ -79,6 +79,9 @@ read -rsp "Facilitator-provided AI Studio key: " GOOGLE_API_KEY
 printf '\n'
 export GOOGLE_API_KEY
 export GOOGLE_GENAI_USE_VERTEXAI=FALSE
+# Clear the key automatically when this shell exits, even after a crash
+# or Ctrl+C, so it cannot leak into later commands.
+trap 'unset GOOGLE_API_KEY GOOGLE_GENAI_USE_VERTEXAI' EXIT
 ```
 
 **Step 3 — Write the agent and the tool.**
@@ -131,7 +134,7 @@ Once the interactive session starts, chat with your agent! Try:
 
 Watch as the agent recognizes the need to convert viscosity, calls your custom Python function, gets the dictionary result, and prints a clear explanation back to you! Type `exit` (or press `Ctrl+C`) to close the session.
 
-If you used the AI Studio fallback, then run `unset GOOGLE_API_KEY GOOGLE_GENAI_USE_VERTEXAI` and have the facilitator delete or revoke the provider key.
+If you used the AI Studio fallback, then run `unset GOOGLE_API_KEY GOOGLE_GENAI_USE_VERTEXAI` now (the `EXIT` trap set in Step 2 also clears them if the shell closes or the run is interrupted) and have the facilitator delete or revoke the provider key.
 
 ---
 

@@ -97,4 +97,4 @@ Make sure you replaced the entire placeholder with the full script from the modu
 
 **Google Apps Script** is a free JavaScript platform baked into Google Workspace. The scripts you ran used two of its services: `GmailApp` (send/read email) and `CalendarApp` (manage events). People automate entire businesses with it — auto-replies, report generation, spreadsheet workflows. If you enjoyed this, [developers.google.com/apps-script](https://developers.google.com/apps-script) is the rabbit hole. 🐇
 
-**Next up:** your inbox and calendar are alive — now point an agent at them in **[Lab 6.1 — Live Inbox Agent](./lab-6.1-live-inbox-agent.md)**. 🚀
+**Next up:** your inbox and calendar are alive. If the facilitator confirmed the Gmail and Calendar connectors, point an agent at them in **[Lab 6.1 — Live Inbox Agent](./lab-6.1-live-inbox-agent.md)**; otherwise skip Labs 6.1–6.2 and return to the workshop guide. 🚀

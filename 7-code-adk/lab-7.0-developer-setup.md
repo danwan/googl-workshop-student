@@ -213,9 +213,15 @@ Antigravity manages remote Model Context Protocol (MCP) servers using a central 
    ```bash
    if test -f ~/.gemini/config/mcp_config.json \
       && test ! -f ~/.gemini/config/mcp_config.json.before-lab-7.0; then
-     cp -p ~/.gemini/config/mcp_config.json ~/.gemini/config/mcp_config.json.before-lab-7.0
+     install -m 600 ~/.gemini/config/mcp_config.json \
+       ~/.gemini/config/mcp_config.json.before-lab-7.0
    fi
-   nano ~/.gemini/config/mcp_config.json
+   if test ! -f ~/.gemini/config/mcp_config.json \
+      || test -f ~/.gemini/config/mcp_config.json.before-lab-7.0; then
+     nano ~/.gemini/config/mcp_config.json
+   else
+     printf 'STOP: the backup could not be created — do not edit until it exists.\n' >&2
+   fi
    ```
 
 3. Replace only `YOUR_API_KEY_HERE` with the restricted API key you copied in Step 6. Do not paste the key into a prompt, command, source file, or screenshot.
@@ -238,16 +244,22 @@ Antigravity manages remote Model Context Protocol (MCP) servers using a central 
 
    ```bash
    chmod 600 ~/.gemini/config/mcp_config.json
-   stat -c '%a %n' ~/.gemini/config/mcp_config.json
-   if ! python3 -m json.tool ~/.gemini/config/mcp_config.json >/dev/null; then
-     test ! -f ~/.gemini/config/mcp_config.json.before-lab-7.0 \
-       || cp -p ~/.gemini/config/mcp_config.json.before-lab-7.0 ~/.gemini/config/mcp_config.json
-     printf 'Invalid JSON. Previous config restored when a backup existed. Stop and fix the merge.\n' >&2
+   if [ "$(stat -c '%a' ~/.gemini/config/mcp_config.json)" != "600" ]; then
+     printf 'STOP: config permissions are not 600. Fix them before continuing.\n' >&2
+     false
+   elif ! python3 -m json.tool ~/.gemini/config/mcp_config.json >/dev/null; then
+     if test ! -f ~/.gemini/config/mcp_config.json.before-lab-7.0; then
+       printf 'Invalid JSON and no backup exists. Stop and fix the file.\n' >&2
+     elif cp -p ~/.gemini/config/mcp_config.json.before-lab-7.0 ~/.gemini/config/mcp_config.json; then
+       printf 'Invalid JSON. Previous config restored from the backup. Stop and fix the merge.\n' >&2
+     else
+       printf 'Invalid JSON and restoring the backup failed. Recover manually from ~/.gemini/config/mcp_config.json.before-lab-7.0.\n' >&2
+     fi
      false
    fi
    ```
 
-The `stat` output must start with `600`, and the JSON command must finish without an error. **Do not continue to `/mcp` until both checks pass.** If an existing configuration was invalid, the command restores it from the backup; keep the backup and fix the merge before continuing. If this lab created a new invalid file, stop and fix it before continuing.
+The command must print no `STOP` or `Invalid JSON` message. **Do not continue to `/mcp` until both checks pass.** If an existing configuration was invalid, the command restores it from the backup; keep the backup and fix the merge before continuing. If this lab created a new invalid file, stop and fix it before continuing.
 
 ---
 

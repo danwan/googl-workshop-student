@@ -109,7 +109,7 @@ Since Agent Runtime is an API-first backend service, it doesn't have a visual we
 pip install "google-cloud-aiplatform[agent_engines]"
 ```
 
-2. Create a verification script `test_agent.py`:
+1. Create a verification script `test_agent.py`:
 
 ```bash
 cat << 'EOF' > test_agent.py
@@ -152,6 +152,8 @@ If the events include the conversion result **3.2 Pa.s**, your managed Agent Run
 ### Step 6 — Manage and Govern with Agent Registry (Preview) 📦
 
 Now that your agent is deployed to the cloud, how do you track and govern it? **Agent Registry is Preview** and provides a centralized fleet catalog for managing AI agents. Deployed Agent Runtime instances are **auto-registered** under the hood. Its current management surface is `gcloud alpha agent-registry`.
+
+> 🚪 **Preview gate:** this step is **optional**. Run it only if the facilitator confirmed before the workshop that the projects have Agent Registry access and that Cloud Shell's `gcloud` supports the `alpha agent-registry` commands. If either check fails, skip to the success checklist — your deployment in Step 4 already succeeded.
 
 The Agent Registry API was enabled in Step 2, before deployment.
 

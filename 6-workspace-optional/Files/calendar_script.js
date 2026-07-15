@@ -538,14 +538,20 @@ function addGuestsAfterTagging(event, guests, sendInvites) {
   });
   if (!sendInvites) return;
   if (typeof Calendar !== 'undefined' && Calendar.Events) {
-    // event.getId() returns the iCalUID, not the Calendar API event ID —
-    // look the event up by iCalUID and patch the API id it returns.
-    const lookup = Calendar.Events.list('primary', { iCalUID: event.getId() });
-    const apiEvent = lookup && lookup.items && lookup.items[0];
-    if (apiEvent) {
-      Calendar.Events.patch({}, 'primary', apiEvent.id, { sendUpdates: 'all' });
-    } else {
-      Logger.log('    ⚠ Could not resolve the Calendar API event ID — guests were added but not emailed. Notify participants manually.');
+    // The event is already created and tagged; a transient notification
+    // failure must not fail the run, so catch it and log a manual fallback.
+    try {
+      // event.getId() returns the iCalUID, not the Calendar API event ID —
+      // look the event up by iCalUID and patch the API id it returns.
+      const lookup = Calendar.Events.list('primary', { iCalUID: event.getId() });
+      const apiEvent = lookup && lookup.items && lookup.items[0];
+      if (apiEvent) {
+        Calendar.Events.patch({}, 'primary', apiEvent.id, { sendUpdates: 'all' });
+      } else {
+        Logger.log('    ⚠ Could not resolve the Calendar API event ID — guests were added but not emailed. Notify participants manually.');
+      }
+    } catch (inviteError) {
+      Logger.log('    ⚠ Sending invites failed (' + inviteError.message + ') — guests were added but not emailed. Resend invitations manually from Calendar.');
     }
   } else {
     Logger.log('    ⚠ Advanced Calendar service unavailable — guests were added but not emailed. Enable the "Google Calendar API" service and rerun, or notify participants manually.');
@@ -645,18 +651,39 @@ function deleteAllWorkshopEvents() {
   endDate.setDate(endDate.getDate() + 1);
   endDate.setHours(0, 0, 0, 0);
 
-  const events = calendar.getEvents(startDate, endDate);
-
   let deleteCount = 0;
 
-  events.forEach(event => {
-    if (event.getTag(WORKSHOP_EVENT_TAG_KEY) === WORKSHOP_EVENT_TAG_VALUE) {
-      Logger.log('Deleting: ' + event.getTitle() + ' on ' + event.getStartTime().toDateString());
-      event.deleteEvent();
-      deleteCount++;
-      Utilities.sleep(500);
-    }
-  });
+  if (typeof Calendar !== 'undefined' && Calendar.Events) {
+    // Tags map to private extended properties, so the Advanced Calendar
+    // service can filter server-side instead of scanning every event.
+    let pageToken;
+    do {
+      const response = Calendar.Events.list('primary', {
+        timeMin: startDate.toISOString(),
+        timeMax: endDate.toISOString(),
+        privateExtendedProperty: WORKSHOP_EVENT_TAG_KEY + '=' + WORKSHOP_EVENT_TAG_VALUE,
+        singleEvents: true,
+        pageToken: pageToken
+      });
+      (response.items || []).forEach(item => {
+        Logger.log('Deleting: ' + item.summary);
+        Calendar.Events.remove('primary', item.id);
+        deleteCount++;
+        Utilities.sleep(200);
+      });
+      pageToken = response.nextPageToken;
+    } while (pageToken);
+  } else {
+    const events = calendar.getEvents(startDate, endDate);
+    events.forEach(event => {
+      if (event.getTag(WORKSHOP_EVENT_TAG_KEY) === WORKSHOP_EVENT_TAG_VALUE) {
+        Logger.log('Deleting: ' + event.getTitle() + ' on ' + event.getStartTime().toDateString());
+        event.deleteEvent();
+        deleteCount++;
+        Utilities.sleep(500);
+      }
+    });
+  }
 
   Logger.log('Deleted ' + deleteCount + ' events');
 }

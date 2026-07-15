@@ -208,10 +208,10 @@ Run only the case that matches:
    uvx google-agents-cli setup --agent antigravity
    ```
 
-2. **CLI present but its version differs from the facilitator-approved version:** upgrade the installed tool, then update its managed assets.
+2. **CLI present but its version differs from the facilitator-approved version:** install exactly the approved version (a plain upgrade only moves forward and keeps old pins), then update its managed assets.
 
    ```bash
-   uv tool upgrade google-agents-cli
+   uv tool install "google-agents-cli==<facilitator-approved-version>" --force
    agents-cli update -y
    ```
 
