@@ -27,6 +27,7 @@ The **Cloud Vision API** is a pre-trained model that *sees*: hand it an image an
 **Step 1 — Enable the Vision API.** **APIs & Services → Library** → search **`Cloud Vision API`** → **Enable**. *(Same move as Lab 8.1 Quest 2.)*
 
 **Step 2 — Call it in the APIs Explorer.** Open the **Vision `images:annotate` "Try this method"** panel (search *"Cloud Vision images annotate REST"*). Paste this request body — it points at a public sample image, so you don't need your own:
+
 ```json
 {
   "requests": [
@@ -42,7 +43,97 @@ The **Cloud Vision API** is a pre-trained model that *sees*: hand it an image an
 
 **Step 3 — Execute.** Tick the **Google OAuth 2.0** credential box, click **Execute**, approve the prompt. You'll get back a list of **labels** with confidence scores — `Cat`, `Whiskers`, `Mammal`… The model *saw* the picture. 🐱
 
-> 🔁 **Use your own image:** upload a photo to your bucket from Lab 8.1, make it readable, and swap the `imageUri` for `gs://YOUR_BUCKET/your-image.jpg`. Try a photo of a product or a label.
+<details>
+<summary><strong>🔁 Optional — use your own image</strong></summary>
+
+Use a dedicated Vision-lab bucket rather than the bucket deleted in Lab 8.1. In Cloud Shell, replace all four placeholders, then run:
+
+```bash
+EXPECTED_PROJECT_ID="your-assigned-workshop-project-id"
+VISION_LOCATION="europe-west4"
+PARTICIPANT_SUFFIX="your-initials"
+IMAGE_FILE="path/to/your-image.jpg"
+
+PROJECT_ID="$(gcloud config get-value project 2>/dev/null)"
+PROJECT_NUMBER="$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)' 2>/dev/null)"
+# Bucket names must be lowercase letters, digits, and hyphens (3-63 chars)
+PARTICIPANT_SUFFIX="$(printf '%s' "$PARTICIPANT_SUFFIX" | tr '[:upper:]' '[:lower:]')"
+VISION_BUCKET="techbond-vision-${PROJECT_ID}-${PARTICIPANT_SUFFIX}"
+VISION_BUCKET_CREATED=false
+vision_bucket_ready=false
+
+if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" = "(unset)" ] \
+  || [ "$PROJECT_ID" != "$EXPECTED_PROJECT_ID" ]; then
+  printf 'STOP: active project does not match your workshop assignment.\n' >&2
+elif [ "$VISION_LOCATION" != "europe-west4" ]; then
+  printf 'STOP: use the workshop location europe-west4.\n' >&2
+elif [ -z "$PROJECT_NUMBER" ]; then
+  printf 'STOP: could not determine the active project number.\n' >&2
+elif ! test -s "$IMAGE_FILE"; then
+  printf 'STOP: image file is missing or empty: %s\n' "$IMAGE_FILE" >&2
+elif ! printf '%s' "$VISION_BUCKET" | grep -Eq '^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$'; then
+  printf 'STOP: invalid bucket name %s — use only lowercase letters, digits, and hyphens in your initials.\n' "$VISION_BUCKET" >&2
+else
+  bucket_metadata="$(gcloud storage buckets describe "gs://${VISION_BUCKET}" \
+    --format='value(projectNumber,location)' 2>/dev/null)"
+  if [ -n "$bucket_metadata" ]; then
+    IFS=$'\t' read -r bucket_project_number bucket_location <<< "$bucket_metadata"
+    if [ -z "$bucket_project_number" ] || [ -z "$bucket_location" ]; then
+      printf 'STOP: existing bucket metadata is incomplete.\n' >&2
+    elif [ "$bucket_project_number" != "$PROJECT_NUMBER" ]; then
+      printf 'STOP: existing bucket belongs to a different project.\n' >&2
+    elif [ "${bucket_location,,}" = "${VISION_LOCATION,,}" ]; then
+      vision_bucket_ready=true
+    else
+      printf 'STOP: existing bucket is in %s, not %s.\n' "$bucket_location" "$VISION_LOCATION" >&2
+    fi
+  elif gcloud storage buckets create "gs://${VISION_BUCKET}" \
+    --project="$PROJECT_ID" --location="$VISION_LOCATION" \
+    --soft-delete-duration=0d; then
+    VISION_BUCKET_CREATED=true
+    vision_bucket_ready=true
+  else
+    printf 'STOP: could not create the dedicated Vision bucket.\n' >&2
+  fi
+
+  if "$vision_bucket_ready"; then
+    VISION_OBJECT_URI="gs://${VISION_BUCKET}/vision-own-image-${PARTICIPANT_SUFFIX}-$(date +%s).jpg"
+    if gcloud storage cp "$IMAGE_FILE" "$VISION_OBJECT_URI"; then
+      export VISION_OBJECT_URI VISION_BUCKET VISION_BUCKET_CREATED
+      printf 'Use this imageUri: %s\n' "$VISION_OBJECT_URI"
+    else
+      printf 'STOP: image upload failed.\n' >&2
+      if [ "$VISION_BUCKET_CREATED" = true ]; then
+        gcloud storage rm --recursive "gs://${VISION_BUCKET}/**" >/dev/null 2>&1 || true
+        if gcloud storage buckets delete "gs://${VISION_BUCKET}"; then
+          VISION_BUCKET_CREATED=false
+        else
+          printf 'STOP: bucket cleanup failed; delete it manually with:\n' >&2
+          printf '  gcloud storage buckets delete "gs://%s"\n' "$VISION_BUCKET" >&2
+        fi
+      fi
+    fi
+  fi
+fi
+```
+
+New buckets are created without soft delete so removed objects stop billing immediately; a reused existing bucket keeps its current soft-delete setting. Swap the request body's public `imageUri` for the printed `VISION_OBJECT_URI`, then click **Execute**. When you finish testing, remove the object and delete the bucket only if this route created it:
+
+```bash
+if [ -z "${VISION_OBJECT_URI:-}" ]; then
+  printf 'STOP: no optional Vision object was uploaded in this shell.\n' >&2
+elif gcloud storage rm "$VISION_OBJECT_URI"; then
+  if [ "${VISION_BUCKET_CREATED:-false}" = true ]; then
+    gcloud storage buckets delete "gs://${VISION_BUCKET}"
+  else
+    printf 'Kept the reused bucket; only the workshop image was deleted.\n'
+  fi
+else
+  printf 'STOP: optional image cleanup failed.\n' >&2
+fi
+```
+
+</details>
 
 ### 🛠️ Stage B — Make it an agent tool (code)
 
@@ -75,6 +166,7 @@ printf 'from . import agent\n' > inspector/__init__.py
 ```
 
 Now open `inspector/agent.py` (or your reused `agent.py`) and add the tool:
+
 ```python
 from google.cloud import vision
 
@@ -92,6 +184,7 @@ def describe_image(image_uri: str) -> dict:
 ```
 
 **Step 6 — Give the tool to an agent.**
+
 ```python
 from google.adk import Agent
 
@@ -108,9 +201,11 @@ root_agent = Agent(
 ```
 
 **Step 7 — Run it and show it a picture.** From the parent directory of `inspector/`, run:
+
 ```bash
 adk web .
 ```
+
 Pick `inspector` in the agent dropdown, then type: *"What's in this image? gs://cloud-samples-data/vision/label/wakeupcat.jpg"* — and watch the agent **call the Vision tool**, get the labels, and answer in plain language. Your agent can now *see*. 🎉
 
 ---
@@ -141,6 +236,7 @@ Same rule as Lab 7.2: the **docstring matters**. Keep the `describe_image` docst
 **Stage A:** Enable **Cloud Vision API** → **images:annotate "Try this method"** → body with `LABEL_DETECTION` on `gs://cloud-samples-data/vision/label/wakeupcat.jpg` → **Execute** → expect labels like `Cat`, `Whiskers`.
 
 **Stage B:**
+
 ```bash
 export GOOGLE_CLOUD_PROJECT="your-project-id"
 export GOOGLE_CLOUD_LOCATION="europe-west4"
@@ -155,7 +251,9 @@ pip install google-adk google-cloud-vision
 mkdir -p inspector
 printf 'from . import agent\n' > inspector/__init__.py
 ```
+
 `inspector/agent.py`:
+
 ```python
 from google.adk import Agent
 from google.cloud import vision
@@ -182,6 +280,7 @@ root_agent = Agent(
     tools=[describe_image],
 )
 ```
+
 From the parent directory of `inspector/`, keep the same shell active and run `adk web .` → select `inspector` → ask about `gs://cloud-samples-data/vision/label/wakeupcat.jpg` → the agent calls the tool and describes it.
 
 **Done — an agent that can see.** 👁️

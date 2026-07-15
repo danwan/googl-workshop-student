@@ -60,7 +60,7 @@ Our document library of 20 business reports, sales guides, and spec sheets needs
 2. Click **+ Create** at the top of the buckets dashboard.
 3. Configure your bucket settings:
    * **Name**: Choose a globally unique name like `techbond-documents-<your-name-or-initials>`. (Remember this name!)
-   * **Location type**: Choose **Region** and select `europe-west4` (or your nearest region).
+   * **Location type**: Choose **Region** and select the workshop region `europe-west4`.
    * **Storage class**: Keep **Standard**.
    * **Access control**: Keep **Uniform** (default).
 4. Click **Create** (and click **Confirm** if asked about public access prevention).
@@ -170,6 +170,7 @@ GCS bucket names are globally unique across all Google Cloud users. If `techbond
 7. **Data Stores** → **Create Data Store** → **Cloud Storage** → **Folder** → enter `gs://techbond-documents-<your-name>` → select **Unstructured documents** → **Continue** → region **global** → Name: `techbond-docs` → **Create**. Then **Apps** → your app → **Connected data sources** → **Add existing data stores** → select `techbond-docs` → **Connect**.
 8. **Apps** → your app → **Dashboard** → copy the **web app URL**. Bookmark this URL to access your **Agent Designer** workspace in subsequent labs!
 9. Open the web app and complete the feature check below.
+10. After your final workshop lab, complete the cleanup below unless the facilitator approved retention.
 
 **Done — your enterprise workspace is fully ready!** ⚙️☁️
 </details>
@@ -189,6 +190,12 @@ GCS bucket names are globally unique across all Google Cloud users. If `techbond
 
 ---
 
+## 🧹 Final cleanup
+
+Unless the facilitator explicitly approved retention, after your final workshop lab delete these resources in dependency order: **app `techbond-agent-academy` → data store `techbond-docs` → the exact bucket name you recorded in Step 3**. Do not use a wildcard or pattern such as `techbond-documents-*`. Confirm each deletion before continuing to the next resource.
+
+---
+
 ## 🧠 What you just learned
 
 You've successfully set up your **Enterprise AI environment**! You learned that:
@@ -196,3 +203,5 @@ You've successfully set up your **Enterprise AI environment**! You learned that:
 2. **Cloud Storage (GCS)** is the industry standard for storing corporate documents.
 3. Creating a **Gemini Enterprise app** automatically provisions a secure, Google-hosted **web application** (with the **Agent Gallery** and **Agent Designer**) where you can build, configure, and test agents.
 4. Connecting GCS directly to your app provides visual agents with a private, secure knowledge base for RAG (Retrieval-Augmented Generation) without coding!
+
+➡️ **Next up:** [Lab 0.2 — Enable Gemini Cloud Assist](./lab-0.2-enable-cloud-assist.md).

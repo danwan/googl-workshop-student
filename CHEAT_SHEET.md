@@ -31,8 +31,8 @@
 | **Google Cloud Console** | The website ([console.cloud.google.com](https://console.cloud.google.com)) where you manage everything in Google Cloud. *(Module 8)* |
 | **Project** | Your own workspace in Google Cloud. Everything you make lives inside one project. *(Module 8)* |
 | **Bucket** | A folder in **Cloud Storage** that holds your files. *(Module 8)* |
-| **API** | A switch for a Google service. It's **off** until you **enable** it in the API Library. *(Module 8)* |
-| **Cloud Shell** | A free terminal *inside the Console* with tools pre-installed and you already logged in. *(Module 8)* |
+| **API** | A switch for a Google service. Most optional service APIs start **disabled**; foundational APIs may already be active. *(Module 8)* |
+| **Cloud Shell** | A free terminal *inside the Console* with common tools preinstalled and you already logged in. *(Module 8)* |
 | **ADK** | Google's Agent Development Kit for building and evaluating agents in code. *(Module 7)* |
 | **Antigravity / `agy`** | A coding companion that runs in your terminal. Inspect every generated edit before running it. *(Module 7)* |
 | **Agent Runtime** | Google Cloud's fully managed runtime for hosting AI agents securely. *(Module 8)* |
@@ -142,6 +142,7 @@ Before leaving Day 2:
 
 - Delete test buckets that no later lab needs.
 - Delete deployed Agent Runtime or Cloud Run resources unless retention was approved.
-- Stop or delete Compute Engine VMs and Cloud Workstations.
+- Delete workshop Compute Engine VMs and any retained disks or static IPs; stop a VM only if the facilitator explicitly approves temporary retention (stopped VMs still bill for disks and addresses).
+- Delete Cloud Workstations in order: **Workstation → Configuration → Cluster**. Stopping is insufficient because the cluster control plane and storage can keep billing.
 - Confirm the project again with `gcloud config get-value project`.
 - Treat budget alerts as notifications, not spending caps.

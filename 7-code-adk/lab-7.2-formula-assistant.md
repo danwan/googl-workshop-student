@@ -20,11 +20,12 @@ To solve this, you'll write a simple Python agent using the **Agent Development 
 
 > 🚪 **Prep Gate:** This lab assumes you completed **[Lab 7.0 — Developer Setup](./lab-7.0-developer-setup.md)** (Cloud Shell + an isolated Python virtual environment). If you haven't, run it first; allow 25–35 minutes.
 
-Open **Cloud Shell** (or your local terminal), activate your virtual environment from Lab 7.0, and install the ADK into it:
+Open **Cloud Shell**, return to your home directory, activate the virtual environment from Lab 7.0, and install the ADK into it:
 
 ```bash
-# 1. Activate the virtual environment created in Lab 7.0
-source venv/bin/activate
+# 1. Return home and activate the virtual environment created in Lab 7.0
+cd "$HOME"
+source "$HOME/venv/bin/activate"
 
 # 2. Install the Agent Development Kit (ADK)
 pip install --upgrade pip
@@ -33,11 +34,6 @@ pip install google-adk
 # 3. Confirm the CLI is available
 adk --version
 ```
-
-> 💡 **Using `uv`?** If you created your environment with `uv` in Lab 7.0, run this instead:
-> ```bash
-> source .venv/bin/activate && uv pip install google-adk
-> ```
 
 ---
 
@@ -54,29 +50,39 @@ touch formula/.env
 ```
 
 **Step 2 — Configure your credentials.**
-To use your agent, it needs access to a **Gemini model**. You have two options depending on your setup:
+To use your agent, it needs access to a **Gemini model**. Vertex AI is the workshop default.
 
-### 🔑 Option A: Google AI Studio (Easiest & Free)
-1. Go to **[aistudio.google.com](https://aistudio.google.com)**.
-2. Click **Get API Key** and create a new key.
-3. Open `formula/.env` in your editor and add:
-   ```bash
-   GOOGLE_GENAI_USE_VERTEXAI=FALSE
-   GOOGLE_API_KEY="YOUR_AI_STUDIO_API_KEY"
-   ```
+### ☁️ Default: Vertex AI / Agent Platform (keyless)
 
-### ☁️ Option B: Vertex AI / Agent Platform (Keyless Cloud Integration)
-If you are running in Cloud Shell with access to your workshop's Google Cloud project, you can authenticate keylessly:
 1. In Cloud Shell, run:
+
    ```bash
    gcloud auth application-default login
    ```
+
 2. Open `formula/.env` in your editor and add (replace with your project ID):
+
    ```bash
    GOOGLE_GENAI_USE_VERTEXAI=TRUE
    GOOGLE_CLOUD_PROJECT="your-project-id"
    GOOGLE_CLOUD_LOCATION="europe-west4"
    ```
+
+The `.env` contains only non-secret project and location settings.
+
+### 🔑 Facilitator-controlled fallback: Google AI Studio
+
+Use this only when the facilitator explicitly enables the fallback and controls the provider key. Never write that key to `.env`; read it without displaying it and export it only in the current shell:
+
+```bash
+read -rsp "Facilitator-provided AI Studio key: " GOOGLE_API_KEY
+printf '\n'
+export GOOGLE_API_KEY
+export GOOGLE_GENAI_USE_VERTEXAI=FALSE
+# Clear the key automatically when this shell exits, even after a crash
+# or Ctrl+C, so it cannot leak into later commands.
+trap 'unset GOOGLE_API_KEY GOOGLE_GENAI_USE_VERTEXAI' EXIT
+```
 
 **Step 3 — Write the agent and the tool.**
 Open `formula/agent.py` in the Cloud Shell editor and paste the following Python code. This defines a custom math tool, `convert_viscosity`, and registers it with our `Agent` object:
@@ -128,6 +134,8 @@ Once the interactive session starts, chat with your agent! Try:
 
 Watch as the agent recognizes the need to convert viscosity, calls your custom Python function, gets the dictionary result, and prints a clear explanation back to you! Type `exit` (or press `Ctrl+C`) to close the session.
 
+If you used the AI Studio fallback, then run `unset GOOGLE_API_KEY GOOGLE_GENAI_USE_VERTEXAI` now (the `EXIT` trap set in Step 2 also clears them if the shell closes or the run is interrupted) and have the facilitator delete or revoke the provider key.
+
 ---
 
 ## 💡 Stuck? Open a hint
@@ -135,7 +143,7 @@ Watch as the agent recognizes the need to convert viscosity, calls your custom P
 <details>
 <summary><strong>Hint 1 — The agent is failing to run</strong></summary>
 
-Make sure you are running the `adk run formula` command from the parent directory of `formula/` (not inside `formula/` itself). Also confirm your `formula/.env` has the correct `GOOGLE_API_KEY`.
+Make sure you are running `adk run formula` from the parent directory of `formula/` (not inside `formula/` itself). Confirm the Vertex project and location in `formula/.env`; for the approved fallback, confirm the key was exported in this shell.
 </details>
 
 <details>
@@ -147,11 +155,11 @@ The model reads the docstring of the Python function to understand when and how 
 <details>
 <summary><strong>✅ Show me the full route</strong></summary>
 
-1. Activate the Lab 7.0 environment, install `google-adk`, and confirm `adk --version` works. If you use `uv`, use the alternative command from **Before you start**.
+1. Run `cd "$HOME"`, activate `$HOME/venv/bin/activate`, install `google-adk`, and confirm `adk --version` works.
 2. Create `formula/`, `formula/__init__.py`, `formula/agent.py`, and `formula/.env` with the Step 1 commands.
-3. Choose one Step 2 authentication route: add the Google AI Studio settings to `formula/.env`, or run `gcloud auth application-default login` and add the Vertex AI settings.
+3. Run `gcloud auth application-default login` and add only the non-secret Vertex AI project/location settings to `formula/.env`. Use Step 2's hidden shell export only when the facilitator enables the AI Studio fallback; never put its key in `.env`.
 4. Paste the Step 3 agent code into `formula/agent.py`, then add `from . import agent` to `formula/__init__.py`.
-5. From the directory above `formula/`, run `adk run formula` and ask it to convert `2500 cP` to `Pa·s`. Exit with `exit` or `Ctrl+C`.
+5. From the directory above `formula/`, run `adk run formula` and ask it to convert `2500 cP` to `Pa·s`. Exit with `exit` or `Ctrl+C`; if you used the fallback, unset `GOOGLE_API_KEY GOOGLE_GENAI_USE_VERTEXAI` and have the facilitator delete or revoke the key.
 </details>
 
 ---

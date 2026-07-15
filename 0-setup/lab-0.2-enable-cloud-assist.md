@@ -82,3 +82,5 @@ Confirm that you selected your dedicated workshop project and signed in with the
 You've successfully deployed your in-console AI assistant! You learned that:
 1. **Gemini Cloud Assist** relies on the underlying `cloudaicompanion.googleapis.com` (Gemini for Google Cloud) service.
 2. Once the APIs are active, the workshop account can open the context-aware assistant directly in the Cloud Console.
+
+➡️ **Next up:** open the [Day 1 guide](../DAY_1.md).

@@ -27,28 +27,55 @@ If you are already in Cloud Shell, you can skip this step. Otherwise:
 2. Click the **Activate Cloud Shell** button ( >_ ) in the top-right toolbar.
 3. Wait for the terminal prompt to open and authenticate.
 
+Confirm Cloud Shell is using your assigned workshop project. Replace the placeholder first:
+
+```bash
+(
+EXPECTED_PROJECT_ID="your-assigned-workshop-project-id"
+PROJECT_ID="$(gcloud config get-value project 2>/dev/null)"
+if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" = "(unset)" ] \
+  || [ "$PROJECT_ID" != "$EXPECTED_PROJECT_ID" ]; then
+  printf 'STOP: active project does not match your workshop assignment.\n' >&2
+  exit 1
+fi
+printf 'Project check passed: %s\n' "$PROJECT_ID"
+)
+```
+
+If you see `STOP`, do not continue. Select the assigned project or ask your facilitator; the check leaves Cloud Shell open so you can correct it.
+
 ---
 
 ### Step 2 — Start the Antigravity CLI (`agy`) 🛰️
 
-The Antigravity CLI (`agy`) is your on-demand AI pair programmer. Let's make sure it is installed and launch it. *(Already completed [Lab 7.0 — Developer Setup](../7-code-adk/lab-7.0-developer-setup.md) in this Cloud Shell session? Then `agy` is ready — skip straight to launching it.)*
+The Antigravity CLI (`agy`) is your on-demand AI pair programmer. Check its version first:
 
-1. If `agy` is not already installed, download and inspect the official installer:
+```bash
+agy --version
+```
+
+1. If that check succeeds, skip the installer. Only if it fails, download and inspect the official installer:
+
 ```bash
 curl --max-time 10 -fsSL https://antigravity.google/cli/install.sh -o install-agy.sh
 less install-agy.sh
 ```
+
 Read the installer and press `q` after you reach the end. If you cannot assess what it will do, stop and ask the facilitator to review it with you. Then run the reviewed local file:
+
 ```bash
 bash install-agy.sh
 rm install-agy.sh
 source "$HOME/.local/bin/env"
+agy --version
 ```
 
-2. Launch `agy` in your terminal:
+1. Launch `agy` in your terminal:
+
 ```bash
 agy
 ```
+
 - If it's your first time, you will see the `agy` interface initialize.
 
 ---
@@ -58,11 +85,13 @@ agy
 Now, we'll ask `agy` to use its agent tools to create five business report text files with custom contents.
 
 1. At the `agy` prompt, type the following request:
+
 ```
 Please create 5 different text files in the current folder named report1.txt, report2.txt, report3.txt, report4.txt, and report5.txt. You can write unique professional text inside each of them.
 ```
-2. Press **Enter** and watch `agy` plan, generate the content, compile or write the files directly into your Cloud Shell storage environment!
-3. Exit `agy` when it is done by pressing `Ctrl+D` twice or typing `/exit`.
+
+1. Press **Enter** and watch `agy` plan, generate the content, compile or write the files directly into your Cloud Shell storage environment!
+2. Exit `agy` when it is done by pressing `Ctrl+D` twice or typing `/exit`.
 
 ---
 
@@ -71,11 +100,15 @@ Please create 5 different text files in the current folder named report1.txt, re
 Confirm that the files were created successfully in your current workspace:
 
 ```bash
+(
 for file in report{1..5}.txt; do
-  test -s "$file" || { printf 'Missing or empty: %s\n' "$file" >&2; exit 1; }
+  test -s "$file" || { printf 'STOP: missing or empty: %s\n' "$file" >&2; exit 1; }
 done
 printf 'All five reports exist and are non-empty.\n'
+)
 ```
+
+If you see `STOP`, ask `agy` to create the missing reports before continuing. The subshell fails, but your Cloud Shell stays open.
 
 ---
 
@@ -84,13 +117,14 @@ printf 'All five reports exist and are non-empty.\n'
 We will use the modern Google Cloud Storage CLI (`gcloud storage`) to create a globally unique bucket. GCS bucket names must be globally unique, so we'll append your project ID to ensure uniqueness.
 
 1. Set your bucket name variable:
+
 ```bash
 export PARTICIPANT_SUFFIX="your-initials"  # replace with your initials
 export BUCKET_NAME="techbond-reports-$(gcloud config get-value project)-${PARTICIPANT_SUFFIX}"
 echo "Your bucket name will be: $BUCKET_NAME"
 ```
 
-2. Create the storage bucket in the `europe-west4` region:
+1. Create the storage bucket in the `europe-west4` region:
 
 ```bash
 gcloud storage buckets create gs://$BUCKET_NAME --location=europe-west4
@@ -103,15 +137,24 @@ gcloud storage buckets create gs://$BUCKET_NAME --location=europe-west4
 Now we'll bulk-upload our five newly compiled text reports into the newly created bucket.
 
 1. Copy the TXT files to the bucket:
+
 ```bash
-gcloud storage cp report*.txt gs://$BUCKET_NAME/
+gcloud storage cp report{1..5}.txt gs://$BUCKET_NAME/
 ```
 
-2. Verify that all 5 files were uploaded successfully:
+1. Verify that all 5 files were uploaded successfully:
+
 ```bash
 gcloud storage objects list gs://$BUCKET_NAME/
 ```
+
 - GCS will print the list of the five uploaded reports with their file sizes!
+
+> ⚠️ **If the upload or the listing fails**, delete the bucket before retrying so failed attempts don't accumulate billable resources. If the delete command itself reports an error, re-run it until it succeeds or ask the facilitator — do not leave the bucket behind:
+>
+> ```bash
+> gcloud storage rm --recursive "gs://$BUCKET_NAME/**" 2>/dev/null; gcloud storage buckets delete "gs://$BUCKET_NAME"
+> ```
 
 ### Step 7 — Delete the bucket
 
@@ -124,35 +167,52 @@ After verification, open **Cloud Storage → Buckets**, select your participant-
 <details>
 <summary><strong>Hint 1 — "agy: command not found"</strong></summary>
 
-If the `agy` command is missing, download and inspect the official installer:
+Confirm the executable/version check fails before installing:
+
+```bash
+agy --version
+```
+
+Only if that check fails, download and inspect the official installer:
+
 ```bash
 curl --max-time 10 -fsSL https://antigravity.google/cli/install.sh -o install-agy.sh
 less install-agy.sh
 ```
+
 Read the installer and press `q` after you reach the end. If you cannot assess what it will do, stop and ask the facilitator to review it with you. Then run the reviewed local file:
+
 ```bash
 bash install-agy.sh
 rm install-agy.sh
 source "$HOME/.local/bin/env"
+agy --version
 ```
+
 If it is already installed but still not found, ensure that `$HOME/.local/bin` is in your `PATH` by running:
+
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
 ```
+
 </details>
 
 <details>
 <summary><strong>Hint 2 — Bucket creation fails with "AlreadyExists"</strong></summary>
 
 Cloud Storage bucket names are globally unique across all Google Cloud customers. If someone else in the workshop already used your exact bucket name, append a random string:
+
 ```bash
 export BUCKET_NAME="techbond-reports-$(gcloud config get-value project)-$(date +%s)"
 ```
+
 Then re-run the `gcloud storage buckets create` command.
 </details>
 
 <details>
 <summary><strong>✅ Show me the full command sequence</strong></summary>
+
+The validation and storage commands run in a subshell. A failed check stops this route but returns you to your open Cloud Shell prompt.
 
 ```bash
 # Start agy
@@ -162,22 +222,49 @@ agy
 # "Please create 5 different text files named report1.txt to report5.txt with unique text."
 # /exit
 
+(
+# Verify the active project
+EXPECTED_PROJECT_ID="your-assigned-workshop-project-id"
+PROJECT_ID="$(gcloud config get-value project 2>/dev/null)"
+if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" = "(unset)" ] \
+  || [ "$PROJECT_ID" != "$EXPECTED_PROJECT_ID" ]; then
+  printf 'STOP: active project does not match your workshop assignment.\n' >&2
+  exit 1
+fi
+
 # Verify exactly report1.txt through report5.txt are non-empty
 for file in report{1..5}.txt; do
-  test -s "$file" || { printf 'Missing or empty: %s\n' "$file" >&2; exit 1; }
+  test -s "$file" || { printf 'STOP: missing or empty: %s\n' "$file" >&2; exit 1; }
 done
 
 # Create bucket
 export PARTICIPANT_SUFFIX="your-initials"  # replace with your initials
 export BUCKET_NAME="techbond-reports-$(gcloud config get-value project)-${PARTICIPANT_SUFFIX}"
-gcloud storage buckets create gs://$BUCKET_NAME --location=europe-west4
+gcloud storage buckets create "gs://${BUCKET_NAME}" --location=europe-west4 \
+  || { printf 'STOP: bucket creation failed; no reports were uploaded.\n' >&2; exit 1; }
 
-# Copy files
-gcloud storage cp report*.txt gs://$BUCKET_NAME/
+# Delete the bucket again if a later step fails, so retries start clean.
+# Cleanup failures are reported, not hidden, so no billable bucket lingers.
+cleanup_bucket() {
+  gcloud storage rm --recursive "gs://${BUCKET_NAME}/**" >/dev/null 2>&1 || true
+  if ! gcloud storage buckets delete "gs://${BUCKET_NAME}"; then
+    printf 'STOP: bucket cleanup failed; delete it manually with:\n' >&2
+    printf '  gcloud storage buckets delete "gs://%s"\n' "$BUCKET_NAME" >&2
+  fi
+}
 
-# Verify
-gcloud storage objects list gs://$BUCKET_NAME/
+# Copy only the five validated reports
+gcloud storage cp report{1..5}.txt "gs://${BUCKET_NAME}/" \
+  || { printf 'STOP: report upload failed.\n' >&2; cleanup_bucket; exit 1; }
+
+# Verify that every expected report is actually in the bucket
+for file in report{1..5}.txt; do
+  gcloud storage objects describe "gs://${BUCKET_NAME}/${file}" >/dev/null \
+    || { printf 'STOP: %s missing from bucket.\n' "$file" >&2; cleanup_bucket; exit 1; }
+done
+)
 ```
+
 </details>
 
 ---

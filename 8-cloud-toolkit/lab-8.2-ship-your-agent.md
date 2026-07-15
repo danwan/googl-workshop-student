@@ -53,7 +53,8 @@ gcloud services enable \
   storage.googleapis.com \
   cloudresourcemanager.googleapis.com \
   artifactregistry.googleapis.com \
-  cloudbuild.googleapis.com
+  cloudbuild.googleapis.com \
+  agentregistry.googleapis.com
 ```
 
 > 💡 This is the CLI equivalent of Lab 8.1 Quest 2 (enable an API), enabling the services required to build, host, and scale your agent.
@@ -103,11 +104,13 @@ adk deploy agent_engine \
 Since Agent Runtime is an API-first backend service, it doesn't have a visual web chat by default. Let's verify it works by running a Python test script from Cloud Shell inside your active virtual environment.
 
 1. Install the Gemini Enterprise Python SDK (Vertex AI SDK) inside your active virtual environment:
+
 ```bash
 pip install "google-cloud-aiplatform[agent_engines]"
 ```
 
-2. Create a verification script `test_agent.py`:
+1. Create a verification script `test_agent.py`:
+
 ```bash
 cat << 'EOF' > test_agent.py
 import asyncio
@@ -134,9 +137,10 @@ asyncio.run(main())
 EOF
 ```
 
-3. Replace `your-project-id`, `europe-west4`, and `YOUR_ENGINE_ID` in `test_agent.py` with your actual Google Cloud Project ID, location, and the deployed engine ID from Step 4.
+1. Replace `your-project-id`, `europe-west4`, and `YOUR_ENGINE_ID` in `test_agent.py` with your actual Google Cloud Project ID, location, and the deployed engine ID from Step 4.
 
-4. Run the verification script:
+2. Run the verification script:
+
 ```bash
 python3 test_agent.py
 ```
@@ -145,27 +149,32 @@ If the events include the conversion result **3.2 Pa.s**, your managed Agent Run
 
 ---
 
-### Step 6 — Manage and Govern with Agent Registry 📦
+### Step 6 — Manage and Govern with Agent Registry (Preview) 📦
 
-Now that your agent is deployed to the cloud, how do you track and govern it? **Agent Registry** is Google Cloud's centralized fleet catalog for managing AI agents. Deployed Agent Runtime instances are **auto-registered** under the hood! Let's use `gcloud` to discover and inspect it:
+Now that your agent is deployed to the cloud, how do you track and govern it? **Agent Registry is Preview** and provides a centralized fleet catalog for managing AI agents. Deployed Agent Runtime instances are **auto-registered** under the hood. Its current management surface is `gcloud alpha agent-registry`.
 
-1. **Enable the Agent Registry API:**
-```bash
-gcloud services enable agentregistry.googleapis.com
-```
+> 🚪 **Preview gate:** this step is **optional**. Run it only if the facilitator confirmed before the workshop that the projects have Agent Registry access and that Cloud Shell's `gcloud` supports the `alpha agent-registry` commands. If either check fails, skip to the success checklist — your deployment in Step 4 already succeeded.
 
-2. **List all registered agents:**
+The Agent Registry API was enabled in Step 2, before deployment.
+
+1. **List all registered agents:**
+
 ```bash
 gcloud alpha agent-registry agents list --project=$GOOGLE_CLOUD_PROJECT --location=$GOOGLE_CLOUD_LOCATION
 ```
-- You should see your `"Formula Agent"` listed with its resource path and state.
 
-3. **Describe the registered agent to inspect its metadata:**
-Replace `YOUR_ENGINE_ID` with your actual Reasoning Engine ID (e.g., `789` or the full ID):
+- Find `"Formula Agent"` and copy the exact value of its registry **`name`** field.
+
+1. **Describe that exact registry resource:**
+Paste the copied registry `name` into `REGISTRY_NAME`, then pass it unchanged to `describe`:
+
 ```bash
-gcloud alpha agent-registry agents describe YOUR_ENGINE_ID --project=$GOOGLE_CLOUD_PROJECT --location=$GOOGLE_CLOUD_LOCATION
+REGISTRY_NAME="projects/your-project-id/locations/europe-west4/agents/paste-the-registry-agent-id"
+gcloud alpha agent-registry agents describe "$REGISTRY_NAME" --project=$GOOGLE_CLOUD_PROJECT --location=$GOOGLE_CLOUD_LOCATION
 ```
-- This output displays the agent's display name, state, and underlying reasoning engine configuration, offering a unified control plane.
+
+- Use the Agent Registry `name` from the list output — **never** substitute the Reasoning Engine ID from Step 4.
+- The output displays the registry metadata and underlying runtime association.
 
 ---
 
@@ -192,10 +201,12 @@ Verify that you are logged in (`gcloud auth list`) and that the active project m
 <details>
 <summary><strong>Hint 3 — The deploy fails on "API not enabled" or billing</strong></summary>
 
-Re-run Step 2 to ensure all five APIs are enabled. Also, confirm billing is active on the project:
+Re-run Step 2 to ensure all six APIs are enabled. Also, confirm billing is active on the project:
+
 ```bash
 gcloud billing projects describe $GOOGLE_CLOUD_PROJECT
 ```
+
 Both Cloud Build and Gemini Enterprise require active billing. Wait ~30 seconds after enabling APIs, then redeploy.
 </details>
 
@@ -230,7 +241,17 @@ adk deploy agent_engine \
   --region=$GOOGLE_CLOUD_LOCATION \
   --display_name="Formula Agent" \
   ./formula_agent
+
+gcloud alpha agent-registry agents list \
+  --project=$GOOGLE_CLOUD_PROJECT \
+  --location=$GOOGLE_CLOUD_LOCATION
+REGISTRY_NAME="projects/your-project-id/locations/europe-west4/agents/paste-the-registry-agent-id"
+gcloud alpha agent-registry agents describe "$REGISTRY_NAME" \
+  --project=$GOOGLE_CLOUD_PROJECT \
+  --location=$GOOGLE_CLOUD_LOCATION
 ```
+
+Copy `REGISTRY_NAME` exactly from the list output; do not use the Reasoning Engine ID.
 </details>
 
 ## ✨ Level-up challenge — deploy a custom Web UI on Cloud Run
@@ -254,13 +275,17 @@ adk deploy cloud_run \
 ```
 
 - When the command finishes, it will print a **Service URL**. Open it to try the Formula Agent.
-- If you created this optional service, delete it afterward in **Cloud Run → formula-ui → Delete** and confirm.
+- If you created this optional service, complete the Cloud Run cleanup below after testing it.
 
 ## 🧹 Clean up Agent Runtime
 
 After verification, open **Vertex AI → Agent Runtime**. If your Console still uses the legacy **Agent Engine** label, open that page. Select the **Formula Agent** instance whose resource ID you copied in Step 4, click **Delete**, and confirm. Delete only your own workshop instance.
 
-If you completed the Cloud Run challenge, confirm that `formula-ui` is deleted too.
+If you completed the Cloud Run challenge:
+
+1. Delete **Cloud Run → formula-ui** and confirm.
+2. In **Artifact Registry**, delete only the container image versions/tags created for `formula-ui`. Delete the repository itself only when the facilitator confirms it is workshop-owned and it is empty; never delete a shared repository that contains other images.
+3. Check the deployment output and **Cloud Storage** to determine whether a staging bucket was actually created for `formula-ui`. If none exists, there is no bucket cleanup. If one exists, delete it only after confirming that no other workshop resource uses it.
 
 ---
 
@@ -268,9 +293,9 @@ If you completed the Cloud Run challenge, confirm that `formula-ui` is deleted t
 
 - [ ] `adk deploy agent_engine` printed a **Reasoning Engine Resource ID**.
 - [ ] `python3 test_agent.py` returned **3.2 Pa.s** for 3200 cP.
-- [ ] Agent Registry listed your Formula Agent.
+- [ ] Agent Registry (Preview) listed your Formula Agent, and you described it using its exact registry `name` rather than the Reasoning Engine ID.
 - [ ] You understand that Memory Bank was **not** enabled by this lab.
-- [ ] You deleted the Formula Agent runtime and, if created, the optional `formula-ui` Cloud Run service.
+- [ ] You deleted the Formula Agent runtime and, if created, the optional `formula-ui` service and images; you removed a verified staging bucket or empty workshop-owned image repository only when safe.
 
 ---
 

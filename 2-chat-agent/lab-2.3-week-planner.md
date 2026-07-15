@@ -30,7 +30,7 @@ Choose the output format and free-time rules yourself. Test dates and times agai
 
 - [ ] This week's meetings are listed correctly in a table.
 - [ ] The agent identifies a real free block, such as Tuesday morning.
-- [ ] The AutoParts prep names Michael Torres, BondMax 500 pricing, the 500-drum order, and Detroit delivery.
+- [ ] The AutoParts prep names Michael Torres, BondMax 500 pricing, the BondMax 500 bulk order, and Detroit delivery.
 - [ ] The agent never invents a meeting or free slot.
 
 ---
@@ -76,4 +76,4 @@ Change the minimum focus block to 90 minutes and prefer mornings, then prepare f
 
 You made calendar reasoning testable by defining time boundaries and checking every proposed slot against the source.
 
-➡️ Return to the [module README](./README.md) for your next route.
+➡️ Return to the [Day 1 guide](../DAY_1.md) for your next route.

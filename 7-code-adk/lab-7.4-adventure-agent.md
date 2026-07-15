@@ -24,11 +24,12 @@ Your quest: drop an agent into a text-based world, give it tools to act (move no
 
 > 🚪 **Prep Gate:** This lab assumes you completed **[Lab 7.0 — Developer Setup](./lab-7.0-developer-setup.md)** (Cloud Shell + Python virtual environment). If not, run it first.
 
-Open **Cloud Shell** (or your local terminal) and activate your environment. Since we are importing the `requests` library in our code later, we must make sure to install it alongside `google-adk` inside the virtual environment:
+Open **Cloud Shell**, return to your home directory, and activate your environment. Since we are importing the `requests` library in our code later, we must make sure to install it alongside `google-adk` inside the virtual environment:
 
 ```bash
 # 1. Activate the virtual environment from Lab 7.0
-source venv/bin/activate
+cd "$HOME"
+source "$HOME/venv/bin/activate"
 
 # 2. Install the kit AND the requests library
 pip install --upgrade pip
@@ -37,11 +38,6 @@ pip install google-adk requests
 # 3. Confirm the CLI is available
 adk --version
 ```
-
-> 💡 **Using `uv`?** If you created your environment with `uv` in Lab 7.0, run this instead:
-> ```bash
-> source .venv/bin/activate && uv pip install google-adk requests
-> ```
 
 ---
 
@@ -60,44 +56,39 @@ adventure/
 ├── __init__.py        # one line: from . import agent
 ├── agent.py           # defines root_agent
 ├── requirements.txt   # third-party libraries (google-adk, requests)
-└── .env               # your model credentials + the game URL
+└── .env               # model settings, game URL, and your personal game key
 ```
 
-Let's create the folder structure and touch the files:
+Let's create the folder structure and touch the files. `.env` will hold your **personal game API key**, so it is a secret: keep it readable only by you, never commit it to version control, and never share or screenshot it:
+
 ```bash
 mkdir -p adventure
 printf 'from . import agent\n' > adventure/__init__.py
 touch adventure/agent.py
 touch adventure/requirements.txt
 touch adventure/.env
+chmod 600 adventure/.env
 ```
 
 Open `adventure/requirements.txt` in your editor and add:
+
 ```text
 google-adk
 requests
 ```
 
-The `.env` file is how your agent reaches a **Gemini model** — without it, nothing runs. ADK loads it automatically from the agent folder. Create `adventure/.env` and configure your credentials using one of the following methods:
+The `.env` file holds the non-secret settings for your **Gemini model** and game. ADK loads it automatically from the agent folder. Vertex AI is the workshop default.
 
-### 🔑 Option A: Google AI Studio (Easiest & Free)
-1. Go to **[aistudio.google.com](https://aistudio.google.com)**.
-2. Click **Get API Key** and create a new key.
-3. Open `adventure/.env` in your editor and add:
-   ```bash
-   GOOGLE_GENAI_USE_VERTEXAI=FALSE
-   GOOGLE_API_KEY="YOUR_AI_STUDIO_API_KEY"
-   GAME_URL="<WORKSHOP_ADVENTURE_GAME_URL>"
-   GAME_API_KEY="YOUR_PERSONAL_GAME_API_KEY"
-   ```
+### ☁️ Default: Vertex AI / Agent Platform (keyless)
 
-### ☁️ Option B: Vertex AI / Agent Platform (Keyless Cloud Integration)
-If you are running in Cloud Shell with access to your workshop's Google Cloud project, you can authenticate keylessly:
 1. In Cloud Shell, run:
+
    ```bash
    gcloud auth application-default login
    ```
+
 2. Open `adventure/.env` in your editor and add (replace with your project ID):
+
    ```bash
    GOOGLE_GENAI_USE_VERTEXAI=TRUE
    GOOGLE_CLOUD_PROJECT="your-project-id"
@@ -105,6 +96,20 @@ If you are running in Cloud Shell with access to your workshop's Google Cloud pr
    GAME_URL="<WORKSHOP_ADVENTURE_GAME_URL>"
    GAME_API_KEY="YOUR_PERSONAL_GAME_API_KEY"
    ```
+
+### 🔑 Facilitator-controlled fallback: Google AI Studio
+
+Use this only when the facilitator explicitly enables the fallback and controls the provider key. Keep the non-secret `GAME_URL` in `.env` and treat your personal `GAME_API_KEY` there like a password; never write the provider key to `.env`. Read the provider key without displaying it and export it only in the current shell:
+
+```bash
+read -rsp "Facilitator-provided AI Studio key: " GOOGLE_API_KEY
+printf '\n'
+export GOOGLE_API_KEY
+export GOOGLE_GENAI_USE_VERTEXAI=FALSE
+# Clear the key automatically when this shell exits, even after a crash
+# or Ctrl+C, so it cannot leak into later commands.
+trap 'unset GOOGLE_API_KEY GOOGLE_GENAI_USE_VERTEXAI' EXIT
+```
 
 **Step 3 — Give the agent tools (this is the key move 🔑).**
 The game publishes an **OpenAPI specification** at `<GAME_URL>/openapi.json` — a machine-readable description of every endpoint, its parameters, and its responses. Instead of hand-writing one Python function per endpoint (you did that in Lab 7.2), let ADK's **`OpenAPIToolset`** generate the whole toolset from the spec, with your API key wired into every request. This is the same approach the game's own workshop pages walk you through.
@@ -148,12 +153,27 @@ The toolset gives your agent one tool per endpoint. The API is **stateful** — 
 | `POST /game/examine` | Inspect an item or feature (`target`) |
 | `GET /game/inventory` | List what you are carrying |
 
-**Step 4 — Write the agent.** In the same `adventure/agent.py`, below the toolset, define the agent. The instruction is deliberately minimal — making it smarter is Step 6:
+**Step 4 — Write the agent.** In the same `adventure/agent.py`, below the toolset, define the agent. The move budget is enforced in code — a prompt alone cannot guarantee the agent stops — and the instruction is deliberately minimal; making it smarter is Step 6:
 
 ```python
 from google.adk.agents.llm_agent import Agent
 from google.adk.models import Gemini
 from google.genai import types
+
+MAX_MOVES = 40
+_moves = {"count": 0}
+
+def enforce_move_budget(tool, args, tool_context):
+    """Hard-stop the run after MAX_MOVES tool calls, whatever the prompt says."""
+    _moves["count"] += 1
+    if _moves["count"] > MAX_MOVES:
+        return {
+            "error": (
+                f"Move budget of {MAX_MOVES} exhausted. Stop playing now and "
+                "report why the level was not completed."
+            )
+        }
+    return None
 
 root_agent = Agent(
     model=Gemini(
@@ -168,12 +188,13 @@ root_agent = Agent(
     description="An expert adventure game player.",
     instruction=("Solve the requested level"),
     tools=[adventure_game_toolset],
+    before_tool_callback=enforce_move_budget,
 )
 ```
 
-> ⏳ The `retry_options` matter in a room full of participants: when the model API rate-limits you, ADK backs off and retries instead of crashing mid-quest.
+> ⏳ The `retry_options` matter in a room full of participants: when the model API rate-limits you, ADK backs off and retries instead of crashing mid-quest. The `before_tool_callback` is the hard 40-move cap — after it trips, every further tool call returns an error instead of hitting the game API, so a stuck run cannot burn unbounded quota.
 
-**Step 5 — Run it.** Two ways (ADK auto-loads `adventure/.env`, so no exports needed):
+**Step 5 — Run it.** Two ways (ADK auto-loads `adventure/.env`; only the approved AI Studio fallback needs the Step 2 shell exports):
 
 ```bash
 adk run adventure      # interactive in your terminal
@@ -184,7 +205,9 @@ In the chat, try: *"What levels can I play?"* — then *"Solve level 0"*.
 
 > 🔁 Edited `.env` while the web UI was running? Restart it — the environment is read at startup.
 
-**Step 6 — Make it autonomous, then improve.** Run the agent once. With the minimal instruction it will play, but not well. Now rewrite the `instruction` to give it a clear goal and a way of working: explore systematically, examine anything unusual, keep a running list of rooms and items, take ONE action per turn, narrate its plan before each move, and change strategy after repeated failures. Re-run and check the new prompt gets further, until the game reports the **level is complete** (a `level_complete` flag or victory message). That loop — *observe → adjust the prompt → re-run* — is the whole game.
+**Step 6 — Make it autonomous, then improve.** Run the agent once. With the minimal instruction it will play, but not well. Now rewrite the `instruction` to give it a clear goal and a way of working: explore systematically, examine anything unusual, keep a running list of rooms and items, take ONE action per turn, narrate its plan before each move, change strategy after repeated failures, and **stop after at most 40 moves** with a short failure report if the level is still unsolved. Re-run and check the new prompt gets further, until the game reports the **level is complete** (a `level_complete` flag or victory message). That loop — *observe → adjust the prompt → re-run* — is the whole game.
+
+If you used the AI Studio fallback, then run `unset GOOGLE_API_KEY GOOGLE_GENAI_USE_VERTEXAI` now (the `EXIT` trap set in Step 2 also clears them if the shell closes or the run is interrupted) and have the facilitator delete or revoke the provider key. When you are done with the lab, delete `adventure/.env` or its `GAME_API_KEY` line.
 
 ---
 
@@ -219,7 +242,7 @@ You're likely on Python 3.9 or older — ADK 2.x needs **3.10+**. Check `python 
 <details>
 <summary><strong>Hint 2 — "Missing key inputs argument" / API key or auth errors</strong></summary>
 
-The model credentials aren't reaching ADK. Check that `adventure/.env` exists (Step 2), contains a valid `GOOGLE_API_KEY` (no extra spaces, quotes intact), and has `GOOGLE_GENAI_USE_VERTEXAI=FALSE`. Then re-run from the folder *above* `adventure/`. On Gemini Enterprise: `GOOGLE_GENAI_USE_VERTEXAI=TRUE` + `GOOGLE_CLOUD_PROJECT` + `GOOGLE_CLOUD_LOCATION`, and make sure you ran `gcloud auth application-default login`.
+The model configuration is not reaching ADK. For the default route, check that `adventure/.env` contains `GOOGLE_GENAI_USE_VERTEXAI=TRUE`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`, and `GAME_URL`, then confirm you ran `gcloud auth application-default login`. For the approved fallback, confirm the provider key and `GOOGLE_GENAI_USE_VERTEXAI=FALSE` were exported in this shell. Re-run from the folder *above* `adventure/`.
 </details>
 
 <details>
@@ -246,11 +269,14 @@ Strengthen the instruction: *"Continue making moves until you win or are truly s
 `adventure/.env`
 
 ```bash
-GOOGLE_GENAI_USE_VERTEXAI=FALSE
-GOOGLE_API_KEY="your-api-key-here"
+GOOGLE_GENAI_USE_VERTEXAI=TRUE
+GOOGLE_CLOUD_PROJECT="your-project-id"
+GOOGLE_CLOUD_LOCATION="europe-west4"
 GAME_URL="<WORKSHOP_ADVENTURE_GAME_URL>"
 GAME_API_KEY="your-personal-game-api-key"
 ```
+
+Authenticate with `gcloud auth application-default login`. If the facilitator enables the AI Studio fallback instead, use Step 2's hidden shell read/export and never add its key to this file.
 
 `adventure/__init__.py`
 
@@ -288,6 +314,21 @@ adventure_game_toolset = OpenAPIToolset(
     auth_credential=auth_credential,
 )
 
+MAX_MOVES = 40
+_moves = {"count": 0}
+
+def enforce_move_budget(tool, args, tool_context):
+    """Hard-stop the run after MAX_MOVES tool calls, whatever the prompt says."""
+    _moves["count"] += 1
+    if _moves["count"] > MAX_MOVES:
+        return {
+            "error": (
+                f"Move budget of {MAX_MOVES} exhausted. Stop playing now and "
+                "report why the level was not completed."
+            )
+        }
+    return None
+
 root_agent = Agent(
     model=Gemini(
         model="gemini-3.5-flash",
@@ -306,9 +347,11 @@ root_agent = Agent(
         "and items held. Examine anything unusual, collect useful items, and use "
         "them — alone or on other things — when a puzzle demands it. Narrate your "
         "plan in one sentence before each action. If an action fails 3 times, change "
-        "strategy. Never give up until the game reports the level is complete."
+        "strategy. Keep playing until the game reports the level is complete, but "
+        "stop after at most 40 moves and report what blocked you if it is not."
     ),
     tools=[adventure_game_toolset],
+    before_tool_callback=enforce_move_budget,
 )
 ```
 
@@ -318,6 +361,12 @@ Run it (from the folder *above* `adventure/` — ADK picks up the `.env` automat
 adk web .          # watch it play in the browser, or:
 adk run adventure  # play in the terminal
 ```
+
+When the session opens, send this exact first user message:
+
+> Solve level 0. Take exactly one game action per tool call and keep going until the game reports the level is complete. Stop after at most 40 moves and give me a short failure report if it is not complete by then.
+
+After an AI Studio fallback run, unset `GOOGLE_API_KEY GOOGLE_GENAI_USE_VERTEXAI` and have the facilitator delete or revoke the provider key.
 
 </details>
 

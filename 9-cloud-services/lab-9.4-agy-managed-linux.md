@@ -1,24 +1,24 @@
 # 🔴 Lab 9.4 — agy on Managed Linux
 
-> **Your mission:** Turn the Ubuntu environment from **Lab 9.2 or Lab 9.3** into a ready-to-use agent development terminal: install the **Antigravity CLI (`agy`)**, Google Agent CLI skills, and the Google Developer Knowledge MCP server, then ask a grounded Cloud Storage question. 🖥️🤖
+> **Your mission:** Turn the Ubuntu environment from **Lab 9.2 or Lab 9.3** into a ready-to-use agent development terminal: install the **Antigravity CLI (`agy`)**, Google Agents CLI lifecycle skills, and the Google Developer Knowledge MCP server, then ask a grounded Cloud Storage question. 🖥️🤖
 
 | 🏆 Level | ⏱️ Time | 🧰 Tool | 📦 What you need |
 |---|---|---|---|
 | Advanced | ~25–35 min | **Ubuntu terminal** + **agy CLI** | A running Lab 9.2 VM **or** Lab 9.3 Code OSS workstation; dedicated billed project; Project Owner/admin access |
 
 > 🚪 **Owner/admin gate:** Continue only when the facilitator confirms the assigned project, billing, API enablement, and your permission to create a restricted API key. Otherwise, stop here.
-
-> 💸 **Cost gate:** This lab is outside the core schedule. Your Compute Engine VM or Cloud Workstation remains billable while it exists (and some attached resources can remain billable while stopped). At the end, explicitly stop or delete the parent resource by following Lab 9.2 or 9.3.
-
+>
+> 💸 **Cost gate:** This lab is outside the core schedule. At the end, delete the Compute Engine VM and any retained disks or static IPs; stop it only with explicit facilitator approval. For Cloud Workstations, stopping is insufficient: delete the **Workstation → Configuration → Cluster** because the cluster control plane and storage can keep billing.
+>
 > 📌 **Start in exactly one of these places:** the browser SSH terminal **inside the Ubuntu VM from Lab 9.2**, or **Terminal → New Terminal inside the Code OSS Cloud Workstation from Lab 9.3**. Do not use Cloud Shell, a local terminal, or the Antigravity IDE for this lab.
-
+>
 > 🔁 **New environment, new installation:** Your Cloud Shell setup from Lab 9.1 does not carry into this VM or workstation. Install only the tools missing from the selected environment.
 
 ---
 
 ## 🎬 The story
 
-TechBond wants the same agent-building tools on managed Linux that developers use in short-lived Cloud Shell sessions. You will inspect each installer before running it, connect `agy` to current Google documentation, and leave the underlying cloud resource cleanly stopped or deleted.
+TechBond wants the same agent-building tools on managed Linux that developers use in short-lived Cloud Shell sessions. You will inspect each installer before running it, connect `agy` to current Google documentation, and complete the required cleanup for the selected cloud resource.
 
 ---
 
@@ -43,9 +43,11 @@ else
   printf 'MISSING: Node.js 18+ and/or npx\n'
 fi
 command -v uv && uv --version || printf 'MISSING: uv\n'
+command -v agy && agy --version || printf 'MISSING: agy\n'
+command -v agents-cli && agents-cli --version || printf 'MISSING: agents-cli\n'
 ```
 
-Install only the items reported as missing in Steps 2 and 3.
+Install only the items whose executable, version, or lifecycle-skill checks failed, using Steps 2, 3, and 5.
 
 ### Step 2 — Install missing system tools
 
@@ -94,7 +96,7 @@ node -e 'process.exit(Number(process.versions.node.split(".")[0]) >= 18 ? 0 : 1)
 
 ### Step 3 — Install Python 3.11+ through uv when needed
 
-If `uv` is missing, download and review its official installer before running it:
+If the `uv --version` check in Step 1 failed, download and review its official installer before running it:
 
 ```bash
 curl --max-time 10 -fsSL https://astral.sh/uv/install.sh -o install-uv.sh
@@ -120,26 +122,62 @@ python3 -c 'import sys; print(sys.version); raise SystemExit(sys.version_info < 
 
 ### Step 4 — Verify the active Google Cloud identity and project
 
+Choose the path that matches the environment you opened.
+
+**Lab 9.2 Compute Engine path:** the VM has no attached service account. Sign in as your workshop account, then separately create and verify Application Default Credentials (ADC). Replace both expected values with the exact facilitator assignment.
+
 ```bash
-gcloud auth list --filter=status:ACTIVE --format='value(account)'
-gcloud config get-value project
+(
+EXPECTED_ACCOUNT="your-workshop-account@example.com"
+EXPECTED_PROJECT_ID="your-assigned-workshop-project-id"
+
+gcloud auth login
+ACTIVE_ACCOUNT="$(gcloud auth list --filter=status:ACTIVE --format='value(account)')"
+PROJECT_ID="$(gcloud config get-value project 2>/dev/null)"
+if [ "$ACTIVE_ACCOUNT" != "$EXPECTED_ACCOUNT" ] \
+  || [ "$PROJECT_ID" != "$EXPECTED_PROJECT_ID" ]; then
+  printf 'STOP: account or project does not match the workshop assignment.\n' >&2
+  exit 1
+fi
+
+gcloud auth application-default login "$EXPECTED_ACCOUNT" \
+  || { printf 'STOP: ADC login failed for the workshop account.\n' >&2; exit 1; }
+gcloud auth application-default print-access-token >/dev/null \
+  || { printf 'STOP: ADC verification failed.\n' >&2; exit 1; }
+)
 ```
 
-Compare both values with your workshop assignment. If no active account appears, run `gcloud auth login`. If the project is wrong, **stop and ask the facilitator**; do not guess or switch to another project.
-
-Application Default Credentials (ADC) are separate from the active `gcloud` login. Set them up only if an Agent CLI or ADK action asks for ADC:
+**Lab 9.3 Cloud Workstations path:** do not improvise a human login. Get the expected service-account principal from the workstation configuration or facilitator, then verify that exact principal and project. Stop on any mismatch.
 
 ```bash
-gcloud auth application-default print-access-token >/dev/null 2>&1 \
-  || gcloud auth application-default login
+(
+EXPECTED_SERVICE_ACCOUNT="workstation-service-account@your-project.iam.gserviceaccount.com"
+EXPECTED_PROJECT_ID="your-assigned-workshop-project-id"
+
+ACTIVE_PRINCIPAL="$(curl --max-time 10 -fsS \
+  -H 'Metadata-Flavor: Google' \
+  http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email)"
+PROJECT_ID="$(curl --max-time 10 -fsS \
+  -H 'Metadata-Flavor: Google' \
+  http://metadata.google.internal/computeMetadata/v1/project/project-id)"
+if [ "$ACTIVE_PRINCIPAL" != "$EXPECTED_SERVICE_ACCOUNT" ] \
+  || [ "$PROJECT_ID" != "$EXPECTED_PROJECT_ID" ]; then
+  printf 'STOP: workstation principal or project does not match the approved configuration.\n' >&2
+  exit 1
+fi
+
+gcloud config set project "$PROJECT_ID" \
+  || { printf 'STOP: failed to set the verified workstation project.\n' >&2; exit 1; }
+gcloud auth application-default print-access-token >/dev/null \
+  || { printf 'STOP: configured workstation ADC is unavailable.\n' >&2; exit 1; }
+)
 ```
 
 ### Step 5 — Install agy and the skills
 
-First check for `agy`. If it is missing, inspect its official installer before running it:
+If the `agy --version` check in Step 1 succeeded, skip its installer. Only if that check failed, inspect the official installer before running it:
 
 ```bash
-command -v agy || printf 'MISSING: agy\n'
 curl --max-time 10 -fsSL https://antigravity.google/cli/install.sh -o install-agy.sh
 less install-agy.sh
 ```
@@ -153,11 +191,46 @@ source "$HOME/.local/bin/env"
 agy --version
 ```
 
-If `agy` already existed, skip the download and continue. Install the CLI and both skill sources:
+> ⚠️ **Preview / Pre-GA gate:** The Google Agents CLI is Preview / Pre-GA. Before offering this lab, the facilitator must smoke-test the setup on the selected VM/workstation image and state the expected `agents-cli --version`. If that gate is missing, or the checks still fail after the matching case below, use Module 7's manual ADK route instead, or skip this optional lab.
+
+Check the installed lifecycle skills too; a working version command alone is not enough:
 
 ```bash
-uv tool install google-agents-cli
-uvx google-agents-cli setup --agent antigravity
+agents-cli info
+```
+
+Run only the case that matches:
+
+1. **CLI missing:** install the tool, then run the official setup command.
+
+   ```bash
+   uv tool install google-agents-cli
+   uvx google-agents-cli setup --agent antigravity
+   ```
+
+2. **CLI present but its version differs from the facilitator-approved version:** install exactly the approved version (a plain upgrade only moves forward and keeps old pins), then update its managed assets.
+
+   ```bash
+   uv tool install "google-agents-cli==<facilitator-approved-version>" --force
+   agents-cli update -y
+   ```
+
+3. **CLI version matches, but `agents-cli info` does not list the lifecycle skills:** run the official setup command to restore them.
+
+   ```bash
+   uvx google-agents-cli setup --agent antigravity
+   ```
+
+Recheck both outputs:
+
+```bash
+agents-cli --version
+agents-cli info
+```
+
+After the version matches and `agents-cli info` lists the lifecycle skills, add Google's broader skill collection:
+
+```bash
 npx skills add google/skills --skill '*' --global --agent antigravity --yes
 ```
 
@@ -262,6 +335,7 @@ source "$HOME/.local/bin/env"
 export PATH="$HOME/.local/bin:$PATH"
 command -v uv agy
 ```
+
 </details>
 
 <details>
@@ -274,13 +348,15 @@ Check that `~/.gemini/config/mcp_config.json` is valid JSON, uses `serverUrl`, a
 <summary><strong>✅ Show me the full route</strong></summary>
 
 1. Enter the existing Lab 9.2 Ubuntu SSH terminal or Lab 9.3 Code OSS terminal.
-2. Check `gcloud`, Python 3.11+, Node.js 18+, `npx`, and `uv`; install only missing or outdated tools, then repeat their checks.
-3. Verify the active `gcloud` account and assigned project. Configure ADC only if a later action requests it.
-4. Inspect and install `agy`, then run the three skill-install commands from Step 5.
+2. Check `gcloud`, Python 3.11+, Node.js 18+, `npx`, `uv`, `agy`, and `agents-cli`; install only tools whose executable, version, or lifecycle-skill checks fail, then repeat their checks.
+3. Use Step 4's matching subshell: on GCE, sign in and separately verify the exact human account and ADC; on Workstations, verify the metadata service-account principal and project, set that verified project, and check ADC without a human login.
+4. Install `agy` only if its check failed. For the Preview / Pre-GA Agents CLI, use exactly one Step 5 case: missing CLI → official setup; facilitator-version mismatch → `uv tool upgrade` plus `agents-cli update -y`; matching version but missing lifecycle skills in `agents-cli info` → official setup. Recheck version and info; if the gate still fails, use the manual ADK route or skip this optional lab. After the gate passes, add the broader Google skills.
 5. In `agy`, use `/skills` and verify the three named skills.
 6. Enable Developer Knowledge, create a restricted key, merge its server entry into `~/.gemini/config/mcp_config.json` without removing other servers, verify mode `600`, and require `python3 -m json.tool` to pass before continuing.
 7. Use `/mcp`, ask the grounded Cloud Storage question, and confirm official citations.
-8. Continue to the optional bonus if desired, then run **Cleanup and cost stop**: delete the workshop key unless reuse was approved, remove only the lab's local MCP configuration, and stop or delete the parent VM/workstation.
+8. Continue to the optional bonus if desired, then exit `agy` but keep the terminal open. Delete the workshop key unless reuse was approved, remove only the lab's local MCP configuration, and complete its JSON check.
+9. If retaining the GCE VM, run `gcloud auth application-default revoke` and `gcloud auth revoke`. Close the terminal only after cleanup and any revokes finish.
+10. Stop or delete the VM, or delete the Workstation → Configuration → Cluster.
 </details>
 
 ---
@@ -288,14 +364,15 @@ Check that `~/.gemini/config/mcp_config.json` is valid JSON, uses `serverUrl`, a
 ## ✅ You did it when…
 
 - [ ] You worked only inside the Ubuntu terminal from Lab 9.2 or the Code OSS terminal from Lab 9.3.
-- [ ] `gcloud`, Python 3.11+, Node.js 18+, `npx`, `uv`, and `agy` pass their version checks.
-- [ ] The active Google Cloud account and project match the workshop assignment.
-- [ ] `/skills` shows `google-agents-cli-workflow`, `google-agents-cli-adk-code`, and `gcloud`.
+- [ ] `gcloud`, Python 3.11+, Node.js 18+, `npx`, `uv`, and `agy` pass their version checks; installers ran only for failed checks.
+- [ ] The facilitator's Agents CLI Preview / Pre-GA gate passed: the version matches and `agents-cli info` lists the lifecycle skills; otherwise you chose the manual ADK/skip route.
+- [ ] The GCE human account and ADC, or the configured Workstations service-account principal and ADC, match the approved workshop setup.
+- [ ] When the Agents CLI gate passes, `/skills` shows `google-agents-cli-workflow`, `google-agents-cli-adk-code`, and `gcloud`.
 - [ ] Before `/mcp`, `stat` reports mode `600` and `python3 -m json.tool` validates `~/.gemini/config/mcp_config.json`.
 - [ ] `/mcp` shows `google-developer-knowledge` connected.
 - [ ] The Cloud Storage answer cites official Google documentation without changing resources.
 - [ ] You identified the required API-key deletion and the safe MCP cleanup path for a new versus pre-existing config file.
-- [ ] You identified the required stop/delete action for your parent VM or workstation and understand that underlying resources can remain billable until deleted.
+- [ ] You identified the VM stop/delete action or the mandatory Workstation → Configuration → Cluster deletion sequence.
 
 ---
 
@@ -313,11 +390,12 @@ Review the proposed plan yourself. It passes only when every command is read-onl
 
 ## 🧹 Cleanup and cost stop
 
-1. Exit `agy` with `/exit` and close the terminal session.
+1. Exit `agy` with `/exit`, but keep the terminal open for the remaining local cleanup.
 2. Delete the workshop Developer Knowledge API key under **APIs & Services → Credentials**, unless the facilitator explicitly approved reuse.
-3. If you will retain or stop the parent resource, remove the lab's local MCP secret:
+3. Remove the lab's local MCP secret:
    - If this lab created `mcp_config.json`, delete it with `rm ~/.gemini/config/mcp_config.json`.
    - If the file existed before the lab, open it with `nano`, remove **only** the `google-developer-knowledge` block, preserve every unrelated server, and then run:
+
    ```bash
    chmod 600 ~/.gemini/config/mcp_config.json
    if python3 -m json.tool ~/.gemini/config/mcp_config.json >/dev/null; then
@@ -327,17 +405,21 @@ Review the proposed plan yourself. It passes only when every command is read-onl
      printf 'Invalid JSON. Previous config restored; backup kept. Stop and fix cleanup.\n' >&2
    fi
    ```
-4. If you added user credentials and are keeping the resource, optionally remove that local authentication:
+
+4. If you used the GCE path and retention was approved instead of deletion, revoke both credential stores before leaving the VM:
+
    ```bash
    gcloud auth application-default revoke
    gcloud auth revoke
    ```
-5. **Required cost action:** follow [Lab 9.2](./lab-9.2-gce-ssh.md) to delete the VM, or [Lab 9.3](./lab-9.3-cloud-workstations.md) to delete the workstation, configuration, and cluster in dependency order. Closing SSH, the browser tab, Code OSS, or `agy` does not stop billing.
+
+5. Close the terminal only after the file check and any required revokes finish.
+6. **Required cost action:** follow [Lab 9.2](./lab-9.2-gce-ssh.md) to stop or delete the VM. For [Lab 9.3](./lab-9.3-cloud-workstations.md), delete the **Workstation → Configuration → Cluster** in dependency order; stopping the workstation is insufficient because the cluster control plane and storage can keep billing.
 
 ---
 
 ## 🧠 What you just learned
 
-You learned how to audit a managed Ubuntu environment before installing anything, inspect remote installers, keep system Python separate from `uv`-managed tools, verify Google Cloud identity and project context, extend the terminal-only `agy` client with Agent CLI and Google skills, ground answers through a restricted Developer Knowledge MCP key, and end a cloud lab with an explicit cost stop.
+You learned how to audit a managed Ubuntu environment before installing anything, inspect remote installers, keep system Python separate from `uv`-managed tools, verify Google Cloud identity and project context, extend the terminal-only `agy` client with Agents CLI lifecycle skills and broader Google skills, ground answers through a restricted Developer Knowledge MCP key, and end a cloud lab with an explicit cost stop.
 
 ⬅️ Back to the **[module overview](./README.md)**.
