@@ -538,8 +538,15 @@ function addGuestsAfterTagging(event, guests, sendInvites) {
   });
   if (!sendInvites) return;
   if (typeof Calendar !== 'undefined' && Calendar.Events) {
-    const eventId = event.getId().split('@')[0];
-    Calendar.Events.patch({}, 'primary', eventId, { sendUpdates: 'all' });
+    // event.getId() returns the iCalUID, not the Calendar API event ID —
+    // look the event up by iCalUID and patch the API id it returns.
+    const lookup = Calendar.Events.list('primary', { iCalUID: event.getId() });
+    const apiEvent = lookup && lookup.items && lookup.items[0];
+    if (apiEvent) {
+      Calendar.Events.patch({}, 'primary', apiEvent.id, { sendUpdates: 'all' });
+    } else {
+      Logger.log('    ⚠ Could not resolve the Calendar API event ID — guests were added but not emailed. Notify participants manually.');
+    }
   } else {
     Logger.log('    ⚠ Advanced Calendar service unavailable — guests were added but not emailed. Enable the "Google Calendar API" service and rerun, or notify participants manually.');
   }

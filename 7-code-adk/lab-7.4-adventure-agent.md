@@ -98,7 +98,7 @@ The `.env` file holds the non-secret settings for your **Gemini model** and game
 
 ### 🔑 Facilitator-controlled fallback: Google AI Studio
 
-Use this only when the facilitator explicitly enables the fallback and controls the provider key. Keep the same non-secret `GAME_URL` and `GAME_API_KEY` in `.env`; never write the provider key there. Read it without displaying it and export it only in the current shell:
+Use this only when the facilitator explicitly enables the fallback and controls the provider key. Keep the non-secret `GAME_URL` in `.env` and treat your personal `GAME_API_KEY` there like a password; never write the provider key to `.env`. Read the provider key without displaying it and export it only in the current shell:
 
 ```bash
 read -rsp "Facilitator-provided AI Studio key: " GOOGLE_API_KEY

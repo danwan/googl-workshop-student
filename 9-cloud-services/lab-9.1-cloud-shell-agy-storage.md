@@ -139,6 +139,12 @@ gcloud storage objects list gs://$BUCKET_NAME/
 ```
 - GCS will print the list of the five uploaded reports with their file sizes!
 
+> ⚠️ **If the upload or the listing fails**, delete the bucket before retrying so failed attempts don't accumulate billable resources:
+>
+> ```bash
+> gcloud storage rm --recursive "gs://$BUCKET_NAME/**" 2>/dev/null; gcloud storage buckets delete "gs://$BUCKET_NAME"
+> ```
+
 ### Step 7 — Delete the bucket
 
 After verification, open **Cloud Storage → Buckets**, select your participant-suffixed bucket, click **Delete**, and confirm. This deletes the five workshop reports and the bucket.

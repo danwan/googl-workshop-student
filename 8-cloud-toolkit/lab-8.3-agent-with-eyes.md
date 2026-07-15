@@ -55,6 +55,8 @@ IMAGE_FILE="path/to/your-image.jpg"
 
 PROJECT_ID="$(gcloud config get-value project 2>/dev/null)"
 PROJECT_NUMBER="$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)' 2>/dev/null)"
+# Bucket names must be lowercase letters, digits, and hyphens (3-63 chars)
+PARTICIPANT_SUFFIX="$(printf '%s' "$PARTICIPANT_SUFFIX" | tr '[:upper:]' '[:lower:]')"
 VISION_BUCKET="techbond-vision-${PROJECT_ID}-${PARTICIPANT_SUFFIX}"
 VISION_BUCKET_CREATED=false
 vision_bucket_ready=false
@@ -68,6 +70,8 @@ elif [ -z "$PROJECT_NUMBER" ]; then
   printf 'STOP: could not determine the active project number.\n' >&2
 elif ! test -s "$IMAGE_FILE"; then
   printf 'STOP: image file is missing or empty: %s\n' "$IMAGE_FILE" >&2
+elif ! printf '%s' "$VISION_BUCKET" | grep -Eq '^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$'; then
+  printf 'STOP: invalid bucket name %s — use only lowercase letters, digits, and hyphens in your initials.\n' "$VISION_BUCKET" >&2
 else
   bucket_metadata="$(gcloud storage buckets describe "gs://${VISION_BUCKET}" \
     --format='value(projectNumber,location)' 2>/dev/null)"
@@ -83,7 +87,8 @@ else
       printf 'STOP: existing bucket is in %s, not %s.\n' "$bucket_location" "$VISION_LOCATION" >&2
     fi
   elif gcloud storage buckets create "gs://${VISION_BUCKET}" \
-    --project="$PROJECT_ID" --location="$VISION_LOCATION"; then
+    --project="$PROJECT_ID" --location="$VISION_LOCATION" \
+    --soft-delete-duration=0d; then
     VISION_BUCKET_CREATED=true
     vision_bucket_ready=true
   else
@@ -107,7 +112,7 @@ else
 fi
 ```
 
-Swap the request body's public `imageUri` for the printed `VISION_OBJECT_URI`, then click **Execute**. When you finish testing, remove the object and delete the bucket only if this route created it:
+New buckets are created without soft delete so removed objects stop billing immediately; a reused existing bucket keeps its current soft-delete setting. Swap the request body's public `imageUri` for the printed `VISION_OBJECT_URI`, then click **Execute**. When you finish testing, remove the object and delete the bucket only if this route created it:
 
 ```bash
 if [ -z "${VISION_OBJECT_URI:-}" ]; then

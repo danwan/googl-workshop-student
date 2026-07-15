@@ -109,7 +109,7 @@ Since Agent Runtime is an API-first backend service, it doesn't have a visual we
 pip install "google-cloud-aiplatform[agent_engines]"
 ```
 
-1. Create a verification script `test_agent.py`:
+2. Create a verification script `test_agent.py`:
 
 ```bash
 cat << 'EOF' > test_agent.py

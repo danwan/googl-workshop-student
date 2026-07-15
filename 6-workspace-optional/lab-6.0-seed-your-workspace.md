@@ -8,7 +8,7 @@
 
 ---
 
-> **⏭️ Skip this lab if...** your inbox already contains TechBond emails (search Gmail for `BondMax`). That means your facilitator pre-seeded your account — jump straight to **[Lab 6.1](./lab-6.1-live-inbox-agent.md)**. 🎉
+> **⏭️ Skip this lab if...** your inbox already contains TechBond emails (search Gmail for `BondMax`). That means your facilitator pre-seeded your account — continue to **[Lab 6.1](./lab-6.1-live-inbox-agent.md)** only after the facilitator confirms the Gmail and Calendar connectors are enabled; otherwise skip Labs 6.1–6.2. 🎉
 >
 > **No connectors? Still worth it!** This lab does not need Gemini Enterprise connectors, but your workshop account must allow **Google Apps Script** and let you approve its **Gmail and Calendar OAuth permissions**. If either is blocked by your admin, ask your facilitator to pre-seed the account instead.
 

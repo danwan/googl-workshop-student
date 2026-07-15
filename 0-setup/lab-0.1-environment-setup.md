@@ -192,7 +192,7 @@ GCS bucket names are globally unique across all Google Cloud users. If `techbond
 
 ## 🧹 Final cleanup
 
-Unless the facilitator explicitly approved retention, after your final workshop lab delete these resources in dependency order: **app `techbond-agent-academy` → data store `techbond-docs` → bucket `techbond-documents-*`**. Confirm each deletion before continuing to the next resource.
+Unless the facilitator explicitly approved retention, after your final workshop lab delete these resources in dependency order: **app `techbond-agent-academy` → data store `techbond-docs` → the exact bucket name you recorded in Step 3**. Do not use a wildcard or pattern such as `techbond-documents-*`. Confirm each deletion before continuing to the next resource.
 
 ---
 

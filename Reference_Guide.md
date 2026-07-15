@@ -133,7 +133,7 @@ Stop when either value differs from the workshop assignment. Use `gcloud auth ap
 
 - Deploy only from the assigned project and region. Google Cloud hosts managed agents in **Agent Runtime**.
 - Delete Agent Runtime or Cloud Run deployments unless retention was approved.
-- Delete unused buckets and stop or delete Compute Engine VMs.
+- Delete unused buckets, Compute Engine VMs, and any retained disks or static IPs; stop a VM only with explicit facilitator approval.
 - Delete Cloud Workstations in order: **Workstation → Configuration → Cluster**. Stopping is insufficient because the cluster control plane and storage can keep billing.
 - Budget alerts notify you but do not cap spending.
 

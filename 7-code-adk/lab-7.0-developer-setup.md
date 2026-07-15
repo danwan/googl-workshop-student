@@ -211,8 +211,10 @@ Antigravity manages remote Model Context Protocol (MCP) servers using a central 
 2. If `~/.gemini/config/mcp_config.json` already exists, back it up and edit its existing `mcpServers` object. Preserve every unrelated server and copy **only** the `google-developer-knowledge` object from the example below — do not replace the whole file. If the file does not exist, create it and use the full JSON shown below.
 
    ```bash
-   test ! -f ~/.gemini/config/mcp_config.json \
-     || cp -p ~/.gemini/config/mcp_config.json ~/.gemini/config/mcp_config.json.before-lab-7.0
+   if test -f ~/.gemini/config/mcp_config.json \
+      && test ! -f ~/.gemini/config/mcp_config.json.before-lab-7.0; then
+     cp -p ~/.gemini/config/mcp_config.json ~/.gemini/config/mcp_config.json.before-lab-7.0
+   fi
    nano ~/.gemini/config/mcp_config.json
    ```
 
@@ -241,6 +243,7 @@ Antigravity manages remote Model Context Protocol (MCP) servers using a central 
      test ! -f ~/.gemini/config/mcp_config.json.before-lab-7.0 \
        || cp -p ~/.gemini/config/mcp_config.json.before-lab-7.0 ~/.gemini/config/mcp_config.json
      printf 'Invalid JSON. Previous config restored when a backup existed. Stop and fix the merge.\n' >&2
+     false
    fi
    ```
 

@@ -87,7 +87,7 @@ Returning participants use [Lab 1.2](./1-warmup-research/lab-1.2-instant-explain
 
 - Delete test buckets that no later lab needs.
 - Delete deployed Agent Runtime or Cloud Run resources unless the workshop owner approved retention.
-- Stop or delete Compute Engine VMs.
+- Unless retention is approved, delete Compute Engine VMs and any retained disks or static external IPs; stopping a VM is retention, not cleanup.
 - Delete Cloud Workstations in order: **Workstation → Configuration → Cluster**. Stopping is insufficient because the cluster control plane and storage can keep billing.
 - Run `gcloud config get-value project` once more and confirm that all work stayed in the assigned project.
 - Remember that budget alerts notify you but do not cap spending.

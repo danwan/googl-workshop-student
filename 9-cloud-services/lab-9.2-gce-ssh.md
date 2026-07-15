@@ -68,22 +68,27 @@ Google Cloud provides an incredibly convenient, secure browser-based SSH termina
 Once connected, run these basic commands to verify your environment has the correct specs:
 
 1. Check the operating system version:
+
 ```bash
 lsb_release -a
 ```
+
 - Verify it shows **Ubuntu**.
 
-2. Check the available RAM (it should show around **8 GB** total):
+1. Check the available RAM (it should show around **8 GB** total):
+
 ```bash
 free -h
 ```
 
-3. Update the package list to ensure you can install dependencies:
+1. Update the package list to ensure you can install dependencies:
+
 ```bash
 sudo apt-get update
 ```
 
-4. Keep the session open if you are continuing to Lab 9.4. Otherwise, close it:
+1. Keep the session open if you are continuing to Lab 9.4. Otherwise, close it:
+
 ```bash
 exit
 ```
@@ -140,11 +145,16 @@ gcloud compute instances create "$VM_NAME" \
     --no-scopes \
   || { printf 'STOP: VM creation failed; not connecting via SSH.\n' >&2; exit 1; }
 
-gcloud compute ssh "$VM_NAME" \
+if ! gcloud compute ssh "$VM_NAME" \
     --project="$PROJECT_ID" \
-    --zone=europe-west4-a
+    --zone=europe-west4-a; then
+  printf 'SSH failed. The VM is still running and billable. Retry the SSH command, or delete the VM with:\n' >&2
+  printf '  gcloud compute instances delete %s --project=%s --zone=europe-west4-a\n' "$VM_NAME" "$PROJECT_ID" >&2
+  exit 1
+fi
 )
 ```
+
 </details>
 
 ---
