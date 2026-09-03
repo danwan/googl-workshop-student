@@ -1,0 +1,25 @@
+# P-17 looks very successful in the dashboard
+
+- Source system: simulated email inbox
+- Document ID: SCE-MAIL-001
+- Version: 1.0
+- From: Elena Park, P-17 Project Lead
+- To: P-17 project team
+- Subject: P-17 looks very successful in the dashboard
+
+Hello everyone,
+
+Today's operating dashboard shows 120 processed records. It displays 110 as resolved within 24 hours. That is a preliminary 92%. If the figure is confirmed, it would be a strong result for North Site.
+
+Please do not treat this figure as final yet. The Quality team is checking duplicate imports, training cases, and automatically reopened tickets. Professional correctness is also not confirmed for every request. The formal pilot report will therefore contain its own final verified value.
+
+For Friday's presentation, we can show the dashboard as an early observation, but only with the note “data validation open.” This email is neither a final report nor an approval recommendation.
+
+Best regards,
+Elena
+
+## Context for source evaluation
+
+This message documents how the preliminary figure was communicated. It is useful for tracing later claims. In the source hierarchy for a decision, it ranks below the formal pilot report and the independent repeat.
+
+Anyone who cites only the positive subject line or the figure in the first paragraph omits the limitations stated in the same message.

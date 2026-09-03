@@ -1,0 +1,57 @@
+# P-17 Review Package: Complete Central Site Application
+
+- Source system: simulated intake review
+- Document ID: SCE-INBOX-002
+- Version: 1.0
+- Applicant: TechBond Service, Central Site
+- Status: submitted for completeness and rule review
+
+This dossier contains performance data, independent confirmation, and organizational evidence. Attachments are described in several sections. The workflow must check the conditions traceably, not automatically approve rollout.
+
+## Application and planned use
+
+Central Site requests permission to use P-17 as a support tool in four service teams. Employees remain accountable for every response. Planned use includes questions about delivery status, product applications, and technical data sheets.
+
+Site Management reports better initial routing and fewer follow-up questions. It requests consideration by the Steering Committee, not automatic production launch. A committee date is assigned only after document review is complete.
+
+The package refers to a local final analysis, independent repeat, security report, privacy approval, and retention plan. Every named file is included in the dossier and has a unique ID.
+
+## Test plan and traceability
+
+The local test followed the P-17 test plan. Valid customer requests had to be resolved professionally correctly within 24 hours. Duplicate imports, training cases, and system tickets were excluded under predefined rules.
+
+The final case list has ID QA-P17-CENTRAL-300. The final analysis is registered as ANA-P17-CENTRAL-300-FINAL. Two Quality reviewers confirmed the exclusion list. No second file also claims final status.
+
+A different team performed the independent repeat. Its case list and analysis are documented separately, making it possible to distinguish local test evidence from independent confirmation.
+
+## Local final result
+
+The final verified dataset contains 300 valid customer requests. Of those, 264 were resolved correctly within 24 hours. The final verified result is 88%. The report is marked final and references the complete case list.
+
+The analysis contains no open data-quality warning. Twelve duplicate imports and six training cases were already removed under the predefined rules. Those excluded records are not part of the 300 valid requests.
+
+The local value exceeds the mandatory target. This fact alone does not determine the overall outcome; the independent repeat and organizational evidence must also pass.
+
+## Independent repeat
+
+The independent team reviewed 180 valid customer requests using the same evaluation method. Of those, 158 were resolved correctly and on time. The final verified repeat result is 88%. Its analysis ID is ANA-P17-CENTRAL-REPEAT-180-FINAL.
+
+The report includes case list QA-P17-CENTRAL-REPEAT-180 and is approved by Central Quality Assurance. No conflicting final value exists. Both the local test and the independent repeat meet the performance rule.
+
+The repeat is separate evidence. It must not be added to the local result to claim a larger sample. For the decision, it is sufficient that both tests are independently traceable and each meets the target.
+
+## Security, privacy, and retention
+
+Security report SEC-P17-CENTRAL-12 contains no open critical finding. Two medium findings were closed before submission, and closure evidence appears in the report.
+
+Privacy approval DPA-P17-CENTRAL-APPROVED is approved by the responsible function. Retention plan RET-P17-CENTRAL-180D defines a production retention period of 180 days followed by automated deletion. This period applies only to Central Site and must not be presented as a general P-17 rule.
+
+Access and approval roles are documented. Employees see only the content required for their service case. The final customer response remains a human action.
+
+## Submission and committee boundary
+
+Central Site submitted the local analysis, independent-repeat report, security report, privacy approval, and retention plan as one package. The intake record lists every referenced ID and reports no missing attachment.
+
+The Steering Committee remains accountable for the final business decision. Neither the site application nor an automated review can grant rollout approval or start production use.
+
+The committee requests a concise evidence summary that keeps local and independent results separate, identifies the organizational evidence, and links each decision-relevant statement to its document ID.

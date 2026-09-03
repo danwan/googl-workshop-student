@@ -1,0 +1,25 @@
+# Data validation changes the pilot result
+
+- Source system: simulated email inbox
+- Document ID: SCE-MAIL-002
+- Version: 1.0
+- From: Marc Iqbal, Head of Quality
+- To: Elena Park; P-17 project team
+- Subject: Data validation changes the pilot result
+
+Hello everyone,
+
+Our validation of the North Site dataset is complete. Of the 120 dashboard records, 18 are invalid under the predefined rules: eight duplicate imports, four training cases, three automatically reopened requests, and three cases without complete closure evidence.
+
+The final verified dataset contains 102 valid customer requests. Of those, 80 were resolved correctly within 24 hours. The authoritative pilot-report value is therefore 78%.
+
+Please do not use the dashboard's 92% as the final result. The full derivation, case-list ID, and analysis ID are documented in the formal report SCE-EVID-001. This email communicates the completed validation but does not replace the report.
+
+Best regards,
+Marc
+
+## Usage guidance
+
+The message explains the difference between the early operating view and the final verified result. It says nothing about the independent repeat, security approval, privacy approval, or production retention period. Those items require other documents.
+
+An agent must not average the two values. It should explain why the final verified value controls the decision.

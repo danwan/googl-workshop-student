@@ -1,0 +1,57 @@
+# External Site Study of the P-17 Support Process
+
+- Source system: simulated evidence library
+- Document ID: SCE-EVID-003
+- Version: 1.1
+- Report type: external comparison study
+- Sponsor: TechBond East Partner Site
+
+East Partner Site tested a comparable support process with its own system configuration. The study provides additional context but is not the registered independent P-17 repeat.
+
+## Purpose and scope
+
+East Site wanted to determine whether automated pre-routing could send technical service requests to the correct specialist team more quickly. Its operating process resembles TechBond's process but differs in shift times, product portfolio, and knowledge articles.
+
+The local system followed general P-17 principles. Some topic-classification rules were adapted to the regional product range. The result therefore cannot replace the registered P-17 repeat. It can show whether similar strengths and weaknesses appear in another environment.
+
+The study examined timely and professionally correct resolution, unnecessary transfers, and use of suggested knowledge articles. Privacy, retention, and production security approval were outside its scope.
+
+## Collection and local characteristics
+
+The test ran for one month. Employees marked whether each suggestion was accepted, adjusted, or rejected. A local Quality team also reviewed a sample for professional correctness.
+
+The operating dashboard initially included requests that had reopened automatically after a follow-up question. Nine internally generated test tickets were also counted as customer cases. These limitations were known during the test, but only the final analysis removed every affected record.
+
+The site used a different knowledge structure from North, West, and South Sites. Several articles for new products were not finally approved. The study records this difference but makes no numerical adjustment for it.
+
+## Preliminary site update
+
+The first management summary contained 169 records. It reported 149 cases completed within 24 hours and displayed a preliminary rate of 88%. A presentation then claimed that the partner site was above the required target.
+
+That claim ignored the known test tickets and reopened requests. The summary slide included the footer “data validation open.” It was intended for a monthly status update, not approved as formal result evidence.
+
+The preliminary figure must therefore not be cited alone or treated as final approval. The later verified analysis is authoritative for decisions.
+
+## Validation and final verified result
+
+Quality removed nine internal test tickets. Reopened requests were followed through their actual final completion. The verified dataset contained 160 valid customer requests.
+
+Of these cases, 133 were resolved correctly within 24 hours. The final verified result is 83%. Its analysis ID is ANA-P17-EAST-160-FINAL. Local Quality approved the analysis after reviewing the case list.
+
+Seventeen cases required additional professional correction. Ten requests were completed on time but used an unsuitable knowledge article and therefore did not count as correctly resolved. These detail categories overlap and must not be added as separate groups.
+
+## Interpretation and comparability
+
+The final verified result is below the mandatory project rule of at least 85%. This external study therefore does not support rollout in the current form. The preliminary dashboard rate does not change that conclusion.
+
+The study confirms a pattern found elsewhere in the P-17 record: preliminary dashboard figures look more favorable than final verified results. The sites also show different error patterns. At East Site, unsuitable knowledge articles for new products were especially important.
+
+Because the configuration and organization do not fully match P-17, this study remains supporting context. The registered independent repeat has greater weight in the formal P-17 decision.
+
+## Documentation and open questions
+
+The complete case list is registered as QA-P17-EAST-160. The preliminary dashboard file has ID ANA-P17-EAST-169-PRELIM. The final verified result has ID ANA-P17-EAST-160-FINAL. Answers must make clear which version they use.
+
+The study contains no approved production retention period. It also provides no organization-wide security or privacy approval. Deriving such approval from this report would exceed its documented scope.
+
+A reliable summary must consider at least the sections Preliminary site update, Validation and final verified result, and Interpretation and comparability. The title page or first management summary alone cannot answer the decision question.

@@ -1,0 +1,36 @@
+# Comparison of Service Pilots P-16, P-17, and P-18
+
+- Source system: simulated evidence library
+- Document ID: SCE-EVID-004
+- Version: 2.0
+- Status: approved comparison summary
+
+## Purpose and scope
+
+This summary supports planning across several service projects. The projects deliberately use different goals and rules. An agent must not use P-16 or P-18 figures as evidence for P-17.
+
+## Project P-16: knowledge-article search
+
+P-16 tested only the search time for internal knowledge articles. Its final verified 90% describes the share of searches completed in under two minutes. P-16 has a different success definition and no effect on P-17 approval.
+
+## Project P-17: customer-service support
+
+The North Site pilot first reported 92%, but the final verified result after data validation was 78%. The independent repeat achieved 81%. The external East Site study first reported 88% and later verified 83%. P-17 uses the target documented in SCE-TEAM-001.
+
+| Evidence | Preliminary value | Final verified value | Document ID |
+|---|---:|---:|---|
+| North Site pilot | 92% | 78% | SCE-EVID-001 |
+| Independent repeat | not used | 81% | SCE-EVID-002 |
+| East Site external study | 88% | 83% | SCE-EVID-003 |
+
+None of the final verified P-17 values meets the approval rule. This summary does not recommend rollout.
+
+## Project P-18: callback planning
+
+P-18 measures whether promised callbacks occur on time. Its pilot achieved 87%. That figure sounds similar but belongs to a different process, case list, and decision rule. It is not P-17 evidence.
+
+## Usage guidance
+
+For a P-17 question, answers must select the P-17 rows and open the relevant original documents. This comparison helps orientation but does not replace the detailed reports. Figures without a project identifier are insufficient for a decision.
+
+The production retention period for P-17 is not documented in this summary. Information from P-16 or P-18 must not be transferred to P-17.

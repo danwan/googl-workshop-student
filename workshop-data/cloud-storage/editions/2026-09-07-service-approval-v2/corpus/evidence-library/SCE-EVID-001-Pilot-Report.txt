@@ -1,0 +1,57 @@
+# P-17 Pilot Report: North Site Customer Service
+
+- Source system: simulated evidence library
+- Document ID: SCE-EVID-001
+- Version: 2.0
+- Report type: final verified pilot report
+- Approval: North Site Quality team
+
+This report documents the design, data collection, validation, and final result of the first P-17 pilot. The management summary deliberately does not appear on the title page. A reliable interpretation requires reading the data-collection, validation, and decision sections together.
+
+## Background and operating process
+
+North Site handles questions about adhesive applications, delivery times, and safety data sheets. During the pilot, P-17 helped employees route each request and suggested relevant internal knowledge articles. A person reviewed the suggestion, adjusted it when necessary, and sent the final response.
+
+The pilot ran for three working weeks. It included new customer requests that arrived during normal service hours. Automated system messages, internal tests, and previously closed historical cases were not supposed to affect the evaluation. The project team also observed how often a request was transferred to another team and whether the proposed knowledge source actually matched the customer's issue.
+
+Teams received a short introduction but were not required to accept every suggestion. This design reflected normal working conditions. The rollout decision does not depend on whether individual employees liked the tool. It depends on final verified performance and every required organizational approval.
+
+## Data collection and test plan
+
+Every request received a pseudonymous case ID, an arrival time, a completion time, and a professional-correctness flag. A case counted as correctly resolved within 24 hours only if the response was completed on time, required no later correction by another team, and used a knowledge article that matched the request.
+
+Before the pilot began, the Quality team defined invalid records. They included duplicate ticket imports, training cases, automatically reopened requests, and records without complete closure evidence. These rules were documented before analysis. They could not be changed later to produce a more favorable result.
+
+Two reviewers independently checked a sample of case classifications. When they disagreed, they reviewed the original case together. Security and privacy reviews were not part of this performance metric and required separate evidence.
+
+## Preliminary dashboard analysis
+
+At the end of the second week, the operating dashboard displayed 120 processed records. It showed 110 as resolved within 24 hours, producing a preliminary figure of 92%. That figure was shared with the project team in an email on the same day.
+
+The dashboard was designed for daily operational monitoring. It did not remove duplicate imports and did not reliably identify automatically reopened requests. Several cases also had unsynchronized completion and correctness status. The view was therefore labeled preliminary and not quality checked.
+
+The 92% figure must not be used as the pilot-report outcome. It was an interim view that triggered the later data validation. A statement such as “P-17 achieved 92% and therefore meets the approval rule” conflicts with this report.
+
+## Data validation and final result
+
+Validation found 18 invalid records: eight duplicate ticket imports, four training cases, three automatically reopened requests, and three cases without complete closure evidence. These records were removed under the predefined rules. The final verified dataset therefore contained 102 valid customer requests.
+
+Of those 102 cases, 80 were resolved correctly within 24 hours. The final verified result is 78%. This is the authoritative performance value in the pilot report. It replaces the preliminary dashboard figure for every decision.
+
+Validation also found seven professionally incorrect routings and five unnecessary transfers. These cases are included among the 22 requests that did not meet the complete success definition. No case was removed merely because its handling time was unfavorable.
+
+## Interpretation for the approval decision
+
+The project rule requires at least 85% for the final verified performance metric. The pilot does not meet that condition. The difference cannot be explained by rounding. Based on this pilot, North Site is not ready for rollout.
+
+This report alone also does not establish whether the independent repeat succeeded, every critical security finding was closed, or approved privacy and retention documentation exists. Those facts must come from their designated sources.
+
+The project team recommends analyzing incorrect routing by topic, improving the knowledge articles for safety data sheets, and then running a new predefined test. A positive review is possible only after every mandatory condition is met.
+
+## Appendix: traceability and open items
+
+The validated case list is recorded under test ID QA-P17-NORTH-102. The dashboard analysis has analysis ID ANA-P17-NORTH-120-PRELIM. The final verified result has analysis ID ANA-P17-NORTH-102-FINAL. These IDs must not be interchanged.
+
+The production retention period, formal privacy approval, and organization-wide security assessment remain open. This report states no binding retention period. An answer that claims a specific period is not supported by this document.
+
+For source verification, review at least the sections Preliminary dashboard analysis, Data validation and final result, and Interpretation for the approval decision together. One sentence from the preliminary analysis is not sufficient evidence.

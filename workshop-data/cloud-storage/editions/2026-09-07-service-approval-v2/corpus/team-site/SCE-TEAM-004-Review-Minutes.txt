@@ -1,0 +1,28 @@
+# Minutes of the P-17 Review Committee
+
+- Source system: simulated team site
+- Document ID: SCE-TEAM-004
+- Version: 2.0
+- Status: approved meeting minutes
+
+## Participants and purpose
+
+Customer Service, Quality, Privacy, Information Security, and Project Management attended. The committee reviewed the North Site pilot, independent repeat, and external site study. Production approval was not an automated decision.
+
+## Evidence discussed
+
+The committee confirmed that the first pilot's positive dashboard figure was preliminary. The final verified pilot result and independent repeat are below the binding target. The external study also provides no opposing final evidence after data validation.
+
+## Decision on current P-17 status
+
+The current record does not support broad rollout. The project team must address the knowledge-article and initial-routing failures and plan a new test. Historical cases must not be selected later to manufacture a result above the target.
+
+## Rules for new review packages
+
+New packages must include a final verified local value, independent repeat, security report, approved privacy assessment, and retention plan. An attachment that is announced but not included counts as missing. Missing evidence produces HUMAN REVIEW.
+
+If two analyses claim different final values, both values and IDs must remain visible. The conflict is not resolved by selecting the more favorable figure. An open critical security finding cannot be offset by strong performance.
+
+## Language guidance
+
+Summaries should use the terms preliminary value and final verified value. Avoid unexplained technical abbreviations. The decision must be written so a person without statistics knowledge can verify the rule and rationale.

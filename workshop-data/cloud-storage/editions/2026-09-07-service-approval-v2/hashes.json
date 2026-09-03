@@ -1,0 +1,63 @@
+{
+  "data_pack": "service-approval-v2",
+  "document_count": 14,
+  "edition_prefix": "editions/2026-09-07-service-approval-v2",
+  "objects": {
+    "corpus/evidence-library/SCE-EVID-001-Pilot-Report.txt": {
+      "sha256": "6652e267a4a707f562770cd5cff0e522c7639ab99c14d34c43fc43be0d4a132b",
+      "size": 5630
+    },
+    "corpus/evidence-library/SCE-EVID-002-Replication-Report.txt": {
+      "sha256": "df0e208d51863f5fb88ffaa34a033f149c72919568b10a4780df4b82295cef4c",
+      "size": 4969
+    },
+    "corpus/evidence-library/SCE-EVID-003-External-Study.txt": {
+      "sha256": "5ee50819f91bf73b6f4796739c60e4396344438d8aa8429d9d94948bb829c959",
+      "size": 4641
+    },
+    "corpus/evidence-library/SCE-EVID-004-Cross-Site-Comparison.txt": {
+      "sha256": "609dd3cf0f530f7cda1a5f03802cc25f7d4c6c5b1bca5e66331889bb69e3a8e4",
+      "size": 1955
+    },
+    "corpus/mailbox/SCE-MAIL-001-Preliminary-Success.txt": {
+      "sha256": "7bf7cdb31d036cc6212daf8ede316f923ec7e8ef0aa91f7870374e4421e2b3b9",
+      "size": 1360
+    },
+    "corpus/mailbox/SCE-MAIL-002-Calibration-Issue.txt": {
+      "sha256": "aa435247be06c6e0c4f47ce9a22a628d5549b96b626b7b2ea9c541d877b5df2d",
+      "size": 1354
+    },
+    "corpus/mailbox/SCE-MAIL-003-Decision-Warning.txt": {
+      "sha256": "fd52b4adc2823c347920c647594bfca6b7a9036536ce8d62047a33e357398266",
+      "size": 1367
+    },
+    "corpus/team-site/SCE-TEAM-001-Project-Brief.txt": {
+      "sha256": "23e35f232c72d7111e95de6828a81ff1e3146a70f646f5315b992c02cc4f5d06",
+      "size": 5959
+    },
+    "corpus/team-site/SCE-TEAM-002-Protocol-P17.txt": {
+      "sha256": "e92b5db0d392d071085393a79f8324ba017f9fa196f79655639fbe7e7f77f1d0",
+      "size": 2282
+    },
+    "corpus/team-site/SCE-TEAM-003-Evidence-Rubric.txt": {
+      "sha256": "26581f468739d427f7b5c4ef66d81ff0917538ac5e5af957b63a8db9d2bbd5f4",
+      "size": 2301
+    },
+    "corpus/team-site/SCE-TEAM-004-Review-Minutes.txt": {
+      "sha256": "50b00150b702af226ae3eafef9b6e4aa8a9613d479b2711090524349ff042d73",
+      "size": 1737
+    },
+    "workflow-input/SCE-INBOX-001-Incoming-Claim.txt": {
+      "sha256": "61f3cc3fb692b4fbd029887a8d9eeda987eb25d88eb0808aef96f9fa69382b62",
+      "size": 4624
+    },
+    "workflow-input/SCE-INBOX-002-Complete-Claim.txt": {
+      "sha256": "e65187f97bf6bfdb20c9a50a34debea268ec612dac74814e67a0ef1e8e9ff5c3",
+      "size": 4415
+    },
+    "workflow-input/SCE-INBOX-003-Conflicting-Claim.txt": {
+      "sha256": "ae63f3ab199af4302025e19b9efd615e38ee7f00d06c38f892e9c715e0e88f9d",
+      "size": 4354
+    }
+  }
+}

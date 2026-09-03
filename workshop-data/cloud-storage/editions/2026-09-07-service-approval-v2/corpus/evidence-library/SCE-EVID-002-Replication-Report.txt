@@ -1,0 +1,57 @@
+# P-17 Independent Repeat: West and South Sites
+
+- Source system: simulated evidence library
+- Document ID: SCE-EVID-002
+- Version: 1.0
+- Report type: independent repeat
+- Approval: Central Quality Assurance
+
+This report tests whether the working method used in the first pilot performs reliably at two additional sites. The review team did not participate in developing P-17. The analysis follows a plan established before testing began.
+
+## Review purpose and independence
+
+After the first pilot, a larger independent repeat was required to determine whether the observed benefit would persist under different operating conditions. West and South Sites handle similar customer requests, but they use different shift models and have their own specialist teams. The test therefore provides evidence about transferability.
+
+Central Quality received only the process description, valid evaluation rules, and a technically prepared test environment. It received no desired target result. Local project owners could not remove cases or change ratings before the review was complete.
+
+The independent repeat is particularly important to the approval decision. A good result at one site could be caused by local experience, an unusual case mix, or intensive support. The project rule therefore requires independent confirmation.
+
+## Process and data controls
+
+The review ran for four weeks. Both sites used the same definition of a customer request resolved correctly within 24 hours. The response had to be completed on time, professionally correct, and free from later correction by another team.
+
+Before analysis, duplicate imports, internal training cases, and automatically generated system tickets were removed using predefined characteristics. Quality documented every exclusion with a case ID and reason. A second reviewer checked every exclusion and a sample of the cases classified as valid.
+
+Performance evaluation was separate from privacy and information-security review. A good service result cannot replace missing organizational approvals. The report therefore provides performance evidence but not an automatic rollout decision.
+
+## Composition of the reviewed cases
+
+After predefined exclusions, the analysis contained 240 valid customer requests. West Site contributed 126 and South Site contributed 114. Topics covered application guidance, delivery status, product data, and safety information.
+
+The case mix differed slightly from the first pilot. South Site had a larger share of safety questions, which more often required transfer to specialists. West Site handled more standardized delivery-status requests. The report documents these differences without applying later weighting.
+
+Twelve records were excluded before analysis: five training cases, four duplicate imports, and three system tickets. Handling time was never used as an exclusion reason. The final analysis ID is ANA-P17-REPEAT-240-FINAL.
+
+## Final verified result
+
+Of 240 valid customer requests, 194 were resolved correctly within 24 hours. The final verified result is 81%. West Site achieved 83%, and South Site achieved 78%. Both site results and the combined result are below the mandatory target.
+
+In 21 cases, the suggested knowledge source did not match the request. In 14 more cases, incorrect initial routing caused an unnecessary transfer. Some records had more than one error, so these counts must not simply be added to calculate failed cases.
+
+The result was approved unchanged after the case classifications were reviewed again. This report contains no alternative final value. Presentations that show only a high-performing topic do not replace the complete metric.
+
+## Meaning for Project P-17
+
+The decision policy requires the independent repeat to reach at least 85%. That condition is not met. The repeat therefore does not support broad rollout.
+
+The result does not prove that P-17 has no value. It shows that the current process does not reliably meet the agreed approval condition. The error analysis can support further improvement, but the documented rule controls the current decision.
+
+The report recommends revising safety-information knowledge articles and simplifying initial-routing rules. Any new attempt must be planned as a new test. Existing cases must not be selected later to manufacture a result above the target.
+
+## Attachments, IDs, and limitations
+
+The case list has test ID QA-P17-REPEAT-240. Site analyses are stored as ANA-P17-WEST-126 and ANA-P17-SOUTH-114. The combined final analysis is ANA-P17-REPEAT-240-FINAL.
+
+No open critical security incident was observed in the test environment. This is not a complete production security approval. The production retention period is not documented in this report, and privacy approval must be supported by another source.
+
+A decision should cite the complete metric, the site results, and the project rule together. Using only the best topic or one site would omit decision-relevant evidence.

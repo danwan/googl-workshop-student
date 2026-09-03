@@ -1,0 +1,36 @@
+# P-17 Test Plan for Customer-Service Requests
+
+- Source system: simulated team site
+- Document ID: SCE-TEAM-002
+- Version: 4.0
+- Status: binding test plan
+
+## Purpose
+
+The test plan defines which records belong in a P-17 analysis and when a customer request counts as correctly resolved within 24 hours. It prevents evaluation rules from changing after results are known.
+
+## Valid and invalid records
+
+Valid records are new, genuine customer requests completed during the test period. Duplicate imports, internal training cases, automatically generated system tickets, and cases without complete closure evidence are invalid. Automatically reopened requests count as complete only at their actual final closure.
+
+Every exclusion requires a case ID and documented reason. Unfavorable handling time is never a valid exclusion reason. At least one second reviewer checks the exclusion list.
+
+## Performance-metric definition
+
+A case passes only when three conditions are met: the response was completed within 24 hours, it was professionally correct, and no later correction by another team was required. The performance metric is the share of passing cases among all valid cases.
+
+Preliminary dashboard figures support operating management. The binding metric exists only after documented data validation. Preliminary and final verified figures must not be averaged or placed side by side without labels.
+
+## Independent repeat
+
+An independent repeat is performed by a team that did not develop the tested configuration. It uses the same metric definition and a separate case list. Local and independent results are reported separately.
+
+## Organizational evidence
+
+Performance is only one approval condition. Review also requires a formal security report, an approved privacy assessment, and an approved retention plan. Attachments that are announced but not included count as missing.
+
+## Reporting requirements
+
+Every final report states the number of valid cases, number of passing cases, final verified percentage, every exclusion category, and stable test IDs. Conflicting final versions are not resolved automatically. They require HUMAN REVIEW.
+
+The test plan does not define a general production retention period. Privacy must approve that period separately for each site.
