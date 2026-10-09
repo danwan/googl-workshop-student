@@ -1,0 +1,9 @@
+.claude/*
+!.claude/rules/
+!.claude/agents/
+!.claude/settings.json
+!.claude/skills/
+.claude/settings.local.json
+.claude/agent-memory*/
+.claude/worktrees/
+.claude/*.lock
