@@ -1,0 +1,81 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+#
+# Baseline .coderabbit.yaml for all repos — calibrated for an agent-driven
+# solo-dev workflow (agents push in bursts; per-file overage billing).
+# Copy into a repo and TRIM path_filters to the files that repo actually
+# tracks. Repo-specific path_instructions, pre_merge_checks, and tools
+# blocks are added per-repo on top; they are not part of the baseline.
+
+language: en-US
+tone_instructions: "Be terse and fix-focused. Flag only actionable bugs, security risks, broken tests, and risky regressions."
+early_access: false
+
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: false
+  review_status: true
+  review_details: false
+  commit_status: true
+  fail_commit_status: true
+  collapse_walkthrough: true
+  changed_files_summary: false
+  sequence_diagrams: false
+  assess_linked_issues: false
+  related_prs: false
+  in_progress_fortune: false
+  poem: false
+  # Findings ship with machine-readable fix prompts consumed by
+  # coderabbit:autofix and coding agents.
+  enable_prompt_for_ai_agents: true
+
+  auto_review:
+    enabled: true
+    # Incremental reviews only together with the pause below: at most 2
+    # reviewed commits per PR, then silence until @coderabbitai review.
+    auto_incremental_review: true
+    auto_pause_after_reviewed_commits: 2
+    # Agents open PRs as drafts — drafts are never auto-reviewed.
+    drafts: false
+    ignore_title_keywords: ["WIP", "[skip review]"]
+    ignore_usernames:
+      - "dependabot[bot]"
+
+  # Per-file overage billing makes every machine-written file in a diff real
+  # money. Exclude everything generated; trim to what the repo tracks.
+  path_filters:
+    - "!**/package-lock.json"
+    - "!**/pnpm-lock.yaml"
+    - "!**/uv.lock"
+    - "!**/*.tsbuildinfo"
+    - "!**/convex/_generated/**"
+    - "!**/__pycache__/**"
+    - "!**/playwright-report/**"
+    - "!**/test-results/**"
+    - "!**/test-runs/**"
+    - "!**/coverage/**"
+
+  # Off: agents already write tests; house style forbids redundant docstrings.
+  # High-stakes repos (svb-manager, svb-elektrschiess) keep unit_tests: true.
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+
+knowledge_base:
+  web_search:
+    enabled: true
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - "CLAUDE.md"
+      - "AGENTS.md"
+  # local: project conventions must not leak across unrelated repos.
+  learnings:
+    scope: local
+
+chat:
+  # Off: automatic bot replies silently consume quota. Explicit
+  # @coderabbitai commands (review, rate limit) still work.
+  auto_reply: false
