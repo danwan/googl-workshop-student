@@ -1,13 +1,16 @@
 # googl-workshop-student
 
-<One sentence: what this project is and what it does.>
-<One sentence: who uses it and where it runs.>
-<One sentence: what is explicitly out of scope.>
+Public participant materials for the one-day workshop “Reliable Agents with Enterprise Data.” The tree holds the Markdown labs, help pages, exercise PDFs, and the synthetic workshop-data backup.
+
+Participants read these files and use Gemini Enterprise in the browser. A facilitator provides the tenant link and the standing data source. The materials are not an application that is installed, served, or deployed.
+
+Out of scope: application code, secrets, and machine-local setup.
 
 ## Stack and commands
 
-<Languages, frameworks, package manager and runtime versions.>
-<Commands: install, dev server, test, lint, build — one line each.>
+Markdown and PDF. N/A — project has no language runtime, package manager, dev server, test runner, linter, or build.
+
+N/A — project has no test infrastructure, so W1 does not require a failing test for edits in this repository.
 
 <!-- house-rules -->
 ## House rules
@@ -17,8 +20,9 @@
 - **W2** Documentation states the present state only: no changelogs, no dated
   entries, no "formerly" / "no longer" wording. When something changes, rewrite the
   sentence and delete what it replaced.
-- **E4** `main` deploys to production; never commit directly to `main`. Every other
-  branch is preview.
+- **E4** `main` is the published participant branch; never commit directly to
+  `main`. This repository has no application deployment. Every other branch is
+  unpublished.
 - PRs open as draft, flip to ready exactly once, and merge only after the review
   has arrived.
 - Before any merge, ahead/behind or `[gone]` claim, run `git fetch` and judge it by
@@ -30,7 +34,9 @@
 
 ## Documentation map
 
-- `docs/` — <what lives here: overview, runbooks, decisions>
-- `docs/secrets-architecture.md` — the 1Password secrets standard: `op://` references in `.env`, `op run` start commands, rotation.
-- ADRs: `docs/decisions/`, written from `docs/adr-template.md`.
-- Feature specs: `docs/features/`, written from `docs/spec-template.md`.
+- `README.md` — participant entry point and learning path.
+- `SCHEDULE.md` — workshop timetable.
+- `CHEAT_SHEET.md` — terminology and navigation for participants.
+- `0-core/`, `1-gemini-notebook/`, `2-evidence-chat-agent/`, `3-evidence-review-workflow/`, `4-compare/` — module labs, help pages, and exercise files.
+- `workshop-data/README.md` — synthetic Cloud Storage backup. The facilitator uses it to provision or recover the shared source. Participants do not upload the whole package.
+- `CLAUDE.md` — imports this file.
