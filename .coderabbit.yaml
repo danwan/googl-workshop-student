@@ -1,10 +1,6 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 #
-# Baseline .coderabbit.yaml for all repos — calibrated for an agent-driven
-# solo-dev workflow (agents push in bursts; per-file overage billing).
-# Copy into a repo and TRIM path_filters to the files that repo actually
-# tracks. Repo-specific path_instructions, pre_merge_checks, and tools
-# blocks are added per-repo on top; they are not part of the baseline.
+# Review settings for this Markdown and PDF workshop repository.
 
 language: en-US
 tone_instructions: "Be terse and fix-focused. Flag only actionable bugs, security risks, broken tests, and risky regressions."
@@ -41,22 +37,7 @@ reviews:
     ignore_usernames:
       - "dependabot[bot]"
 
-  # Per-file overage billing makes every machine-written file in a diff real
-  # money. Exclude everything generated; trim to what the repo tracks.
-  path_filters:
-    - "!**/package-lock.json"
-    - "!**/pnpm-lock.yaml"
-    - "!**/uv.lock"
-    - "!**/*.tsbuildinfo"
-    - "!**/convex/_generated/**"
-    - "!**/__pycache__/**"
-    - "!**/playwright-report/**"
-    - "!**/test-results/**"
-    - "!**/test-runs/**"
-    - "!**/coverage/**"
-
-  # Off: agents already write tests; house style forbids redundant docstrings.
-  # High-stakes repos (svb-manager, svb-elektrschiess) keep unit_tests: true.
+  # This repository has no generated lockfiles, build output, or test reports.
   finishing_touches:
     docstrings:
       enabled: false
